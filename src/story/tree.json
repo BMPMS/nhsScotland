@@ -1,0 +1,25 @@
+{
+  "minWaits": 125,
+  "sideShare": 0.01,
+  "topShare": 0.075,
+  "gapShare": 0.01,
+  "smallShare": 0.5,
+  "strokeShare": 0.006,
+  "titleShare": 0.38,
+  "noteShare": 0.7,
+  "titleBigScale": 1.6,
+  "smallGapShare": 0.1,
+  "smallOrder": [
+    "other",
+    "holding",
+    "tayside"
+  ],
+  "nameShare": 0.016,
+  "nameLines": 2,
+  "perPerson": 250,
+  "peopleGapShare": 0.25,
+  "cornerSplit": 0.6,
+  "cornerLiftShare": 0.015,
+  "personShare": 0.0228,
+  "cornerBottomShare": 0.85
+}

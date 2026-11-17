@@ -1,0 +1,2252 @@
+[
+  {
+    "id": "aberdeen-royal-infirmary",
+    "name": "Aberdeen Royal Infirmary",
+    "shortName": "Aberdeen Royal",
+    "board": "NHS Grampian",
+    "waits2025": 5645,
+    "waitsByYear": [
+      {
+        "year": 2016,
+        "waits": 2,
+        "waits8": 111,
+        "attendances": 58029
+      },
+      {
+        "year": 2017,
+        "waits": 7,
+        "waits8": 172,
+        "attendances": 58277
+      },
+      {
+        "year": 2018,
+        "waits": 18,
+        "waits8": 235,
+        "attendances": 59867
+      },
+      {
+        "year": 2019,
+        "waits": 34,
+        "waits8": 443,
+        "attendances": 62744
+      },
+      {
+        "year": 2020,
+        "waits": 33,
+        "waits8": 365,
+        "attendances": 48367
+      },
+      {
+        "year": 2021,
+        "waits": 167,
+        "waits8": 1333,
+        "attendances": 47191
+      },
+      {
+        "year": 2022,
+        "waits": 1281,
+        "waits8": 6418,
+        "attendances": 53490
+      },
+      {
+        "year": 2023,
+        "waits": 2037,
+        "waits8": 8666,
+        "attendances": 53714
+      },
+      {
+        "year": 2024,
+        "waits": 3712,
+        "waits8": 12174,
+        "attendances": 55877
+      },
+      {
+        "year": 2025,
+        "waits": 5645,
+        "waits8": 16187,
+        "attendances": 56945
+      },
+      {
+        "year": 2026,
+        "waits": 3401,
+        "waits8": 8980,
+        "attendances": 30194
+      }
+    ]
+  },
+  {
+    "id": "belford-hospital",
+    "name": "Belford Hospital",
+    "shortName": "Belford",
+    "board": "NHS Highland",
+    "waits2025": 131,
+    "waitsByYear": [
+      {
+        "year": 2016,
+        "waits": 0,
+        "waits8": 18,
+        "attendances": 9157
+      },
+      {
+        "year": 2017,
+        "waits": 0,
+        "waits8": 13,
+        "attendances": 9291
+      },
+      {
+        "year": 2018,
+        "waits": 0,
+        "waits8": 11,
+        "attendances": 9947
+      },
+      {
+        "year": 2019,
+        "waits": 4,
+        "waits8": 43,
+        "attendances": 10161
+      },
+      {
+        "year": 2020,
+        "waits": 1,
+        "waits8": 12,
+        "attendances": 6598
+      },
+      {
+        "year": 2021,
+        "waits": 10,
+        "waits8": 56,
+        "attendances": 8317
+      },
+      {
+        "year": 2022,
+        "waits": 17,
+        "waits8": 92,
+        "attendances": 9666
+      },
+      {
+        "year": 2023,
+        "waits": 51,
+        "waits8": 180,
+        "attendances": 9723
+      },
+      {
+        "year": 2024,
+        "waits": 84,
+        "waits8": 289,
+        "attendances": 9905
+      },
+      {
+        "year": 2025,
+        "waits": 131,
+        "waits8": 313,
+        "attendances": 10112
+      },
+      {
+        "year": 2026,
+        "waits": 103,
+        "waits8": 238,
+        "attendances": 5064
+      }
+    ]
+  },
+  {
+    "id": "borders-general-hospital",
+    "name": "Borders General Hospital",
+    "shortName": "Borders General",
+    "board": "NHS Borders",
+    "waits2025": 3607,
+    "waitsByYear": [
+      {
+        "year": 2016,
+        "waits": 3,
+        "waits8": 26,
+        "attendances": 28660
+      },
+      {
+        "year": 2017,
+        "waits": 34,
+        "waits8": 124,
+        "attendances": 29975
+      },
+      {
+        "year": 2018,
+        "waits": 57,
+        "waits8": 198,
+        "attendances": 30885
+      },
+      {
+        "year": 2019,
+        "waits": 117,
+        "waits8": 330,
+        "attendances": 32518
+      },
+      {
+        "year": 2020,
+        "waits": 162,
+        "waits8": 469,
+        "attendances": 26184
+      },
+      {
+        "year": 2021,
+        "waits": 912,
+        "waits8": 1771,
+        "attendances": 29469
+      },
+      {
+        "year": 2022,
+        "waits": 3115,
+        "waits8": 4652,
+        "attendances": 31931
+      },
+      {
+        "year": 2023,
+        "waits": 2538,
+        "waits8": 4101,
+        "attendances": 32870
+      },
+      {
+        "year": 2024,
+        "waits": 3216,
+        "waits8": 4910,
+        "attendances": 34203
+      },
+      {
+        "year": 2025,
+        "waits": 3607,
+        "waits8": 5341,
+        "attendances": 34954
+      },
+      {
+        "year": 2026,
+        "waits": 1841,
+        "waits8": 2618,
+        "attendances": 18016
+      }
+    ]
+  },
+  {
+    "id": "caithness-general-hospital",
+    "name": "Caithness General Hospital",
+    "shortName": "Caithness General",
+    "board": "NHS Highland",
+    "waits2025": 870,
+    "waitsByYear": [
+      {
+        "year": 2016,
+        "waits": 2,
+        "waits8": 22,
+        "attendances": 7048
+      },
+      {
+        "year": 2017,
+        "waits": 6,
+        "waits8": 21,
+        "attendances": 7189
+      },
+      {
+        "year": 2018,
+        "waits": 4,
+        "waits8": 22,
+        "attendances": 8115
+      },
+      {
+        "year": 2019,
+        "waits": 12,
+        "waits8": 40,
+        "attendances": 8504
+      },
+      {
+        "year": 2020,
+        "waits": 8,
+        "waits8": 37,
+        "attendances": 7291
+      },
+      {
+        "year": 2021,
+        "waits": 24,
+        "waits8": 88,
+        "attendances": 8932
+      },
+      {
+        "year": 2022,
+        "waits": 109,
+        "waits8": 260,
+        "attendances": 10252
+      },
+      {
+        "year": 2023,
+        "waits": 260,
+        "waits8": 550,
+        "attendances": 10312
+      },
+      {
+        "year": 2024,
+        "waits": 456,
+        "waits8": 728,
+        "attendances": 10520
+      },
+      {
+        "year": 2025,
+        "waits": 870,
+        "waits8": 1224,
+        "attendances": 10581
+      },
+      {
+        "year": 2026,
+        "waits": 581,
+        "waits8": 779,
+        "attendances": 5180
+      }
+    ]
+  },
+  {
+    "id": "dr-gray-s-hospital",
+    "name": "Dr Gray's Hospital",
+    "shortName": "Dr Gray's",
+    "board": "NHS Grampian",
+    "waits2025": 1585,
+    "waitsByYear": [
+      {
+        "year": 2016,
+        "waits": 1,
+        "waits8": 27,
+        "attendances": 24898
+      },
+      {
+        "year": 2017,
+        "waits": 3,
+        "waits8": 27,
+        "attendances": 24465
+      },
+      {
+        "year": 2018,
+        "waits": 3,
+        "waits8": 49,
+        "attendances": 25276
+      },
+      {
+        "year": 2019,
+        "waits": 8,
+        "waits8": 64,
+        "attendances": 26739
+      },
+      {
+        "year": 2020,
+        "waits": 11,
+        "waits8": 108,
+        "attendances": 21481
+      },
+      {
+        "year": 2021,
+        "waits": 139,
+        "waits8": 590,
+        "attendances": 24151
+      },
+      {
+        "year": 2022,
+        "waits": 912,
+        "waits8": 2333,
+        "attendances": 28060
+      },
+      {
+        "year": 2023,
+        "waits": 984,
+        "waits8": 2540,
+        "attendances": 29231
+      },
+      {
+        "year": 2024,
+        "waits": 1571,
+        "waits8": 3539,
+        "attendances": 29066
+      },
+      {
+        "year": 2025,
+        "waits": 1585,
+        "waits8": 3793,
+        "attendances": 28246
+      },
+      {
+        "year": 2026,
+        "waits": 889,
+        "waits8": 1985,
+        "attendances": 14733
+      }
+    ]
+  },
+  {
+    "id": "dumfries-galloway-royal-infirmary",
+    "name": "Dumfries & Galloway Royal Infirmary",
+    "shortName": "Dumfries & Galloway",
+    "board": "NHS Dumfries and Galloway",
+    "waits2025": 1052,
+    "waitsByYear": [
+      {
+        "year": 2016,
+        "waits": 2,
+        "waits8": 32,
+        "attendances": 36577
+      },
+      {
+        "year": 2017,
+        "waits": 7,
+        "waits8": 125,
+        "attendances": 37042
+      },
+      {
+        "year": 2018,
+        "waits": 15,
+        "waits8": 243,
+        "attendances": 33390
+      },
+      {
+        "year": 2019,
+        "waits": 41,
+        "waits8": 355,
+        "attendances": 35696
+      },
+      {
+        "year": 2020,
+        "waits": 25,
+        "waits8": 170,
+        "attendances": 27863
+      },
+      {
+        "year": 2021,
+        "waits": 70,
+        "waits8": 600,
+        "attendances": 32337
+      },
+      {
+        "year": 2022,
+        "waits": 539,
+        "waits8": 2011,
+        "attendances": 36417
+      },
+      {
+        "year": 2023,
+        "waits": 802,
+        "waits8": 2495,
+        "attendances": 36960
+      },
+      {
+        "year": 2024,
+        "waits": 1283,
+        "waits8": 3332,
+        "attendances": 38677
+      },
+      {
+        "year": 2025,
+        "waits": 1052,
+        "waits8": 2898,
+        "attendances": 39402
+      },
+      {
+        "year": 2026,
+        "waits": 936,
+        "waits8": 2023,
+        "attendances": 20167
+      }
+    ]
+  },
+  {
+    "id": "forth-valley-royal-hospital",
+    "name": "Forth Valley Royal Hospital",
+    "shortName": "Forth Valley Royal",
+    "board": "NHS Forth Valley",
+    "waits2025": 6378,
+    "waitsByYear": [
+      {
+        "year": 2016,
+        "waits": 10,
+        "waits8": 293,
+        "attendances": 64581
+      },
+      {
+        "year": 2017,
+        "waits": 120,
+        "waits8": 620,
+        "attendances": 65134
+      },
+      {
+        "year": 2018,
+        "waits": 463,
+        "waits8": 1670,
+        "attendances": 64383
+      },
+      {
+        "year": 2019,
+        "waits": 68,
+        "waits8": 535,
+        "attendances": 68152
+      },
+      {
+        "year": 2020,
+        "waits": 37,
+        "waits8": 157,
+        "attendances": 47827
+      },
+      {
+        "year": 2021,
+        "waits": 460,
+        "waits8": 2591,
+        "attendances": 56284
+      },
+      {
+        "year": 2022,
+        "waits": 3649,
+        "waits8": 9803,
+        "attendances": 59091
+      },
+      {
+        "year": 2023,
+        "waits": 5267,
+        "waits8": 12683,
+        "attendances": 59899
+      },
+      {
+        "year": 2024,
+        "waits": 7959,
+        "waits8": 15973,
+        "attendances": 62627
+      },
+      {
+        "year": 2025,
+        "waits": 6378,
+        "waits8": 14830,
+        "attendances": 63431
+      },
+      {
+        "year": 2026,
+        "waits": 3610,
+        "waits8": 8143,
+        "attendances": 32961
+      }
+    ]
+  },
+  {
+    "id": "galloway-community-hospital",
+    "name": "Galloway Community Hospital",
+    "shortName": "Galloway Community",
+    "board": "NHS Dumfries and Galloway",
+    "waits2025": 89,
+    "waitsByYear": [
+      {
+        "year": 2016,
+        "waits": 0,
+        "waits8": 31,
+        "attendances": 12038
+      },
+      {
+        "year": 2017,
+        "waits": 6,
+        "waits8": 42,
+        "attendances": 12315
+      },
+      {
+        "year": 2018,
+        "waits": 11,
+        "waits8": 121,
+        "attendances": 12924
+      },
+      {
+        "year": 2019,
+        "waits": 11,
+        "waits8": 99,
+        "attendances": 13707
+      },
+      {
+        "year": 2020,
+        "waits": 16,
+        "waits8": 127,
+        "attendances": 10675
+      },
+      {
+        "year": 2021,
+        "waits": 25,
+        "waits8": 188,
+        "attendances": 11559
+      },
+      {
+        "year": 2022,
+        "waits": 47,
+        "waits8": 264,
+        "attendances": 13862
+      },
+      {
+        "year": 2023,
+        "waits": 59,
+        "waits8": 346,
+        "attendances": 14562
+      },
+      {
+        "year": 2024,
+        "waits": 74,
+        "waits8": 332,
+        "attendances": 15335
+      },
+      {
+        "year": 2025,
+        "waits": 89,
+        "waits8": 364,
+        "attendances": 15001
+      },
+      {
+        "year": 2026,
+        "waits": 82,
+        "waits8": 233,
+        "attendances": 7290
+      }
+    ]
+  },
+  {
+    "id": "gilbert-bain-hospital",
+    "name": "Gilbert Bain Hospital",
+    "shortName": "Gilbert Bain",
+    "board": "NHS Shetland",
+    "waits2025": 18,
+    "waitsByYear": [
+      {
+        "year": 2016,
+        "waits": 0,
+        "waits8": 7,
+        "attendances": 7473
+      },
+      {
+        "year": 2017,
+        "waits": 1,
+        "waits8": 3,
+        "attendances": 7566
+      },
+      {
+        "year": 2018,
+        "waits": 0,
+        "waits8": 8,
+        "attendances": 7699
+      },
+      {
+        "year": 2019,
+        "waits": 0,
+        "waits8": 8,
+        "attendances": 7822
+      },
+      {
+        "year": 2020,
+        "waits": 1,
+        "waits8": 6,
+        "attendances": 5637
+      },
+      {
+        "year": 2021,
+        "waits": 0,
+        "waits8": 3,
+        "attendances": 6346
+      },
+      {
+        "year": 2022,
+        "waits": 2,
+        "waits8": 10,
+        "attendances": 7754
+      },
+      {
+        "year": 2023,
+        "waits": 5,
+        "waits8": 62,
+        "attendances": 8506
+      },
+      {
+        "year": 2024,
+        "waits": 6,
+        "waits8": 51,
+        "attendances": 8411
+      },
+      {
+        "year": 2025,
+        "waits": 18,
+        "waits8": 119,
+        "attendances": 8626
+      },
+      {
+        "year": 2026,
+        "waits": 4,
+        "waits8": 57,
+        "attendances": 4533
+      }
+    ]
+  },
+  {
+    "id": "glasgow-royal-infirmary",
+    "name": "Glasgow Royal Infirmary",
+    "shortName": "Glasgow Royal",
+    "board": "NHS Greater Glasgow and Clyde",
+    "waits2025": 4722,
+    "waitsByYear": [
+      {
+        "year": 2016,
+        "waits": 16,
+        "waits8": 435,
+        "attendances": 92555
+      },
+      {
+        "year": 2017,
+        "waits": 46,
+        "waits8": 640,
+        "attendances": 93235
+      },
+      {
+        "year": 2018,
+        "waits": 81,
+        "waits8": 617,
+        "attendances": 95034
+      },
+      {
+        "year": 2019,
+        "waits": 44,
+        "waits8": 825,
+        "attendances": 98396
+      },
+      {
+        "year": 2020,
+        "waits": 49,
+        "waits8": 584,
+        "attendances": 69169
+      },
+      {
+        "year": 2021,
+        "waits": 174,
+        "waits8": 1649,
+        "attendances": 79272
+      },
+      {
+        "year": 2022,
+        "waits": 1526,
+        "waits8": 7522,
+        "attendances": 82406
+      },
+      {
+        "year": 2023,
+        "waits": 2614,
+        "waits8": 11725,
+        "attendances": 81003
+      },
+      {
+        "year": 2024,
+        "waits": 3883,
+        "waits8": 13487,
+        "attendances": 85058
+      },
+      {
+        "year": 2025,
+        "waits": 4722,
+        "waits8": 13763,
+        "attendances": 84947
+      },
+      {
+        "year": 2026,
+        "waits": 2370,
+        "waits8": 7809,
+        "attendances": 42340
+      }
+    ]
+  },
+  {
+    "id": "inverclyde-royal-hospital",
+    "name": "Inverclyde Royal Hospital",
+    "shortName": "Inverclyde",
+    "board": "NHS Greater Glasgow and Clyde",
+    "waits2025": 217,
+    "waitsByYear": [
+      {
+        "year": 2016,
+        "waits": 1,
+        "waits8": 45,
+        "attendances": 32500
+      },
+      {
+        "year": 2017,
+        "waits": 3,
+        "waits8": 100,
+        "attendances": 32306
+      },
+      {
+        "year": 2018,
+        "waits": 9,
+        "waits8": 151,
+        "attendances": 32398
+      },
+      {
+        "year": 2019,
+        "waits": 4,
+        "waits8": 223,
+        "attendances": 33562
+      },
+      {
+        "year": 2020,
+        "waits": 14,
+        "waits8": 173,
+        "attendances": 23965
+      },
+      {
+        "year": 2021,
+        "waits": 51,
+        "waits8": 491,
+        "attendances": 28022
+      },
+      {
+        "year": 2022,
+        "waits": 351,
+        "waits8": 1221,
+        "attendances": 29379
+      },
+      {
+        "year": 2023,
+        "waits": 328,
+        "waits8": 1058,
+        "attendances": 29197
+      },
+      {
+        "year": 2024,
+        "waits": 316,
+        "waits8": 1321,
+        "attendances": 30269
+      },
+      {
+        "year": 2025,
+        "waits": 217,
+        "waits8": 905,
+        "attendances": 29182
+      },
+      {
+        "year": 2026,
+        "waits": 255,
+        "waits8": 949,
+        "attendances": 14935
+      }
+    ]
+  },
+  {
+    "id": "lorn-islands-hospital",
+    "name": "Lorn & Islands Hospital",
+    "shortName": "Lorn & Islands",
+    "board": "NHS Highland",
+    "waits2025": 8,
+    "waitsByYear": [
+      {
+        "year": 2016,
+        "waits": 0,
+        "waits8": 5,
+        "attendances": 7894
+      },
+      {
+        "year": 2017,
+        "waits": 4,
+        "waits8": 12,
+        "attendances": 7781
+      },
+      {
+        "year": 2018,
+        "waits": 1,
+        "waits8": 10,
+        "attendances": 8110
+      },
+      {
+        "year": 2019,
+        "waits": 3,
+        "waits8": 19,
+        "attendances": 8495
+      },
+      {
+        "year": 2020,
+        "waits": 2,
+        "waits8": 17,
+        "attendances": 6353
+      },
+      {
+        "year": 2021,
+        "waits": 9,
+        "waits8": 33,
+        "attendances": 7699
+      },
+      {
+        "year": 2022,
+        "waits": 14,
+        "waits8": 60,
+        "attendances": 8915
+      },
+      {
+        "year": 2023,
+        "waits": 15,
+        "waits8": 59,
+        "attendances": 8738
+      },
+      {
+        "year": 2024,
+        "waits": 15,
+        "waits8": 46,
+        "attendances": 9387
+      },
+      {
+        "year": 2025,
+        "waits": 8,
+        "waits8": 40,
+        "attendances": 9355
+      },
+      {
+        "year": 2026,
+        "waits": 3,
+        "waits8": 27,
+        "attendances": 4799
+      }
+    ]
+  },
+  {
+    "id": "ninewells-hospital",
+    "name": "Ninewells Hospital",
+    "shortName": "Ninewells",
+    "board": "NHS Tayside",
+    "waits2025": 23,
+    "waitsByYear": [
+      {
+        "year": 2016,
+        "waits": 0,
+        "waits8": 6,
+        "attendances": 48525
+      },
+      {
+        "year": 2017,
+        "waits": 1,
+        "waits8": 25,
+        "attendances": 49147
+      },
+      {
+        "year": 2018,
+        "waits": 3,
+        "waits8": 28,
+        "attendances": 50071
+      },
+      {
+        "year": 2019,
+        "waits": 2,
+        "waits8": 25,
+        "attendances": 52567
+      },
+      {
+        "year": 2020,
+        "waits": 1,
+        "waits8": 18,
+        "attendances": 43931
+      },
+      {
+        "year": 2021,
+        "waits": 1,
+        "waits8": 36,
+        "attendances": 52518
+      },
+      {
+        "year": 2022,
+        "waits": 23,
+        "waits8": 328,
+        "attendances": 60489
+      },
+      {
+        "year": 2023,
+        "waits": 4,
+        "waits8": 172,
+        "attendances": 59451
+      },
+      {
+        "year": 2024,
+        "waits": 19,
+        "waits8": 299,
+        "attendances": 62408
+      },
+      {
+        "year": 2025,
+        "waits": 23,
+        "waits8": 347,
+        "attendances": 63952
+      },
+      {
+        "year": 2026,
+        "waits": 16,
+        "waits8": 205,
+        "attendances": 32093
+      }
+    ]
+  },
+  {
+    "id": "perth-royal-infirmary",
+    "name": "Perth Royal Infirmary",
+    "shortName": "Perth Royal",
+    "board": "NHS Tayside",
+    "waits2025": 19,
+    "waitsByYear": [
+      {
+        "year": 2016,
+        "waits": 0,
+        "waits8": 7,
+        "attendances": 25297
+      },
+      {
+        "year": 2017,
+        "waits": 0,
+        "waits8": 16,
+        "attendances": 24943
+      },
+      {
+        "year": 2018,
+        "waits": 0,
+        "waits8": 11,
+        "attendances": 24797
+      },
+      {
+        "year": 2019,
+        "waits": 2,
+        "waits8": 41,
+        "attendances": 26351
+      },
+      {
+        "year": 2020,
+        "waits": 4,
+        "waits8": 38,
+        "attendances": 19089
+      },
+      {
+        "year": 2021,
+        "waits": 29,
+        "waits8": 112,
+        "attendances": 20777
+      },
+      {
+        "year": 2022,
+        "waits": 35,
+        "waits8": 147,
+        "attendances": 24117
+      },
+      {
+        "year": 2023,
+        "waits": 7,
+        "waits8": 56,
+        "attendances": 23515
+      },
+      {
+        "year": 2024,
+        "waits": 29,
+        "waits8": 160,
+        "attendances": 24958
+      },
+      {
+        "year": 2025,
+        "waits": 19,
+        "waits8": 189,
+        "attendances": 25569
+      },
+      {
+        "year": 2026,
+        "waits": 8,
+        "waits8": 128,
+        "attendances": 12784
+      }
+    ]
+  },
+  {
+    "id": "queen-elizabeth-university-hospital",
+    "name": "Queen Elizabeth University Hospital",
+    "shortName": "QE University",
+    "board": "NHS Greater Glasgow and Clyde",
+    "waits2025": 4458,
+    "waitsByYear": [
+      {
+        "year": 2016,
+        "waits": 17,
+        "waits8": 629,
+        "attendances": 94348
+      },
+      {
+        "year": 2017,
+        "waits": 175,
+        "waits8": 1269,
+        "attendances": 100881
+      },
+      {
+        "year": 2018,
+        "waits": 125,
+        "waits8": 1270,
+        "attendances": 102288
+      },
+      {
+        "year": 2019,
+        "waits": 455,
+        "waits8": 2503,
+        "attendances": 104587
+      },
+      {
+        "year": 2020,
+        "waits": 214,
+        "waits8": 1553,
+        "attendances": 80758
+      },
+      {
+        "year": 2021,
+        "waits": 698,
+        "waits8": 3647,
+        "attendances": 86159
+      },
+      {
+        "year": 2022,
+        "waits": 3649,
+        "waits8": 12871,
+        "attendances": 90709
+      },
+      {
+        "year": 2023,
+        "waits": 3531,
+        "waits8": 13279,
+        "attendances": 95547
+      },
+      {
+        "year": 2024,
+        "waits": 3795,
+        "waits8": 14473,
+        "attendances": 101055
+      },
+      {
+        "year": 2025,
+        "waits": 4458,
+        "waits8": 15515,
+        "attendances": 103266
+      },
+      {
+        "year": 2026,
+        "waits": 3518,
+        "waits8": 9311,
+        "attendances": 50951
+      }
+    ]
+  },
+  {
+    "id": "raigmore-hospital",
+    "name": "Raigmore Hospital",
+    "shortName": "Raigmore",
+    "board": "NHS Highland",
+    "waits2025": 1703,
+    "waitsByYear": [
+      {
+        "year": 2016,
+        "waits": 8,
+        "waits8": 79,
+        "attendances": 33986
+      },
+      {
+        "year": 2017,
+        "waits": 8,
+        "waits8": 104,
+        "attendances": 34884
+      },
+      {
+        "year": 2018,
+        "waits": 7,
+        "waits8": 151,
+        "attendances": 35802
+      },
+      {
+        "year": 2019,
+        "waits": 18,
+        "waits8": 272,
+        "attendances": 37712
+      },
+      {
+        "year": 2020,
+        "waits": 13,
+        "waits8": 192,
+        "attendances": 29220
+      },
+      {
+        "year": 2021,
+        "waits": 100,
+        "waits8": 762,
+        "attendances": 33617
+      },
+      {
+        "year": 2022,
+        "waits": 617,
+        "waits8": 2385,
+        "attendances": 38155
+      },
+      {
+        "year": 2023,
+        "waits": 1116,
+        "waits8": 2862,
+        "attendances": 39196
+      },
+      {
+        "year": 2024,
+        "waits": 1479,
+        "waits8": 3541,
+        "attendances": 40609
+      },
+      {
+        "year": 2025,
+        "waits": 1703,
+        "waits8": 3835,
+        "attendances": 41448
+      },
+      {
+        "year": 2026,
+        "waits": 1234,
+        "waits8": 2646,
+        "attendances": 20855
+      }
+    ]
+  },
+  {
+    "id": "royal-aberdeen-children-s-hospital",
+    "name": "Royal Aberdeen Children's Hospital",
+    "shortName": "Aberdeen Children's",
+    "board": "NHS Grampian",
+    "waits2025": 19,
+    "waitsByYear": [
+      {
+        "year": 2016,
+        "waits": 0,
+        "waits8": 1,
+        "attendances": 16045
+      },
+      {
+        "year": 2017,
+        "waits": 0,
+        "waits8": 1,
+        "attendances": 15776
+      },
+      {
+        "year": 2018,
+        "waits": 0,
+        "waits8": 3,
+        "attendances": 16158
+      },
+      {
+        "year": 2019,
+        "waits": 1,
+        "waits8": 2,
+        "attendances": 17172
+      },
+      {
+        "year": 2020,
+        "waits": 0,
+        "waits8": 3,
+        "attendances": 11869
+      },
+      {
+        "year": 2021,
+        "waits": 4,
+        "waits8": 29,
+        "attendances": 13835
+      },
+      {
+        "year": 2022,
+        "waits": 5,
+        "waits8": 69,
+        "attendances": 16850
+      },
+      {
+        "year": 2023,
+        "waits": 8,
+        "waits8": 138,
+        "attendances": 17023
+      },
+      {
+        "year": 2024,
+        "waits": 9,
+        "waits8": 144,
+        "attendances": 18079
+      },
+      {
+        "year": 2025,
+        "waits": 19,
+        "waits8": 205,
+        "attendances": 18781
+      },
+      {
+        "year": 2026,
+        "waits": 3,
+        "waits8": 100,
+        "attendances": 9844
+      }
+    ]
+  },
+  {
+    "id": "royal-alexandra-hospital",
+    "name": "Royal Alexandra Hospital",
+    "shortName": "Royal Alexandra",
+    "board": "NHS Greater Glasgow and Clyde",
+    "waits2025": 1751,
+    "waitsByYear": [
+      {
+        "year": 2016,
+        "waits": 2,
+        "waits8": 366,
+        "attendances": 69487
+      },
+      {
+        "year": 2017,
+        "waits": 35,
+        "waits8": 738,
+        "attendances": 65665
+      },
+      {
+        "year": 2018,
+        "waits": 75,
+        "waits8": 1310,
+        "attendances": 66937
+      },
+      {
+        "year": 2019,
+        "waits": 54,
+        "waits8": 1660,
+        "attendances": 69294
+      },
+      {
+        "year": 2020,
+        "waits": 49,
+        "waits8": 891,
+        "attendances": 48552
+      },
+      {
+        "year": 2021,
+        "waits": 329,
+        "waits8": 2450,
+        "attendances": 57019
+      },
+      {
+        "year": 2022,
+        "waits": 2682,
+        "waits8": 8647,
+        "attendances": 55579
+      },
+      {
+        "year": 2023,
+        "waits": 1216,
+        "waits8": 5512,
+        "attendances": 57229
+      },
+      {
+        "year": 2024,
+        "waits": 2606,
+        "waits8": 8940,
+        "attendances": 57357
+      },
+      {
+        "year": 2025,
+        "waits": 1751,
+        "waits8": 7113,
+        "attendances": 56941
+      },
+      {
+        "year": 2026,
+        "waits": 677,
+        "waits8": 3164,
+        "attendances": 29596
+      }
+    ]
+  },
+  {
+    "id": "royal-hospital-for-children",
+    "name": "Royal Hospital for Children",
+    "shortName": "Glasgow Children's",
+    "board": "NHS Greater Glasgow and Clyde",
+    "waits2025": 0,
+    "waitsByYear": [
+      {
+        "year": 2016,
+        "waits": 0,
+        "waits8": 0,
+        "attendances": 56754
+      },
+      {
+        "year": 2017,
+        "waits": 0,
+        "waits8": 4,
+        "attendances": 61108
+      },
+      {
+        "year": 2018,
+        "waits": 6,
+        "waits8": 34,
+        "attendances": 65268
+      },
+      {
+        "year": 2019,
+        "waits": 1,
+        "waits8": 36,
+        "attendances": 71990
+      },
+      {
+        "year": 2020,
+        "waits": 0,
+        "waits8": 2,
+        "attendances": 41588
+      },
+      {
+        "year": 2021,
+        "waits": 1,
+        "waits8": 35,
+        "attendances": 62477
+      },
+      {
+        "year": 2022,
+        "waits": 9,
+        "waits8": 300,
+        "attendances": 75917
+      },
+      {
+        "year": 2023,
+        "waits": 0,
+        "waits8": 29,
+        "attendances": 71156
+      },
+      {
+        "year": 2024,
+        "waits": 4,
+        "waits8": 144,
+        "attendances": 75710
+      },
+      {
+        "year": 2025,
+        "waits": 0,
+        "waits8": 114,
+        "attendances": 74557
+      },
+      {
+        "year": 2026,
+        "waits": 0,
+        "waits8": 76,
+        "attendances": 38774
+      }
+    ]
+  },
+  {
+    "id": "royal-hospital-for-children-and-young-people",
+    "name": "Royal Hospital for Children and Young People",
+    "shortName": "Edinburgh Children's",
+    "board": "NHS Lothian",
+    "waits2025": 11,
+    "waitsByYear": [
+      {
+        "year": 2016,
+        "waits": 0,
+        "waits8": 18,
+        "attendances": 49065
+      },
+      {
+        "year": 2017,
+        "waits": 2,
+        "waits8": 28,
+        "attendances": 49690
+      },
+      {
+        "year": 2018,
+        "waits": 5,
+        "waits8": 55,
+        "attendances": 48764
+      },
+      {
+        "year": 2019,
+        "waits": 6,
+        "waits8": 73,
+        "attendances": 51919
+      },
+      {
+        "year": 2020,
+        "waits": 1,
+        "waits8": 13,
+        "attendances": 37996
+      },
+      {
+        "year": 2021,
+        "waits": 6,
+        "waits8": 42,
+        "attendances": 50132
+      },
+      {
+        "year": 2022,
+        "waits": 10,
+        "waits8": 130,
+        "attendances": 58866
+      },
+      {
+        "year": 2023,
+        "waits": 15,
+        "waits8": 301,
+        "attendances": 52475
+      },
+      {
+        "year": 2024,
+        "waits": 16,
+        "waits8": 242,
+        "attendances": 56163
+      },
+      {
+        "year": 2025,
+        "waits": 11,
+        "waits8": 222,
+        "attendances": 54548
+      },
+      {
+        "year": 2026,
+        "waits": 2,
+        "waits8": 157,
+        "attendances": 28405
+      }
+    ]
+  },
+  {
+    "id": "royal-infirmary-of-edinburgh",
+    "name": "Royal Infirmary of Edinburgh",
+    "shortName": "Royal Infirmary Edinburgh",
+    "board": "NHS Lothian",
+    "waits2025": 7907,
+    "waitsByYear": [
+      {
+        "year": 2016,
+        "waits": 245,
+        "waits8": 1578,
+        "attendances": 119358
+      },
+      {
+        "year": 2017,
+        "waits": 418,
+        "waits8": 1905,
+        "attendances": 119145
+      },
+      {
+        "year": 2018,
+        "waits": 913,
+        "waits8": 3535,
+        "attendances": 119777
+      },
+      {
+        "year": 2019,
+        "waits": 735,
+        "waits8": 3398,
+        "attendances": 128072
+      },
+      {
+        "year": 2020,
+        "waits": 713,
+        "waits8": 2394,
+        "attendances": 103025
+      },
+      {
+        "year": 2021,
+        "waits": 3302,
+        "waits8": 8754,
+        "attendances": 114297
+      },
+      {
+        "year": 2022,
+        "waits": 12828,
+        "waits8": 24627,
+        "attendances": 118410
+      },
+      {
+        "year": 2023,
+        "waits": 11130,
+        "waits8": 22163,
+        "attendances": 119078
+      },
+      {
+        "year": 2024,
+        "waits": 15302,
+        "waits8": 26084,
+        "attendances": 125142
+      },
+      {
+        "year": 2025,
+        "waits": 7907,
+        "waits8": 16029,
+        "attendances": 130517
+      },
+      {
+        "year": 2026,
+        "waits": 4896,
+        "waits8": 10202,
+        "attendances": 67072
+      }
+    ]
+  },
+  {
+    "id": "st-john-s-hospital",
+    "name": "St John's Hospital",
+    "shortName": "St John's",
+    "board": "NHS Lothian",
+    "waits2025": 3159,
+    "waitsByYear": [
+      {
+        "year": 2016,
+        "waits": 25,
+        "waits8": 271,
+        "attendances": 55398
+      },
+      {
+        "year": 2017,
+        "waits": 30,
+        "waits8": 247,
+        "attendances": 55008
+      },
+      {
+        "year": 2018,
+        "waits": 117,
+        "waits8": 724,
+        "attendances": 57281
+      },
+      {
+        "year": 2019,
+        "waits": 205,
+        "waits8": 943,
+        "attendances": 59987
+      },
+      {
+        "year": 2020,
+        "waits": 181,
+        "waits8": 685,
+        "attendances": 47594
+      },
+      {
+        "year": 2021,
+        "waits": 622,
+        "waits8": 1958,
+        "attendances": 53910
+      },
+      {
+        "year": 2022,
+        "waits": 2860,
+        "waits8": 5968,
+        "attendances": 56906
+      },
+      {
+        "year": 2023,
+        "waits": 2139,
+        "waits8": 5311,
+        "attendances": 55455
+      },
+      {
+        "year": 2024,
+        "waits": 4049,
+        "waits8": 8177,
+        "attendances": 64315
+      },
+      {
+        "year": 2025,
+        "waits": 3159,
+        "waits8": 6520,
+        "attendances": 65459
+      },
+      {
+        "year": 2026,
+        "waits": 2331,
+        "waits8": 4039,
+        "attendances": 34681
+      }
+    ]
+  },
+  {
+    "id": "the-balfour",
+    "name": "The Balfour",
+    "shortName": "Balfour",
+    "board": "NHS Orkney",
+    "waits2025": 4,
+    "waitsByYear": [
+      {
+        "year": 2016,
+        "waits": 0,
+        "waits8": 2,
+        "attendances": 5768
+      },
+      {
+        "year": 2017,
+        "waits": 0,
+        "waits8": 6,
+        "attendances": 6024
+      },
+      {
+        "year": 2018,
+        "waits": 0,
+        "waits8": 3,
+        "attendances": 6552
+      },
+      {
+        "year": 2019,
+        "waits": 4,
+        "waits8": 14,
+        "attendances": 6972
+      },
+      {
+        "year": 2020,
+        "waits": 1,
+        "waits8": 7,
+        "attendances": 5353
+      },
+      {
+        "year": 2021,
+        "waits": 2,
+        "waits8": 7,
+        "attendances": 6496
+      },
+      {
+        "year": 2022,
+        "waits": 14,
+        "waits8": 57,
+        "attendances": 7599
+      },
+      {
+        "year": 2023,
+        "waits": 17,
+        "waits8": 72,
+        "attendances": 7723
+      },
+      {
+        "year": 2024,
+        "waits": 5,
+        "waits8": 32,
+        "attendances": 8293
+      },
+      {
+        "year": 2025,
+        "waits": 4,
+        "waits8": 24,
+        "attendances": 8543
+      },
+      {
+        "year": 2026,
+        "waits": 2,
+        "waits8": 12,
+        "attendances": 4179
+      }
+    ]
+  },
+  {
+    "id": "university-hospital-ayr",
+    "name": "University Hospital Ayr",
+    "shortName": "Ayr",
+    "board": "NHS Ayrshire and Arran",
+    "waits2025": 4304,
+    "waitsByYear": [
+      {
+        "year": 2016,
+        "waits": 160,
+        "waits8": 671,
+        "attendances": 45203
+      },
+      {
+        "year": 2017,
+        "waits": 71,
+        "waits8": 368,
+        "attendances": 41343
+      },
+      {
+        "year": 2018,
+        "waits": 194,
+        "waits8": 709,
+        "attendances": 38402
+      },
+      {
+        "year": 2019,
+        "waits": 1041,
+        "waits8": 2495,
+        "attendances": 39828
+      },
+      {
+        "year": 2020,
+        "waits": 719,
+        "waits8": 1606,
+        "attendances": 30021
+      },
+      {
+        "year": 2021,
+        "waits": 785,
+        "waits8": 1968,
+        "attendances": 31366
+      },
+      {
+        "year": 2022,
+        "waits": 3407,
+        "waits8": 5532,
+        "attendances": 31647
+      },
+      {
+        "year": 2023,
+        "waits": 3932,
+        "waits8": 5904,
+        "attendances": 31687
+      },
+      {
+        "year": 2024,
+        "waits": 4490,
+        "waits8": 6670,
+        "attendances": 33083
+      },
+      {
+        "year": 2025,
+        "waits": 4304,
+        "waits8": 6688,
+        "attendances": 34329
+      },
+      {
+        "year": 2026,
+        "waits": 2259,
+        "waits8": 3469,
+        "attendances": 17553
+      }
+    ]
+  },
+  {
+    "id": "university-hospital-crosshouse",
+    "name": "University Hospital Crosshouse",
+    "shortName": "Crosshouse",
+    "board": "NHS Ayrshire and Arran",
+    "waits2025": 5704,
+    "waitsByYear": [
+      {
+        "year": 2016,
+        "waits": 144,
+        "waits8": 650,
+        "attendances": 72314
+      },
+      {
+        "year": 2017,
+        "waits": 268,
+        "waits8": 944,
+        "attendances": 69904
+      },
+      {
+        "year": 2018,
+        "waits": 321,
+        "waits8": 1233,
+        "attendances": 71596
+      },
+      {
+        "year": 2019,
+        "waits": 1096,
+        "waits8": 2690,
+        "attendances": 74983
+      },
+      {
+        "year": 2020,
+        "waits": 1007,
+        "waits8": 2007,
+        "attendances": 58545
+      },
+      {
+        "year": 2021,
+        "waits": 2808,
+        "waits8": 5300,
+        "attendances": 61523
+      },
+      {
+        "year": 2022,
+        "waits": 5484,
+        "waits8": 8632,
+        "attendances": 62651
+      },
+      {
+        "year": 2023,
+        "waits": 4986,
+        "waits8": 8096,
+        "attendances": 60997
+      },
+      {
+        "year": 2024,
+        "waits": 5631,
+        "waits8": 8779,
+        "attendances": 62881
+      },
+      {
+        "year": 2025,
+        "waits": 5704,
+        "waits8": 8865,
+        "attendances": 64173
+      },
+      {
+        "year": 2026,
+        "waits": 3456,
+        "waits8": 5312,
+        "attendances": 32462
+      }
+    ]
+  },
+  {
+    "id": "university-hospital-hairmyres",
+    "name": "University Hospital Hairmyres",
+    "shortName": "Hairmyres",
+    "board": "NHS Lanarkshire",
+    "waits2025": 6512,
+    "waitsByYear": [
+      {
+        "year": 2016,
+        "waits": 217,
+        "waits8": 763,
+        "attendances": 63472
+      },
+      {
+        "year": 2017,
+        "waits": 367,
+        "waits8": 1160,
+        "attendances": 64427
+      },
+      {
+        "year": 2018,
+        "waits": 305,
+        "waits8": 967,
+        "attendances": 64781
+      },
+      {
+        "year": 2019,
+        "waits": 741,
+        "waits8": 2053,
+        "attendances": 67935
+      },
+      {
+        "year": 2020,
+        "waits": 235,
+        "waits8": 822,
+        "attendances": 52466
+      },
+      {
+        "year": 2021,
+        "waits": 336,
+        "waits8": 1613,
+        "attendances": 59895
+      },
+      {
+        "year": 2022,
+        "waits": 2741,
+        "waits8": 7765,
+        "attendances": 61904
+      },
+      {
+        "year": 2023,
+        "waits": 4559,
+        "waits8": 9954,
+        "attendances": 62128
+      },
+      {
+        "year": 2024,
+        "waits": 6097,
+        "waits8": 11874,
+        "attendances": 64308
+      },
+      {
+        "year": 2025,
+        "waits": 6512,
+        "waits8": 13050,
+        "attendances": 63203
+      },
+      {
+        "year": 2026,
+        "waits": 3850,
+        "waits8": 7526,
+        "attendances": 32633
+      }
+    ]
+  },
+  {
+    "id": "university-hospital-monklands",
+    "name": "University Hospital Monklands",
+    "shortName": "Monklands",
+    "board": "NHS Lanarkshire",
+    "waits2025": 4001,
+    "waitsByYear": [
+      {
+        "year": 2016,
+        "waits": 2,
+        "waits8": 53,
+        "attendances": 68400
+      },
+      {
+        "year": 2017,
+        "waits": 11,
+        "waits8": 167,
+        "attendances": 68914
+      },
+      {
+        "year": 2018,
+        "waits": 12,
+        "waits8": 148,
+        "attendances": 68872
+      },
+      {
+        "year": 2019,
+        "waits": 58,
+        "waits8": 433,
+        "attendances": 71974
+      },
+      {
+        "year": 2020,
+        "waits": 107,
+        "waits8": 664,
+        "attendances": 57220
+      },
+      {
+        "year": 2021,
+        "waits": 382,
+        "waits8": 1991,
+        "attendances": 64861
+      },
+      {
+        "year": 2022,
+        "waits": 1622,
+        "waits8": 6067,
+        "attendances": 65618
+      },
+      {
+        "year": 2023,
+        "waits": 1871,
+        "waits8": 6031,
+        "attendances": 65186
+      },
+      {
+        "year": 2024,
+        "waits": 3381,
+        "waits8": 9931,
+        "attendances": 66128
+      },
+      {
+        "year": 2025,
+        "waits": 4001,
+        "waits8": 10279,
+        "attendances": 64582
+      },
+      {
+        "year": 2026,
+        "waits": 2743,
+        "waits8": 6396,
+        "attendances": 32508
+      }
+    ]
+  },
+  {
+    "id": "university-hospital-wishaw",
+    "name": "University Hospital Wishaw",
+    "shortName": "Wishaw",
+    "board": "NHS Lanarkshire",
+    "waits2025": 9311,
+    "waitsByYear": [
+      {
+        "year": 2016,
+        "waits": 118,
+        "waits8": 644,
+        "attendances": 65142
+      },
+      {
+        "year": 2017,
+        "waits": 159,
+        "waits8": 843,
+        "attendances": 69976
+      },
+      {
+        "year": 2018,
+        "waits": 112,
+        "waits8": 795,
+        "attendances": 72650
+      },
+      {
+        "year": 2019,
+        "waits": 311,
+        "waits8": 1722,
+        "attendances": 76045
+      },
+      {
+        "year": 2020,
+        "waits": 301,
+        "waits8": 1359,
+        "attendances": 63844
+      },
+      {
+        "year": 2021,
+        "waits": 950,
+        "waits8": 5396,
+        "attendances": 71719
+      },
+      {
+        "year": 2022,
+        "waits": 4450,
+        "waits8": 12900,
+        "attendances": 69963
+      },
+      {
+        "year": 2023,
+        "waits": 6169,
+        "waits8": 13151,
+        "attendances": 69383
+      },
+      {
+        "year": 2024,
+        "waits": 7332,
+        "waits8": 14689,
+        "attendances": 74365
+      },
+      {
+        "year": 2025,
+        "waits": 9311,
+        "waits8": 17223,
+        "attendances": 70274
+      },
+      {
+        "year": 2026,
+        "waits": 4903,
+        "waits8": 8816,
+        "attendances": 36016
+      }
+    ]
+  },
+  {
+    "id": "victoria-hospital",
+    "name": "Victoria Hospital",
+    "shortName": "Victoria",
+    "board": "NHS Fife",
+    "waits2025": 1869,
+    "waitsByYear": [
+      {
+        "year": 2016,
+        "waits": 30,
+        "waits8": 306,
+        "attendances": 64114
+      },
+      {
+        "year": 2017,
+        "waits": 52,
+        "waits8": 368,
+        "attendances": 63800
+      },
+      {
+        "year": 2018,
+        "waits": 22,
+        "waits8": 198,
+        "attendances": 66616
+      },
+      {
+        "year": 2019,
+        "waits": 8,
+        "waits8": 231,
+        "attendances": 69362
+      },
+      {
+        "year": 2020,
+        "waits": 9,
+        "waits8": 263,
+        "attendances": 53783
+      },
+      {
+        "year": 2021,
+        "waits": 184,
+        "waits8": 1408,
+        "attendances": 63142
+      },
+      {
+        "year": 2022,
+        "waits": 1555,
+        "waits8": 5836,
+        "attendances": 69513
+      },
+      {
+        "year": 2023,
+        "waits": 1218,
+        "waits8": 5501,
+        "attendances": 68188
+      },
+      {
+        "year": 2024,
+        "waits": 1295,
+        "waits8": 5857,
+        "attendances": 73037
+      },
+      {
+        "year": 2025,
+        "waits": 1869,
+        "waits8": 6804,
+        "attendances": 71642
+      },
+      {
+        "year": 2026,
+        "waits": 1125,
+        "waits8": 3918,
+        "attendances": 37307
+      }
+    ]
+  },
+  {
+    "id": "western-isles-hospital",
+    "name": "Western Isles Hospital",
+    "shortName": "Western Isles",
+    "board": "NHS Western Isles",
+    "waits2025": 0,
+    "waitsByYear": [
+      {
+        "year": 2016,
+        "waits": 0,
+        "waits8": 0,
+        "attendances": 6603
+      },
+      {
+        "year": 2017,
+        "waits": 0,
+        "waits8": 0,
+        "attendances": 6637
+      },
+      {
+        "year": 2018,
+        "waits": 0,
+        "waits8": 1,
+        "attendances": 6823
+      },
+      {
+        "year": 2019,
+        "waits": 0,
+        "waits8": 3,
+        "attendances": 7039
+      },
+      {
+        "year": 2020,
+        "waits": 0,
+        "waits8": 2,
+        "attendances": 4616
+      },
+      {
+        "year": 2021,
+        "waits": 2,
+        "waits8": 8,
+        "attendances": 5219
+      },
+      {
+        "year": 2022,
+        "waits": 0,
+        "waits8": 3,
+        "attendances": 6387
+      },
+      {
+        "year": 2023,
+        "waits": 1,
+        "waits8": 1,
+        "attendances": 6197
+      },
+      {
+        "year": 2024,
+        "waits": 0,
+        "waits8": 6,
+        "attendances": 6150
+      },
+      {
+        "year": 2025,
+        "waits": 0,
+        "waits8": 12,
+        "attendances": 6416
+      },
+      {
+        "year": 2026,
+        "waits": 1,
+        "waits8": 10,
+        "attendances": 3155
+      }
+    ]
+  }
+]

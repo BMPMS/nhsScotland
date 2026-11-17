@@ -1,0 +1,16 @@
+{
+  "elevenCount": 11,
+  "tayside": [
+    "ninewells-hospital",
+    "perth-royal-infirmary",
+    "gilbert-bain-hospital",
+    "the-balfour",
+    "western-isles-hospital",
+    "lorn-islands-hospital",
+    "royal-aberdeen-children-s-hospital",
+    "royal-hospital-for-children",
+    "royal-hospital-for-children-and-young-people"
+  ],
+  "holding": ["inverclyde-royal-hospital", "belford-hospital", "galloway-community-hospital"],
+  "stackOrder": ["eleven", "other", "holding", "tayside"]
+}

@@ -1,0 +1,8 @@
+{
+  "thicknessShare": 0.0012,
+  "covidStart": 2020.17,
+  "covidEnd": 2021.6,
+  "samples": 12,
+  "ticks": 5,
+  "tickGapShare": 0.01
+}

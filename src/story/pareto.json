@@ -1,0 +1,15 @@
+{
+  "paretoTop": 20,
+  "overlayOpacity": 0.6,
+  "padShare": 0.02,
+  "questionScale": 1.44,
+  "topScale": 3.3,
+  "numberScale": 3,
+  "bigShare": 0.5,
+  "insteadScale": 0.75,
+  "smallScale": 1.44,
+  "vitalScale": 1.728,
+  "endingGap": 2,
+  "bigDrop": 0.06,
+  "vitalLift": 0.04
+}
