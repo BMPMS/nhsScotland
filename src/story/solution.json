@@ -1,0 +1,69 @@
+{
+  "title": "So how to solve this?",
+  "intro": [
+    [{ "text": "Data from the" }, { "text": "Royal Infirmary of Edinburgh", "hospital": "royal-infirmary-of-edinburgh" }, { "text": "and" }, { "text": "Ninewells, Dundee", "hospital": "ninewells-hospital" }],
+    [{ "text": "indicates that a" }, { "text": "whole system approach", "bold": true }, { "text": "could lead to lower waiting times." }]
+  ],
+  "hospitals": [
+    { "id": "royal-infirmary-of-edinburgh", "colour": "red" },
+    { "id": "ninewells-hospital", "colour": "green" }
+  ],
+  "months": ["202401", "202606"],
+  "monthLabels": ["Jan 2024", "Jun 2026"],
+  "chartTitle": "12+ hour waits per month",
+  "ticks": [0, 500, 1000, 1500],
+  "doors": [
+    {
+      "title": "Front door",
+      "blocks": [
+        [{ "text": "Frailty service including" }, { "text": "frailty beds", "only": "ninewells-hospital" }],
+        [{ "text": "Enhanced Care at Home" }],
+        [{ "text": "7 days a week" }],
+        [{ "text": "Flow navigation centre" }],
+        [{ "text": "Redirecting patients who don't need A&E" }],
+        [{ "text": "Power of Attorney campaign" }]
+      ]
+    },
+    {
+      "title": "Back door",
+      "blocks": [
+        [{ "text": "Dedicated discharge team" }],
+        [{ "text": "Discharge: planned dates, targets and escalation thresholds" }],
+        [{ "text": "Discharge to Assess service" }],
+        [{ "text": "Investment in social care" }],
+        [{ "text": "Post-discharge rehab and care reviews" }],
+        [{ "text": "Faster legal process (guardianship)", "only": "ninewells-hospital" }]
+      ]
+    }
+  ],
+  "ending": [
+    [{ "text": "We've identified that if NHS Scotland focusses on the A&E waits in our top 10 hospitals, they'll solve the bulk of the problem." }],
+    [{ "text": "We've also shown that while the wait shows up in A&E, the fix may lie elsewhere - with the hospital capacity, bed delays and the over 75s." }],
+    [{ "text": "All 10 of our hospitals have some but not all of the" }, { "text": "whole system approach", "bold": true }, { "text": "features we've just seen in place." }],
+    [{ "text": "Perhaps a" }, { "text": "whole system approach", "bold": true }, { "text": "for all could start to turn things around?" }]
+  ],
+  "layout": {
+    "titleY": 0.06,
+    "introY": 0.115,
+    "introGap": 0.04,
+    "titleSize": 0.03,
+    "introSize": 0.027,
+    "introWidth": 0.88,
+    "body": { "left": 0.06, "right": 0.94, "top": 0.4, "bottom": 0.97, "radius": 0.08 },
+    "tab": { "left": 0.2, "right": 0.8, "top": 0.19, "radius": 0.07 },
+    "strokeShare": 0.006,
+    "dashShare": 0.012,
+    "dashGapShare": 0.01,
+    "chart": { "left": 0.11, "right": 0.07, "top": 0.085, "bottom": 0.025, "max": 1600, "back": "#F0F0F0" },
+    "chartTitleY": 0.065,
+    "chartTitleSize": 0.024,
+    "tickSize": 0.017,
+    "tickGap": 0.008,
+    "lineShare": 0.006,
+    "yearY": 0.03,
+    "yearSize": 0.02,
+    "doorY": 0.075,
+    "doorSize": 0.024,
+    "blocks": { "pad": 0.03, "gap": 0.018, "top": 0.1, "bottom": 0.05, "columns": 2, "radius": 0.012, "stroke": 0.0025, "strokeOpacity": 0.35, "textSize": 0.019, "textPad": 0.012, "leading": 1.2 }
+  }
+}

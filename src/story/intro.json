@@ -1,0 +1,10 @@
+{
+  "ticker": {
+    "firstYear": 2016,
+    "lastYear": 2025,
+    "inLabel": "In",
+    "caption": "people waited over 12 hours",
+    "delay": 800,
+    "perYear": 450
+  }
+}

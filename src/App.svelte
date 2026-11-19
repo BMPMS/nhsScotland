@@ -3,6 +3,8 @@
   import scrollama from 'scrollama';
   import Stage from './components/Stage.svelte';
   import Intro from './components/Intro.svelte';
+  import Ending from './components/Ending.svelte';
+  import Credits from './components/Credits.svelte';
   import steps from './story/steps.json';
   import hospitals from './data/hospitals.json';
   import { colours, font, spacing } from './theme.js';
@@ -40,9 +42,13 @@
   </div>
   <div class="steps">
     {#each steps as s (s.id)}
-      <section class="step" data-step={s.id} style:height="{s.length * 100}svh">
+      <section class="step" data-step={s.id} style:height={s.fit ? null : `${s.length * 100}svh`} style:min-height={s.fit ? `${s.length * 100}svh` : null}>
         {#if s.id === 'load'}
           <Intro {width} {height} />
+        {:else if s.id === 'ending'}
+          <Ending {width} />
+        {:else if s.id === 'footer'}
+          <Credits {width} />
         {/if}
       </section>
     {/each}

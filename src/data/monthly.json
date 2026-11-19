@@ -1,0 +1,246 @@
+{
+  "royal-infirmary-of-edinburgh": [
+    {
+      "month": "202401",
+      "waits": 1583
+    },
+    {
+      "month": "202402",
+      "waits": 1214
+    },
+    {
+      "month": "202403",
+      "waits": 1260
+    },
+    {
+      "month": "202404",
+      "waits": 1317
+    },
+    {
+      "month": "202405",
+      "waits": 1066
+    },
+    {
+      "month": "202406",
+      "waits": 823
+    },
+    {
+      "month": "202407",
+      "waits": 1043
+    },
+    {
+      "month": "202408",
+      "waits": 1083
+    },
+    {
+      "month": "202409",
+      "waits": 1389
+    },
+    {
+      "month": "202410",
+      "waits": 1492
+    },
+    {
+      "month": "202411",
+      "waits": 1527
+    },
+    {
+      "month": "202412",
+      "waits": 1505
+    },
+    {
+      "month": "202501",
+      "waits": 1489
+    },
+    {
+      "month": "202502",
+      "waits": 1071
+    },
+    {
+      "month": "202503",
+      "waits": 408
+    },
+    {
+      "month": "202504",
+      "waits": 709
+    },
+    {
+      "month": "202505",
+      "waits": 418
+    },
+    {
+      "month": "202506",
+      "waits": 162
+    },
+    {
+      "month": "202507",
+      "waits": 241
+    },
+    {
+      "month": "202508",
+      "waits": 470
+    },
+    {
+      "month": "202509",
+      "waits": 677
+    },
+    {
+      "month": "202510",
+      "waits": 733
+    },
+    {
+      "month": "202511",
+      "waits": 616
+    },
+    {
+      "month": "202512",
+      "waits": 913
+    },
+    {
+      "month": "202601",
+      "waits": 1125
+    },
+    {
+      "month": "202602",
+      "waits": 977
+    },
+    {
+      "month": "202603",
+      "waits": 844
+    },
+    {
+      "month": "202604",
+      "waits": 467
+    },
+    {
+      "month": "202605",
+      "waits": 956
+    },
+    {
+      "month": "202606",
+      "waits": 527
+    }
+  ],
+  "ninewells-hospital": [
+    {
+      "month": "202401",
+      "waits": 2
+    },
+    {
+      "month": "202402",
+      "waits": 0
+    },
+    {
+      "month": "202403",
+      "waits": 6
+    },
+    {
+      "month": "202404",
+      "waits": 2
+    },
+    {
+      "month": "202405",
+      "waits": 1
+    },
+    {
+      "month": "202406",
+      "waits": 1
+    },
+    {
+      "month": "202407",
+      "waits": 0
+    },
+    {
+      "month": "202408",
+      "waits": 0
+    },
+    {
+      "month": "202409",
+      "waits": 1
+    },
+    {
+      "month": "202410",
+      "waits": 0
+    },
+    {
+      "month": "202411",
+      "waits": 0
+    },
+    {
+      "month": "202412",
+      "waits": 6
+    },
+    {
+      "month": "202501",
+      "waits": 4
+    },
+    {
+      "month": "202502",
+      "waits": 0
+    },
+    {
+      "month": "202503",
+      "waits": 0
+    },
+    {
+      "month": "202504",
+      "waits": 0
+    },
+    {
+      "month": "202505",
+      "waits": 0
+    },
+    {
+      "month": "202506",
+      "waits": 4
+    },
+    {
+      "month": "202507",
+      "waits": 1
+    },
+    {
+      "month": "202508",
+      "waits": 0
+    },
+    {
+      "month": "202509",
+      "waits": 0
+    },
+    {
+      "month": "202510",
+      "waits": 3
+    },
+    {
+      "month": "202511",
+      "waits": 4
+    },
+    {
+      "month": "202512",
+      "waits": 7
+    },
+    {
+      "month": "202601",
+      "waits": 6
+    },
+    {
+      "month": "202602",
+      "waits": 1
+    },
+    {
+      "month": "202603",
+      "waits": 2
+    },
+    {
+      "month": "202604",
+      "waits": 5
+    },
+    {
+      "month": "202605",
+      "waits": 2
+    },
+    {
+      "month": "202606",
+      "waits": 0
+    }
+  ]
+}

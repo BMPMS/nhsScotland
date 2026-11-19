@@ -1,0 +1,502 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>@import url("https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600&display=swap"); body { margin: 0; } svg { display: block; width: 100%; height: auto; font-family: 'Source Sans 3', sans-serif; }</style>
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+</head>
+<body>
+<svg id="stage">
+  <text class="intro" text-anchor="middle"></text>
+  <g class="stageGroup">
+  <defs><clipPath id="tabClip"><path class="tabShape" /></clipPath></defs>
+  <path class="outlineFill" />
+  <g clip-path="url(#tabClip)">
+    <rect class="tabFill ae" />
+    <rect class="tabFill other" />
+  </g>
+  <path class="outline" fill="none" />
+  <line class="divider" />
+  <text class="tabLabel ae" text-anchor="middle"><tspan>Accident</tspan><tspan>and</tspan><tspan>Emergency</tspan></text>
+  <text class="tabLabel other" text-anchor="middle"><tspan>Other</tspan><tspan>Hospital</tspan><tspan>Departments</tspan></text>
+  <text class="areaLabel triage" text-anchor="middle">triage</text>
+  <rect class="area triage" />
+  <text class="areaLabel assessment" text-anchor="middle">assessment + treatment</text>
+  <rect class="area assessment" />
+  <text class="areaLabel admit" text-anchor="middle">admit</text>
+  <g class="beds"></g>
+  <text class="exitLabel transfer">transfer</text>
+  <rect class="exit transfer" />
+  <text class="exitLabel discharge">discharge</text>
+  <rect class="exit discharge" />
+  <g class="people"></g>
+  </g>
+</svg>
+<script>
+const colours = { red: '#DA291C', orange: '#ED8B00', navy: '#104B88', blue: '#0097DE', slate: '#425563', slateFaint: '#AAB2B9', mist: '#F0F1F3', white: '#FFFFFF' };
+const capHeight = 0.66;
+const bed = { width: 576, height: 512, path: 'M32 32c17.7 0 32 14.3 32 32l0 224 224 0 0-128c0-17.7 14.3-32 32-32l160 0c53 0 96 43 96 96l0 224c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-64-448 0 0 64c0 17.7-14.3 32-32 32S0 465.7 0 448L0 64C0 46.3 14.3 32 32 32zM112 192a64 64 0 1 1 128 0 64 64 0 1 1 -128 0z' };
+
+const config = {
+  body: { left: 0.075, right: 0.925, top: 0.253, bottom: 0.818, radius: 0.082 },
+  tab: { left: 0.263, right: 0.735, top: 0.068, radius: 0.07 },
+  strokeShare: 0.005,
+  dashShare: 0.01,
+  tabTextShare: 0.025,
+  tabLeading: 1.05,
+  labelShare: 0.027,
+  labelGapShare: 0.017,
+  area: { widthShare: 0.75, triageTop: 0.337, assessmentTop: 0.572, heightShare: 0.171, radiusShare: 0.01 },
+  beds: { columns: 6, rows: 9, top: 0.353, widthShare: 0.045, xGapShare: 0.0158, yGapShare: 0.0047 },
+  exits: { y: 0.883, widthShare: 0.15, heightShare: 0.068, labelGapShare: 0.025, transfer: 0.137, discharge: 0.533 }
+};
+
+const roundedTab = (left, right, top, bottom, r) => `M${left},${bottom}V${top + r}A${r},${r} 0 0 1 ${left + r},${top}H${right - r}A${r},${r} 0 0 1 ${right},${top + r}V${bottom}`;
+
+const stageLayout = (width) => {
+  const s = (v) => v * width;
+  const body = { left: s(config.body.left), right: s(config.body.right), top: s(config.body.top), bottom: s(config.body.bottom), r: s(config.body.radius) };
+  const tab = { left: s(config.tab.left), right: s(config.tab.right), top: s(config.tab.top), r: s(config.tab.radius) };
+  const stroke = s(config.strokeShare);
+  const divider = (tab.left + tab.right) / 2;
+  const outline = `${roundedTab(tab.left, tab.right, tab.top, body.top, tab.r)}H${body.right - body.r}A${body.r},${body.r} 0 0 1 ${body.right},${body.top + body.r}V${body.bottom - body.r}A${body.r},${body.r} 0 0 1 ${body.right - body.r},${body.bottom}H${body.left + body.r}A${body.r},${body.r} 0 0 1 ${body.left},${body.bottom - body.r}V${body.top + body.r}A${body.r},${body.r} 0 0 1 ${body.left + body.r},${body.top}Z`;
+  const tabBottom = body.top + stroke / 2;
+  const leftCentre = (body.left + divider) / 2;
+  const rightCentre = (divider + body.right) / 2;
+  const areaWidth = (divider - body.left) * config.area.widthShare;
+  const area = (top) => ({ x: leftCentre - areaWidth / 2, y: s(top), width: areaWidth, height: s(config.area.heightShare) });
+  const bedWidth = s(config.beds.widthShare);
+  const bedHeight = (bedWidth * bed.height) / bed.width;
+  const bedsWidth = config.beds.columns * bedWidth + (config.beds.columns - 1) * s(config.beds.xGapShare);
+  const beds = d3.range(config.beds.columns * config.beds.rows).map((i) => ({
+    id: i,
+    x: rightCentre - bedsWidth / 2 + (i % config.beds.columns) * (bedWidth + s(config.beds.xGapShare)),
+    y: s(config.beds.top) + Math.floor(i / config.beds.columns) * (bedHeight + s(config.beds.yGapShare))
+  }));
+  return { body, tab, stroke, divider, outline, tabShape: `${roundedTab(tab.left, tab.right, tab.top, tabBottom, tab.r)}Z`, tabBottom, leftCentre, rightCentre, triage: area(config.area.triageTop), assessment: area(config.area.assessmentTop), beds, bedScale: bedWidth / bed.width };
+};
+
+const draw = (width) => {
+  const svg = d3.select('#stage').attr('viewBox', `0 0 ${width} ${width}`);
+  const l = stageLayout(width);
+  const s = (v) => v * width;
+  const labelSize = s(config.labelShare);
+  const labelGap = s(config.labelGapShare);
+
+  svg.select('.tabShape').attr('d', l.tabShape);
+  svg.select('.outlineFill').attr('d', l.outline).attr('fill', colours.white);
+  svg.select('.outline').attr('d', l.outline).attr('stroke', colours.blue).attr('stroke-width', l.stroke);
+  svg.select('.tabFill.ae').attr('x', l.tab.left).attr('width', l.divider - l.tab.left).attr('fill', colours.red);
+  svg.select('.tabFill.other').attr('x', l.divider).attr('width', l.tab.right - l.divider).attr('fill', colours.navy);
+  svg.selectAll('.tabFill').attr('y', l.tab.top).attr('height', l.tabBottom - l.tab.top);
+  svg.select('.divider').attr('x1', l.divider).attr('x2', l.divider).attr('y1', l.tab.top).attr('y2', l.body.bottom).attr('stroke', colours.blue).attr('stroke-width', l.stroke).attr('stroke-dasharray', `${s(config.dashShare)} ${s(config.dashShare) * 0.8}`);
+
+  const tabSize = s(config.tabTextShare);
+  const tabLabel = svg.selectAll('.tabLabel').attr('font-size', tabSize).attr('font-weight', 600).attr('fill', colours.white);
+  tabLabel.each(function () {
+    const text = d3.select(this);
+    const x = text.classed('ae') ? (l.tab.left + l.divider) / 2 : (l.divider + l.tab.right) / 2;
+    const lines = text.selectAll('tspan').size();
+    const block = tabSize * capHeight + (lines - 1) * tabSize * config.tabLeading;
+    const first = (l.tab.top + l.body.top) / 2 - block / 2 + tabSize * capHeight;
+    text.selectAll('tspan').attr('x', x).attr('y', (d, i) => first + i * tabSize * config.tabLeading);
+  });
+
+  svg.selectAll('.areaLabel, .exitLabel').attr('font-size', labelSize).attr('fill', colours.slate);
+  ['triage', 'assessment'].forEach((key) => {
+    const a = l[key];
+    svg.select(`.area.${key}`).attr('x', a.x).attr('y', a.y).attr('width', a.width).attr('height', a.height).attr('rx', s(config.area.radiusShare)).attr('fill', colours.mist);
+    svg.select(`.areaLabel.${key}`).attr('x', l.leftCentre).attr('y', a.y - labelGap);
+  });
+  svg.select('.areaLabel.admit').attr('x', l.rightCentre).attr('y', l.triage.y - labelGap);
+
+  const bedIcon = svg
+    .select('.beds')
+    .selectAll('.bed')
+    .data(l.beds, (d) => d.id)
+    .join((group) => {
+      const enter = group.append('path').attr('class', 'bed').attr('d', bed.path);
+      return enter;
+    });
+  bedIcon.attr('transform', (d) => `translate(${d.x},${d.y}) scale(${l.bedScale})`).attr('fill', colours.slateFaint);
+
+  ['transfer', 'discharge'].forEach((key) => {
+    const label = svg.select(`.exitLabel.${key}`).attr('x', s(config.exits[key])).attr('y', s(config.exits.y) + (s(config.exits.heightShare) + labelSize * capHeight) / 2);
+    svg
+      .select(`.exit.${key}`)
+      .attr('x', s(config.exits[key]) + label.node().getComputedTextLength() + s(config.exits.labelGapShare))
+      .attr('y', s(config.exits.y))
+      .attr('width', s(config.exits.widthShare))
+      .attr('height', s(config.exits.heightShare))
+      .attr('rx', s(config.area.radiusShare))
+      .attr('fill', colours.mist);
+  });
+};
+
+
+</script>
+<script>window.stageKey = 'pileUp';
+const icons = {
+  person: { width: 384, path: 'M248 24a56 56 0 1 0 -112 0 56 56 0 1 0 112 0zM272 236.7l46.3 62.4c10.5 14.2 30.6 17.2 44.8 6.6s17.2-30.6 6.6-44.8l-70.5-95C274 132 234.3 112 192 112s-82 20-107.2 53.9l-70.5 95c-10.5 14.2-7.6 34.2 6.6 44.8s34.2 7.6 44.8-6.6L112 236.7 112 512c0 17.7 14.3 32 32 32s32-14.3 32-32l0-160c0-8.8 7.2-16 16-16s16 7.2 16 16l0 160c0 17.7 14.3 32 32 32s32-14.3 32-32l0-275.3z' },
+  older: { width: 448, path: 'M232-32a56 56 0 1 1 0 112 56 56 0 1 1 0-112zM144 236.7L97.7 299.1c-10.5 14.2-30.6 17.2-44.8 6.6s-17.2-30.6-6.6-44.8l70.5-95C142 132 181.7 112 224 112s82 20 107.2 53.9l70.5 95c10.5 14.2 7.6 34.2-6.6 44.8s-34.2 7.6-44.8-6.6L304 236.7 304 512c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-160c0-8.8-7.2-16-16-16s-16 7.2-16 16l0 160c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-275.3zM392 384c-4.4 0-8 3.6-8 8 0 13.3-10.7 24-24 24s-24-10.7-24-24c0-30.9 25.1-56 56-56s56 25.1 56 56l0 128c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-128c0-4.4-3.6-8-8-8z' },
+  top: -32,
+  height: 576
+};
+
+const stages = {
+  well: {
+    intro: 'When things are going well, patients flow through the system smoothly',
+    highlight: true,
+    start: { triage: 12, assess: 14, occupancy: 0.6, delayed: 0 },
+    packing: 'spread',
+    collidePad: 0.9,
+    packingDensity: 0.8,
+    triageDwell: 11000,
+    boxDamping: 0,
+    gravity: 0,
+    collideStrength: 1,
+    pulse: { low: 0.8, period: 1600 },
+    occupancyRange: [0.6, 0.93],
+    cycle: 40000,
+    admitShares: [0.15, 0.7],
+    bedCheckEvery: 1000,
+    minFree: 3,
+    arriveEvery: 900,
+    delayEvery: 2500,
+    delayLength: [4000, 7000],
+    longDelayChance: 0.15,
+    longDelayLength: [9000, 10000],
+    waitForBed: false
+  },
+  pileUp: {
+    intro: 'If you start with high occupancy and bed delays then the problems begin',
+    highlight: false,
+    start: { triage: 34, assess: 26, occupancy: 0.85, delayed: 0.3 },
+    packing: 'gravity',
+    collidePad: 0.62,
+    packingDensity: 1.15,
+    triageDwell: 3000,
+    boxDamping: 0.3,
+    gravity: 0.08,
+    collideStrength: 0.35,
+    pulse: { low: 0.35, period: 900 },
+    capacityDelays: 0.4,
+    admitShare: 0.6,
+    bedLeaveEvery: 12000,
+    arriveEvery: 350,
+    delayEvery: 5000,
+    delayLength: [25000, 40000],
+    longDelayChance: 0,
+    longDelayLength: [25000, 40000],
+    waitForBed: true
+  }
+};
+const stage = stages[window.stageKey];
+
+const flow = {
+  olderShare: 0.14,
+  olderAdmitRatio: 2.5,
+  bedOlderShare: 0.45,
+  olderStayChance: 0.8,
+  delayOlderShare: 0.66,
+  delayToRed: 4000,
+  stageTopShare: 0.04,
+  introY: 0.065,
+  highlightAfter: 1500,
+  highlightHold: 2000,
+  highlightGrow: 2,
+  highlightTime: 400,
+  pool: 300,
+  capacityCheckEvery: 1000,
+  personShare: 0.045,
+  boxPadShare: 0.012,
+  candidates: 12,
+  assessDwell: 12500,
+  transfer: 0.1,
+  settle: 0.02,
+  lanePull: 0.006,
+  steer: 0.035,
+  velocityDecay: 0.3,
+  mergeTime: 900,
+  fadeTime: 300,
+  exitGapShare: 0.03,
+  exitAboveShare: 0.012
+};
+
+const run = (width) => {
+  draw(width);
+  const l = stageLayout(width);
+  const s = (v) => v * width;
+  const svg = d3.select('#stage');
+  svg.select('.stageGroup').attr('transform', `translate(0,${s(flow.stageTopShare)})`);
+  svg
+    .select('.intro')
+    .text(stage.intro)
+    .attr('x', width / 2)
+    .attr('y', s(flow.introY))
+    .attr('font-size', s(config.tabTextShare))
+    .attr('font-weight', 600)
+    .attr('fill', colours.slate);
+  const labels = svg.selectAll('.areaLabel, .exitLabel');
+  const labelSize = +labels.attr('font-size');
+  if (stage.highlight)
+    d3.timeout(
+      () =>
+        labels
+          .transition()
+          .duration(flow.highlightTime)
+          .attr('font-size', labelSize + flow.highlightGrow * (width / 600))
+          .attr('font-weight', 600)
+          .transition()
+          .delay(flow.highlightHold)
+          .duration(flow.highlightTime)
+          .attr('font-size', labelSize)
+          .attr('font-weight', 400),
+      flow.highlightAfter
+    );
+
+  const size = s(flow.personShare);
+  const r = (size / 2) * stage.collidePad;
+  const scale = size / icons.height;
+  const pad = size / 2 + s(flow.boxPadShare);
+  const inset = (box) => ({ x0: box.x + pad, x1: box.x + box.width - pad, y0: box.y + pad, y1: box.y + box.height - pad });
+  const boxes = { triage: inset(l.triage), assess: inset(l.assessment) };
+  const capacity = (box) => Math.floor((((box.x1 - box.x0 + 2 * r) * (box.y1 - box.y0 + 2 * r)) / (4 * r * r)) * stage.packingDensity);
+  const capacities = { triage: capacity(boxes.triage), assess: capacity(boxes.assess) };
+  const exitY = l.body.bottom + s(flow.exitGapShare);
+  const exitSpot = (key) => {
+    const node = svg.select(`.exit.${key}`);
+    const x = +node.attr('x') + +node.attr('width') / 2;
+    return { above: { x, y: +node.attr('y') - size / 2 - s(flow.exitAboveShare) }, inside: { x, y: +node.attr('y') + +node.attr('height') / 2 } };
+  };
+  const exits = { transfer: exitSpot('transfer'), discharge: exitSpot('discharge') };
+  const bedSize = { width: l.bedScale * bed.width, height: l.bedScale * bed.height };
+  const belowBeds = d3.max(l.beds, (b) => b.y) + bedSize.height + r;
+  const fillOrder = d3.sort(l.beds, (b) => -b.y, (b) => b.x);
+
+  const steady = (share) => {
+    let count = 0;
+    return () => Math.floor(++count * share) > Math.floor((count - 1) * share);
+  };
+  const isOlder = steady(flow.olderShare);
+  const isOlderInBed = steady(flow.bedOlderShare);
+  const baseColour = (older) => (older ? colours.blue : colours.navy);
+
+  const full = fillOrder.slice(0, Math.round(l.beds.length * stage.start.occupancy));
+  const beds = fillOrder.map((b) => ({ ...b, cx: b.x + bedSize.width / 2, cy: b.y + bedSize.height / 2, level: 0, older: false, busy: false, delayedAt: null, colour: null }));
+  beds.slice(0, full.length).forEach((b) => Object.assign(b, { level: 1, older: isOlderInBed() }));
+
+  const people = d3.range(flow.pool).map((id) => ({ id, older: false, state: 'idle', x: 0, y: 0, opacity: 0, scale: 1, route: [] }));
+  const active = () => people.filter((p) => p.state !== 'idle');
+  const inState = (key) => people.filter((p) => p.state === key).length;
+
+  const spotIn = (key) => {
+    const box = boxes[key];
+    const taken = active().filter((p) => p.state === key && p.spot).map((p) => p.spot);
+    return d3.greatest(
+      d3.range(flow.candidates).map(() => ({ x: box.x0 + Math.random() * (box.x1 - box.x0), y: box.y0 + Math.random() * (box.y1 - box.y0) })),
+      (c) => d3.min(taken, (t) => Math.hypot(t.x - c.x, t.y - c.y)) ?? 0
+    );
+  };
+
+  const routes = {
+    arrive: () => [{ x: boxes.triage.x0, y: boxes.triage.y0 }],
+    toAssess: () => [{ x: boxes.triage.x1, y: boxes.triage.y1 + pad }, { x: boxes.assess.x1, y: boxes.assess.y0 - pad }],
+    admit: (b) => [{ x: boxes.assess.x1 + pad, y: boxes.assess.y1 - pad }, { x: l.divider, y: b.cy }, { x: b.cx, y: b.cy }],
+    exit: (key) => [{ x: boxes.assess.x1 - r, y: boxes.assess.y1 + pad }, { x: boxes.assess.x1 - r, y: exitY }, { x: exits[key].above.x, y: exitY }, exits[key].above, exits[key].inside],
+    fromBed: (b) => [{ x: b.cx, y: belowBeds }, { x: exits.discharge.above.x, y: belowBeds }, exits.discharge.above, exits.discharge.inside]
+  };
+
+  const use = (props) => Object.assign(people.find((p) => p.state === 'idle'), { vx: 0, vy: 0, opacity: 1, scale: 1, route: [], spot: null, lane: null, colour: null, waiting: false, since: d3.now() }, props);
+
+  const enterBox = (p, key, now) =>
+    Object.assign(p, { state: key, route: [], since: now }, stage.packing === 'spread' ? { spot: spotIn(key) } : { lane: boxes[key].x0 + Math.random() * (boxes[key].x1 - boxes[key].x0) });
+
+  ['triage', 'assess'].forEach((key) =>
+    d3.range(stage.start[key]).forEach(() => {
+      const p = use({ older: isOlder() });
+      enterBox(p, key, d3.now() - Math.random() * (key === 'triage' ? stage.triageDwell : flow.assessDwell));
+      Object.assign(p, spotIn(key));
+    })
+  );
+
+  const arrive = () => use({ older: isOlder(), state: 'arriving', x: boxes.triage.x0, y: l.body.top - size, route: routes.arrive() });
+
+  const delayProgress = (b, now) => (b.delayedAt === null ? 0 : Math.min(1, (now - b.delayedAt) / flow.delayToRed));
+  const bedColour = (b, now) =>
+    b.colour ?? d3.scaleLinear([0, 0.5, 1], [baseColour(b.older), colours.orange, colours.red]).interpolate(d3.interpolateRgb)(delayProgress(b, now));
+
+  const leaveBed = (chosen) => {
+    const ready = beds.filter((q) => q.level === 1 && !q.busy && q.delayedAt === null);
+    const younger = ready.filter((q) => !q.older);
+    const b = chosen ?? d3.shuffle(younger.length && Math.random() < flow.olderStayChance ? younger : ready)[0];
+    if (!b) return;
+    Object.assign(b, { busy: true, colour: bedColour(b, d3.now()), delayedAt: null });
+    use({ older: b.older, colour: b.colour, state: 'rising', bed: b, x: b.cx, y: b.cy, scale: 0, opacity: 0 });
+  };
+
+  const delay = (b, now) => {
+    const [low, high] = Math.random() < stage.longDelayChance ? stage.longDelayLength : stage.delayLength;
+    Object.assign(b, { delayedAt: now, until: now + low + Math.random() * (high - low) });
+  };
+
+  const startDelay = () => {
+    const free = beds.filter((q) => q.level === 1 && !q.busy && q.delayedAt === null);
+    const older = free.filter((q) => q.older);
+    const b = d3.shuffle(older.length && Math.random() < flow.delayOlderShare ? older : free.filter((q) => !q.older))[0];
+    if (b) delay(b, d3.now());
+  };
+
+  const startDelays = Math.round(full.length * stage.start.delayed);
+  d3.range(startDelays).forEach(() => startDelay());
+  beds.filter((b) => b.delayedAt !== null).forEach((b) => Object.assign(b, { delayedAt: b.delayedAt - Math.random() * flow.delayToRed, until: b.delayedAt + Math.random() * (b.until - b.delayedAt) }));
+
+  const occupied = () => beds.filter((b) => b.level === 1 || b.busy).length / beds.length;
+  const target = () => stage.occupancyRange[0] + (stage.occupancyRange[1] - stage.occupancyRange[0]) * (0.5 - 0.5 * Math.cos((2 * Math.PI * d3.now()) / stage.cycle));
+  const admitShare = () => stage.admitShare ?? stage.admitShares[+(occupied() < target())];
+
+  const outcome = (p) => {
+    const base = admitShare() / (1 + flow.olderShare * (flow.olderAdmitRatio - 1));
+    const admit = Math.min(1, p.older ? base * flow.olderAdmitRatio : base);
+    const u = Math.random();
+    return u < admit ? 'admit' : u < admit + flow.transfer ? 'transfer' : 'discharge';
+  };
+
+  const vacant = () => beds.filter((q) => q.level === 0 && !q.busy);
+
+  const decide = (p, now) => {
+    if (p.state === 'triage' && now - p.since > stage.triageDwell && inState('assess') + inState('toAssess') < capacities.assess)
+      Object.assign(p, { state: 'toAssess', spot: null, lane: null, route: routes.toAssess() });
+    if (p.state !== 'assess' || now - p.since < flow.assessDwell) return;
+    const choice = p.waiting ? 'admit' : outcome(p);
+    if (choice === 'admit' && stage.minFree && vacant().length <= stage.minFree) leaveBed(beds.find((q) => q.delayedAt !== null && !q.busy));
+    const b = choice === 'admit' && vacant()[0];
+    if (b) {
+      Object.assign(b, { busy: true, older: p.older, colour: null });
+      Object.assign(p, { state: 'toBed', spot: null, lane: null, bed: b, route: routes.admit(b) });
+    } else if (choice === 'admit' && stage.waitForBed) p.waiting = true;
+    else {
+      const key = choice === 'transfer' ? 'transfer' : 'discharge';
+      Object.assign(p, { state: 'leaving', spot: null, lane: null, route: routes.exit(key) });
+    }
+  };
+
+  const reached = (p, now) => {
+    if (p.state === 'arriving') enterBox(p, 'triage', now);
+    else if (p.state === 'toAssess') enterBox(p, 'assess', now);
+    else if (p.state === 'toBed') Object.assign(p, { state: 'merging', since: now });
+    else if (p.state === 'leaving') Object.assign(p, { state: 'fading', since: now });
+  };
+
+  const move = () => {
+    const now = d3.now();
+    active().forEach((p) => {
+      decide(p, now);
+      if (p.route.length) {
+        const [target] = p.route;
+        p.vx += (target.x - p.x) * flow.steer;
+        p.vy += (target.y - p.y) * flow.steer;
+        if (Math.hypot(target.x - p.x, target.y - p.y) < r) {
+          p.route.shift();
+          if (!p.route.length) reached(p, now);
+        }
+      } else if (p.spot) {
+        p.vx += (p.spot.x - p.x) * flow.settle;
+        p.vy += (p.spot.y - p.y) * flow.settle;
+      } else if (p.lane !== null) {
+        p.vx *= 1 - stage.boxDamping;
+        p.vy *= 1 - stage.boxDamping;
+        p.vy += stage.gravity;
+        p.vx += (p.lane - p.x) * flow.lanePull;
+      }
+    });
+  };
+
+  const contain = (p, box) => {
+    if (p.x < box.x0) (p.x = box.x0), (p.vx = 0);
+    if (p.x > box.x1) (p.x = box.x1), (p.vx = 0);
+    if (p.y < box.y0) (p.y = box.y0), (p.vy = 0);
+    if (p.y > box.y1) (p.y = box.y1), (p.vy = 0);
+  };
+
+  const delays = (now) =>
+    beds
+      .filter((b) => b.delayedAt !== null && !b.busy && now > b.until)
+      .forEach((b) => leaveBed(b));
+
+  const animate = (now) => {
+    delays(now);
+    active().forEach((p) => {
+      const t = Math.min(1, (now - p.since) / (p.state === 'fading' ? flow.fadeTime : flow.mergeTime));
+      if (p.state === 'triage' || p.state === 'assess') contain(p, boxes[p.state]);
+      if (p.state === 'merging') {
+        Object.assign(p, { scale: 1 - t, opacity: 1 - t, vx: 0, vy: 0, x: p.bed.cx, y: p.bed.cy });
+        p.bed.level = t;
+        if (t === 1) (p.bed.busy = false), (p.state = 'idle');
+      }
+      if (p.state === 'rising') {
+        Object.assign(p, { scale: t, opacity: t, vx: 0, vy: 0, x: p.bed.cx, y: p.bed.cy });
+        p.bed.level = 1 - t;
+        if (t === 1) (p.bed.busy = false), Object.assign(p, { state: 'leaving', route: routes.fromBed(p.bed) });
+      }
+      if (p.state === 'fading') Object.assign(p, { opacity: 1 - t, vx: 0, vy: 0 }), t === 1 && (p.state = 'idle');
+    });
+  };
+
+  const inBox = (p) => p.state === 'triage' || p.state === 'assess';
+  const collide = d3.forceCollide(r).strength(stage.collideStrength).iterations(3);
+  const simulation = d3
+    .forceSimulation()
+    .alphaDecay(0)
+    .velocityDecay(flow.velocityDecay)
+    .force('move', move)
+    .force('collide', (alpha) => {
+      collide.initialize(active().filter(inBox), Math.random);
+      collide(alpha);
+    })
+    .on('tick', () => {
+      const now = d3.now();
+      animate(now);
+      simulation.nodes(active().filter((p) => !['merging', 'rising', 'fading'].includes(p.state)));
+      active().filter(inBox).forEach((p) => contain(p, boxes[p.state]));
+      render(now);
+    });
+
+  const bedIcon = svg.selectAll('.bed').data(beds, (d) => d.id);
+  const render = (now) => {
+    const person = svg
+      .select('.people')
+      .selectAll('.person')
+      .data(people, (p) => p.id)
+      .join((group) => {
+        const enter = group.append('path').attr('class', 'person');
+        return enter;
+      });
+    person
+      .attr('opacity', (p) => (p.state === 'idle' ? 0 : p.opacity))
+      .attr('transform', (p) => {
+        const k = scale * p.scale;
+        const w = (p.older ? icons.older : icons.person).width;
+        return `translate(${p.x - (w / 2) * k},${p.y - (icons.top + icons.height / 2) * k}) scale(${k})`;
+      });
+    person.attr('d', (p) => (p.older ? icons.older : icons.person).path).attr('fill', (p) => p.colour ?? baseColour(p.older));
+
+    const pulse = stage.pulse.low + ((1 - stage.pulse.low) * (1 + Math.sin((2 * Math.PI * now) / stage.pulse.period))) / 2;
+    bedIcon
+      .attr('opacity', (b) => (delayProgress(b, now) === 1 ? pulse : 1))
+      .attr('fill', (b) => d3.interpolateRgb(colours.slateFaint, bedColour(b, now))(b.level));
+  };
+
+  simulation.nodes(active());
+  d3.interval(arrive, stage.arriveEvery);
+  const delayedShare = () => beds.filter((b) => b.delayedAt !== null).length / Math.max(1, beds.filter((b) => b.level === 1).length);
+  d3.interval(startDelay, stage.delayEvery);
+  if (stage.capacityDelays) d3.interval(() => occupied() === 1 && delayedShare() < stage.capacityDelays && startDelay(), flow.capacityCheckEvery);
+  if (stage.bedLeaveEvery) d3.interval(() => leaveBed(), stage.bedLeaveEvery);
+  else d3.interval(() => occupied() > target() && leaveBed(), stage.bedCheckEvery);
+};
+
+document.fonts.ready.then(() => run(document.getElementById('stage').getBoundingClientRect().width));
+</script>
+</body>
+</html>

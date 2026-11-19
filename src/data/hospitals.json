@@ -5,6 +5,11 @@
     "shortName": "Aberdeen Royal",
     "board": "NHS Grampian",
     "waits2025": 5645,
+    "unplanned2025": 56729,
+    "planned2025": 216,
+    "age": 41.95816662085255,
+    "deprivation": 3.5256304531525204,
+    "occupancy": 94.39206011242916,
     "waitsByYear": [
       {
         "year": 2016,
@@ -80,6 +85,10 @@
     "shortName": "Belford",
     "board": "NHS Highland",
     "waits2025": 131,
+    "unplanned2025": 9479,
+    "planned2025": 633,
+    "age": 46.05671606495349,
+    "deprivation": 3.034573545640864,
     "waitsByYear": [
       {
         "year": 2016,
@@ -155,6 +164,11 @@
     "shortName": "Borders General",
     "board": "NHS Borders",
     "waits2025": 3607,
+    "unplanned2025": 32707,
+    "planned2025": 2247,
+    "age": 49.44412060914945,
+    "deprivation": 3.1592761009552293,
+    "occupancy": 93.62756636589512,
     "waitsByYear": [
       {
         "year": 2016,
@@ -230,6 +244,10 @@
     "shortName": "Caithness General",
     "board": "NHS Highland",
     "waits2025": 870,
+    "unplanned2025": 9795,
+    "planned2025": 786,
+    "age": 46.05671606495349,
+    "deprivation": 3.034573545640864,
     "waitsByYear": [
       {
         "year": 2016,
@@ -305,6 +323,10 @@
     "shortName": "Dr Gray's",
     "board": "NHS Grampian",
     "waits2025": 1585,
+    "unplanned2025": 26423,
+    "planned2025": 1823,
+    "age": 41.95816662085255,
+    "deprivation": 3.5256304531525204,
     "waitsByYear": [
       {
         "year": 2016,
@@ -380,6 +402,10 @@
     "shortName": "Dumfries & Galloway",
     "board": "NHS Dumfries and Galloway",
     "waits2025": 1052,
+    "unplanned2025": 36237,
+    "planned2025": 3165,
+    "age": 46.51230561189993,
+    "deprivation": 2.690736984448952,
     "waitsByYear": [
       {
         "year": 2016,
@@ -455,6 +481,11 @@
     "shortName": "Forth Valley Royal",
     "board": "NHS Forth Valley",
     "waits2025": 6378,
+    "unplanned2025": 60447,
+    "planned2025": 2984,
+    "age": 45.47765821038451,
+    "deprivation": 2.750839947411988,
+    "occupancy": 79.6847912414494,
     "waitsByYear": [
       {
         "year": 2016,
@@ -530,6 +561,10 @@
     "shortName": "Galloway Community",
     "board": "NHS Dumfries and Galloway",
     "waits2025": 89,
+    "unplanned2025": 13935,
+    "planned2025": 1066,
+    "age": 46.51230561189993,
+    "deprivation": 2.690736984448952,
     "waitsByYear": [
       {
         "year": 2016,
@@ -605,6 +640,10 @@
     "shortName": "Gilbert Bain",
     "board": "NHS Shetland",
     "waits2025": 18,
+    "unplanned2025": 8308,
+    "planned2025": 318,
+    "age": 45.89227467811159,
+    "deprivation": 3.5820968730839975,
     "waitsByYear": [
       {
         "year": 2016,
@@ -680,6 +719,11 @@
     "shortName": "Glasgow Royal",
     "board": "NHS Greater Glasgow and Clyde",
     "waits2025": 4722,
+    "unplanned2025": 84096,
+    "planned2025": 851,
+    "age": 39.869501756024825,
+    "deprivation": 2.2817484198770632,
+    "occupancy": 94.14035650807396,
     "waitsByYear": [
       {
         "year": 2016,
@@ -755,6 +799,10 @@
     "shortName": "Inverclyde",
     "board": "NHS Greater Glasgow and Clyde",
     "waits2025": 217,
+    "unplanned2025": 29092,
+    "planned2025": 90,
+    "age": 39.869501756024825,
+    "deprivation": 2.2817484198770632,
     "waitsByYear": [
       {
         "year": 2016,
@@ -830,6 +878,10 @@
     "shortName": "Lorn & Islands",
     "board": "NHS Highland",
     "waits2025": 8,
+    "unplanned2025": 9211,
+    "planned2025": 144,
+    "age": 46.05671606495349,
+    "deprivation": 3.034573545640864,
     "waitsByYear": [
       {
         "year": 2016,
@@ -905,6 +957,10 @@
     "shortName": "Ninewells",
     "board": "NHS Tayside",
     "waits2025": 23,
+    "unplanned2025": 61792,
+    "planned2025": 2160,
+    "age": 42.19078623790899,
+    "deprivation": 2.9125231280886243,
     "waitsByYear": [
       {
         "year": 2016,
@@ -980,6 +1036,10 @@
     "shortName": "Perth Royal",
     "board": "NHS Tayside",
     "waits2025": 19,
+    "unplanned2025": 23629,
+    "planned2025": 1940,
+    "age": 42.19078623790899,
+    "deprivation": 2.9125231280886243,
     "waitsByYear": [
       {
         "year": 2016,
@@ -1055,6 +1115,11 @@
     "shortName": "QE University",
     "board": "NHS Greater Glasgow and Clyde",
     "waits2025": 4458,
+    "unplanned2025": 101460,
+    "planned2025": 1806,
+    "age": 39.869501756024825,
+    "deprivation": 2.2817484198770632,
+    "occupancy": 93.80875350716055,
     "waitsByYear": [
       {
         "year": 2016,
@@ -1130,6 +1195,10 @@
     "shortName": "Raigmore",
     "board": "NHS Highland",
     "waits2025": 1703,
+    "unplanned2025": 39976,
+    "planned2025": 1472,
+    "age": 46.05671606495349,
+    "deprivation": 3.034573545640864,
     "waitsByYear": [
       {
         "year": 2016,
@@ -1205,6 +1274,10 @@
     "shortName": "Aberdeen Children's",
     "board": "NHS Grampian",
     "waits2025": 19,
+    "unplanned2025": 18311,
+    "planned2025": 470,
+    "age": 41.95816662085255,
+    "deprivation": 3.5256304531525204,
     "waitsByYear": [
       {
         "year": 2016,
@@ -1280,6 +1353,10 @@
     "shortName": "Royal Alexandra",
     "board": "NHS Greater Glasgow and Clyde",
     "waits2025": 1751,
+    "unplanned2025": 55827,
+    "planned2025": 1114,
+    "age": 39.869501756024825,
+    "deprivation": 2.2817484198770632,
     "waitsByYear": [
       {
         "year": 2016,
@@ -1355,6 +1432,10 @@
     "shortName": "Glasgow Children's",
     "board": "NHS Greater Glasgow and Clyde",
     "waits2025": 0,
+    "unplanned2025": 74312,
+    "planned2025": 245,
+    "age": 39.869501756024825,
+    "deprivation": 2.2817484198770632,
     "waitsByYear": [
       {
         "year": 2016,
@@ -1430,6 +1511,10 @@
     "shortName": "Edinburgh Children's",
     "board": "NHS Lothian",
     "waits2025": 11,
+    "unplanned2025": 52971,
+    "planned2025": 1577,
+    "age": 38.88851758518681,
+    "deprivation": 2.9570110660677114,
     "waitsByYear": [
       {
         "year": 2016,
@@ -1505,6 +1590,11 @@
     "shortName": "Royal Infirmary Edinburgh",
     "board": "NHS Lothian",
     "waits2025": 7907,
+    "unplanned2025": 124177,
+    "planned2025": 6340,
+    "age": 38.88851758518681,
+    "deprivation": 2.9570110660677114,
+    "occupancy": 89.04207111727416,
     "waitsByYear": [
       {
         "year": 2016,
@@ -1580,6 +1670,10 @@
     "shortName": "St John's",
     "board": "NHS Lothian",
     "waits2025": 3159,
+    "unplanned2025": 56609,
+    "planned2025": 8850,
+    "age": 38.88851758518681,
+    "deprivation": 2.9570110660677114,
     "waitsByYear": [
       {
         "year": 2016,
@@ -1655,6 +1749,10 @@
     "shortName": "Balfour",
     "board": "NHS Orkney",
     "waits2025": 4,
+    "unplanned2025": 7850,
+    "planned2025": 693,
+    "age": 46.67354205033763,
+    "deprivation": 3.5359116022099446,
     "waitsByYear": [
       {
         "year": 2016,
@@ -1730,6 +1828,11 @@
     "shortName": "Ayr",
     "board": "NHS Ayrshire and Arran",
     "waits2025": 4304,
+    "unplanned2025": 33662,
+    "planned2025": 667,
+    "age": 43.67089757127772,
+    "deprivation": 2.3103273495248153,
+    "occupancy": 98.38458990496089,
     "waitsByYear": [
       {
         "year": 2016,
@@ -1805,6 +1908,11 @@
     "shortName": "Crosshouse",
     "board": "NHS Ayrshire and Arran",
     "waits2025": 5704,
+    "unplanned2025": 62962,
+    "planned2025": 1211,
+    "age": 43.67089757127772,
+    "deprivation": 2.3103273495248153,
+    "occupancy": 96.9321950620317,
     "waitsByYear": [
       {
         "year": 2016,
@@ -1880,6 +1988,11 @@
     "shortName": "Hairmyres",
     "board": "NHS Lanarkshire",
     "waits2025": 6512,
+    "unplanned2025": 63161,
+    "planned2025": 42,
+    "age": 46.986937021703675,
+    "deprivation": 2.3987004976372686,
+    "occupancy": 88.87288895625703,
     "waitsByYear": [
       {
         "year": 2016,
@@ -1955,6 +2068,11 @@
     "shortName": "Monklands",
     "board": "NHS Lanarkshire",
     "waits2025": 4001,
+    "unplanned2025": 64571,
+    "planned2025": 11,
+    "age": 46.986937021703675,
+    "deprivation": 2.3987004976372686,
+    "occupancy": 92.75025515129782,
     "waitsByYear": [
       {
         "year": 2016,
@@ -2030,6 +2148,11 @@
     "shortName": "Wishaw",
     "board": "NHS Lanarkshire",
     "waits2025": 9311,
+    "unplanned2025": 70243,
+    "planned2025": 31,
+    "age": 46.986937021703675,
+    "deprivation": 2.3987004976372686,
+    "occupancy": 91.68286849847732,
     "waitsByYear": [
       {
         "year": 2016,
@@ -2105,6 +2228,10 @@
     "shortName": "Victoria",
     "board": "NHS Fife",
     "waits2025": 1869,
+    "unplanned2025": 69151,
+    "planned2025": 2491,
+    "age": 43.766392437035435,
+    "deprivation": 2.511091866926463,
     "waitsByYear": [
       {
         "year": 2016,
@@ -2180,6 +2307,10 @@
     "shortName": "Western Isles",
     "board": "NHS Western Isles",
     "waits2025": 0,
+    "unplanned2025": 5963,
+    "planned2025": 453,
+    "age": 47.485444330949946,
+    "deprivation": 2.8481443649982974,
     "waitsByYear": [
       {
         "year": 2016,

@@ -1,0 +1,139 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>@import url("https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600&display=swap"); body { margin: 0; } svg { display: block; width: 100%; height: auto; font-family: 'Source Sans 3', sans-serif; }</style>
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+</head>
+<body>
+<svg id="stage">
+  <defs><clipPath id="tabClip"><path class="tabShape" /></clipPath></defs>
+  <path class="outlineFill" />
+  <g clip-path="url(#tabClip)">
+    <rect class="tabFill ae" />
+    <rect class="tabFill other" />
+  </g>
+  <path class="outline" fill="none" />
+  <line class="divider" />
+  <text class="tabLabel ae" text-anchor="middle"><tspan>Accident</tspan><tspan>and</tspan><tspan>Emergency</tspan></text>
+  <text class="tabLabel other" text-anchor="middle"><tspan>Other</tspan><tspan>Hospital</tspan><tspan>Departments</tspan></text>
+  <text class="areaLabel triage" text-anchor="middle">triage</text>
+  <rect class="area triage" />
+  <text class="areaLabel assessment" text-anchor="middle">assessment + treatment</text>
+  <rect class="area assessment" />
+  <text class="areaLabel admit" text-anchor="middle">admit</text>
+  <g class="beds"></g>
+  <text class="exitLabel transfer">transfer</text>
+  <rect class="exit transfer" />
+  <text class="exitLabel discharge">discharge</text>
+  <rect class="exit discharge" />
+</svg>
+<script>
+const colours = { red: '#DA291C', navy: '#104B88', blue: '#0097DE', slate: '#425563', slateFaint: '#AAB2B9', mist: '#F0F1F3', white: '#FFFFFF' };
+const capHeight = 0.66;
+const bed = { width: 576, height: 512, path: 'M32 32c17.7 0 32 14.3 32 32l0 224 224 0 0-128c0-17.7 14.3-32 32-32l160 0c53 0 96 43 96 96l0 224c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-64-448 0 0 64c0 17.7-14.3 32-32 32S0 465.7 0 448L0 64C0 46.3 14.3 32 32 32zm80 160a64 64 0 1 1 128 0 64 64 0 1 1 -128 0z' };
+
+const config = {
+  body: { left: 0.075, right: 0.925, top: 0.253, bottom: 0.818, radius: 0.082 },
+  tab: { left: 0.263, right: 0.735, top: 0.068, radius: 0.07 },
+  strokeShare: 0.005,
+  dashShare: 0.01,
+  tabTextShare: 0.025,
+  tabLeading: 1.05,
+  labelShare: 0.027,
+  labelGapShare: 0.017,
+  area: { widthShare: 0.75, triageTop: 0.337, assessmentTop: 0.572, heightShare: 0.171, radiusShare: 0.01 },
+  beds: { columns: 6, rows: 9, top: 0.353, widthShare: 0.045, xGapShare: 0.0158, yGapShare: 0.0047 },
+  exits: { y: 0.883, widthShare: 0.15, heightShare: 0.068, labelGapShare: 0.025, transfer: 0.137, discharge: 0.533 }
+};
+
+const roundedTab = (left, right, top, bottom, r) => `M${left},${bottom}V${top + r}A${r},${r} 0 0 1 ${left + r},${top}H${right - r}A${r},${r} 0 0 1 ${right},${top + r}V${bottom}`;
+
+const stageLayout = (width) => {
+  const s = (v) => v * width;
+  const body = { left: s(config.body.left), right: s(config.body.right), top: s(config.body.top), bottom: s(config.body.bottom), r: s(config.body.radius) };
+  const tab = { left: s(config.tab.left), right: s(config.tab.right), top: s(config.tab.top), r: s(config.tab.radius) };
+  const stroke = s(config.strokeShare);
+  const divider = (tab.left + tab.right) / 2;
+  const outline = `${roundedTab(tab.left, tab.right, tab.top, body.top, tab.r)}H${body.right - body.r}A${body.r},${body.r} 0 0 1 ${body.right},${body.top + body.r}V${body.bottom - body.r}A${body.r},${body.r} 0 0 1 ${body.right - body.r},${body.bottom}H${body.left + body.r}A${body.r},${body.r} 0 0 1 ${body.left},${body.bottom - body.r}V${body.top + body.r}A${body.r},${body.r} 0 0 1 ${body.left + body.r},${body.top}Z`;
+  const tabBottom = body.top + stroke / 2;
+  const leftCentre = (body.left + divider) / 2;
+  const rightCentre = (divider + body.right) / 2;
+  const areaWidth = (divider - body.left) * config.area.widthShare;
+  const area = (top) => ({ x: leftCentre - areaWidth / 2, y: s(top), width: areaWidth, height: s(config.area.heightShare) });
+  const bedWidth = s(config.beds.widthShare);
+  const bedHeight = (bedWidth * bed.height) / bed.width;
+  const bedsWidth = config.beds.columns * bedWidth + (config.beds.columns - 1) * s(config.beds.xGapShare);
+  const beds = d3.range(config.beds.columns * config.beds.rows).map((i) => ({
+    id: i,
+    x: rightCentre - bedsWidth / 2 + (i % config.beds.columns) * (bedWidth + s(config.beds.xGapShare)),
+    y: s(config.beds.top) + Math.floor(i / config.beds.columns) * (bedHeight + s(config.beds.yGapShare))
+  }));
+  return { body, tab, stroke, divider, outline, tabShape: `${roundedTab(tab.left, tab.right, tab.top, tabBottom, tab.r)}Z`, tabBottom, leftCentre, rightCentre, triage: area(config.area.triageTop), assessment: area(config.area.assessmentTop), beds, bedScale: bedWidth / bed.width };
+};
+
+const draw = (width) => {
+  const svg = d3.select('#stage').attr('viewBox', `0 0 ${width} ${width}`);
+  const l = stageLayout(width);
+  const s = (v) => v * width;
+  const labelSize = s(config.labelShare);
+  const labelGap = s(config.labelGapShare);
+
+  svg.select('.tabShape').attr('d', l.tabShape);
+  svg.select('.outlineFill').attr('d', l.outline).attr('fill', colours.white);
+  svg.select('.outline').attr('d', l.outline).attr('stroke', colours.blue).attr('stroke-width', l.stroke);
+  svg.select('.tabFill.ae').attr('x', l.tab.left).attr('width', l.divider - l.tab.left).attr('fill', colours.red);
+  svg.select('.tabFill.other').attr('x', l.divider).attr('width', l.tab.right - l.divider).attr('fill', colours.navy);
+  svg.selectAll('.tabFill').attr('y', l.tab.top).attr('height', l.tabBottom - l.tab.top);
+  svg.select('.divider').attr('x1', l.divider).attr('x2', l.divider).attr('y1', l.tab.top).attr('y2', l.body.bottom).attr('stroke', colours.blue).attr('stroke-width', l.stroke).attr('stroke-dasharray', `${s(config.dashShare)} ${s(config.dashShare) * 0.8}`);
+
+  const tabSize = s(config.tabTextShare);
+  const tabLabel = svg.selectAll('.tabLabel').attr('font-size', tabSize).attr('font-weight', 600).attr('fill', colours.white);
+  tabLabel.each(function () {
+    const text = d3.select(this);
+    const x = text.classed('ae') ? (l.tab.left + l.divider) / 2 : (l.divider + l.tab.right) / 2;
+    const lines = text.selectAll('tspan').size();
+    const block = tabSize * capHeight + (lines - 1) * tabSize * config.tabLeading;
+    const first = (l.tab.top + l.body.top) / 2 - block / 2 + tabSize * capHeight;
+    text.selectAll('tspan').attr('x', x).attr('y', (d, i) => first + i * tabSize * config.tabLeading);
+  });
+
+  svg.selectAll('.areaLabel, .exitLabel').attr('font-size', labelSize).attr('fill', colours.slate);
+  ['triage', 'assessment'].forEach((key) => {
+    const a = l[key];
+    svg.select(`.area.${key}`).attr('x', a.x).attr('y', a.y).attr('width', a.width).attr('height', a.height).attr('rx', s(config.area.radiusShare)).attr('fill', colours.mist);
+    svg.select(`.areaLabel.${key}`).attr('x', l.leftCentre).attr('y', a.y - labelGap);
+  });
+  svg.select('.areaLabel.admit').attr('x', l.rightCentre).attr('y', l.triage.y - labelGap);
+
+  const bedIcon = svg
+    .select('.beds')
+    .selectAll('.bed')
+    .data(l.beds, (d) => d.id)
+    .join((group) => {
+      const enter = group.append('path').attr('class', 'bed').attr('d', bed.path);
+      return enter;
+    });
+  bedIcon.attr('transform', (d) => `translate(${d.x},${d.y}) scale(${l.bedScale})`).attr('fill', colours.slateFaint);
+
+  ['transfer', 'discharge'].forEach((key) => {
+    const label = svg.select(`.exitLabel.${key}`).attr('x', s(config.exits[key])).attr('y', s(config.exits.y) + (s(config.exits.heightShare) + labelSize * capHeight) / 2);
+    svg
+      .select(`.exit.${key}`)
+      .attr('x', s(config.exits[key]) + label.node().getComputedTextLength() + s(config.exits.labelGapShare))
+      .attr('y', s(config.exits.y))
+      .attr('width', s(config.exits.widthShare))
+      .attr('height', s(config.exits.heightShare))
+      .attr('rx', s(config.area.radiusShare))
+      .attr('fill', colours.mist);
+  });
+};
+
+document.fonts.ready.then(() => {
+  const resize = () => draw(document.getElementById('stage').getBoundingClientRect().width);
+  resize();
+  window.addEventListener('resize', resize);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+{
+  "topShare": 0.03,
+  "gapShare": 0.04,
+  "sentenceGapShare": 0.065,
+  "lineGap": 1.5,
+  "squareGapShare": 0.05,
+  "labelGapShare": 0.04,
+  "bandPadShare": 0.04,
+  "bandTextScale": 0.9,
+  "iconScale": 1.3,
+  "valueScale": 2.2,
+  "sentences": [
+    [{"text": "The age group causing the problem is the over 75's", "bold": true}],
+    [{"text": "They represent only {share}% of"}, {"text": "A&E attendances", "bold": true}],
+    [{"text": "but almost twice that ratio for"}, {"text": "hospital transfers", "bold": true}],
+    [{"text": "and two thirds of"}, {"text": "delayed bed days", "bold": true}]
+  ],
+  "squares": [
+    {"key": "olderShare", "label": "A&E attendances", "band": "Over 75s"},
+    {"key": "olderAdmissionShare", "label": "hospital transfers", "band": "Over 75s"},
+    {"key": "olderDelayShare", "label": "delayed bed days", "band": "Over 75s"}
+  ]
+}

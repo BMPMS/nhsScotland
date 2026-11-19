@@ -4,8 +4,11 @@
   { "id": "eleven", "length": 1, "move": [0, 0.5], "outline": [0.5, 0.6], "people": [0.6, 0.8] },
   { "id": "pareto", "length": 3, "fade": [0, 0.08], "morph": [0.07, 0.23], "axis": [0.2, 0.27], "overlay": [0.3, 0.35], "question": [0.37, 0.42], "focus": [0.44, 0.48], "top": [0.48, 0.52], "big": [0.52, 0.56], "ending": [0.56, 0.6], "vital": [0.63, 0.68], "switch": [0.74, 0.84] },
   { "id": "surge", "length": 3, "fadeOut": [0, 0.07], "retitle": [0.03, 0.1], "covid": [0, 0.07], "lines": [0.1, 0.3], "axis": [0.27, 0.33], "retitle8": [0.55, 0.62], "eight": [0.6, 0.8] },
-  { "id": "common", "length": 1 },
-  { "id": "beds", "length": 1 },
-  { "id": "wholeSystem", "length": 1 },
-  { "id": "footer", "length": 1 }
+  { "id": "common", "length": 3, "fadeOut": [0, 0.06], "lines": [0.02, 0.12], "question": [0.06, 0.12], "waits2025": [0.06, 0.12], "mix": [0.12, 0.17], "unplanned2025": [0.2, 0.27], "planned2025": [0.3, 0.37], "age": [0.4, 0.47], "deprivation": [0.5, 0.57], "occupancy": [0.6, 0.67], "highlight": [0.6, 0.67], "standout": [0.6, 0.67] },
+  { "id": "beds", "length": 3, "fadeOut": [0, 0.08], "back": [0.02, 0.18], "title": [0.08, 0.16], "regroup": [0.22, 0.35], "overlay": [0.4, 0.45], "top": [0.47, 0.52], "focus": [0.54, 0.58], "big": [0.58, 0.62], "ending": [0.62, 0.66], "vital": [0.7, 0.75] },
+  { "id": "age", "length": 2, "fadeOut": [0, 0.08], "move": [0.04, 0.2], "waits": [0.14, 0.22], "sentence1": [0.26, 0.32], "sentence2": [0.36, 0.42], "square1": [0.38, 0.5], "sentence3": [0.56, 0.62], "square2": [0.58, 0.7], "sentence4": [0.74, 0.8], "square3": [0.76, 0.88] },
+  { "id": "flow", "length": 3, "fadeOut": [0, 0.08], "stage": [0.06, 0.16], "pileUp": [0.5, 0.56] },
+  { "id": "wholeSystem", "length": 3, "fadeOut": [0, 0.08], "title": [0.06, 0.12], "intro": [0.1, 0.16], "outline": [0.14, 0.22], "chart": [0.2, 0.4], "doors": [0.42, 0.46], "blocks": [0.46, 0.9] },
+  { "id": "ending", "length": 1, "fadeOut": [0, 0.4] },
+  { "id": "footer", "length": 1, "fit": true }
 ]

@@ -6,6 +6,8 @@ import tree from '../story/tree.json';
 import stack from '../story/stack.json';
 import lines from '../story/lines.json';
 import groups from '../story/groups.json';
+import common from '../story/common.json';
+import age from '../story/age.json';
 import years from '../data/years.json';
 import { groupOf } from './groups.js';
 
@@ -134,10 +136,10 @@ export const peopleLayout = (data, layout) => {
   return people;
 };
 
-export const stackLayout = (data, layout) => {
+export const stackLayout = (data, layout, { without = [], last = [] } = {}) => {
   const { width, side, top } = layout;
-  const group = groupOf(data);
-  const order = d3.sort(data, (d) => groups.stackOrder.indexOf(group(d)), (d) => -d.waits2025);
+  const group = groupOf(data, without);
+  const order = d3.sort(data, (d) => groups.stackOrder.indexOf(group(d)), (d) => last.includes(d.id), (d) => -d.waits2025);
   const totals = years.map((y, i) => d3.sum(data, (d) => d.waitsByYear[i].waits));
   const start = years[0].year;
   const end = years.at(-1).year + years.at(-1).months / 12;
@@ -152,7 +154,7 @@ export const stackLayout = (data, layout) => {
   const bottom = yearY - labelSize * capHeight - width * stack.yearGapShare;
   const patternSize = labelSize * stack.patternScale;
   const patternY = width * stack.yearGapShare + patternSize * capHeight;
-  const chartTop = Math.max(bottom - (layout.smallY + layout.smallHeight - top), patternY + patternSize * stack.descentShare + width * stack.yearGapShare);
+  const chartTop = Math.max(bottom - (layout.smallY + layout.smallHeight - top), patternY + patternSize * stack.descentShare + width * stack.titleGapShare);
   const x = d3.scaleLinear([start, end], [left, right]);
   const y = d3.scaleLinear([0, 1], [bottom, chartTop]);
   return {
@@ -237,4 +239,59 @@ export const lineLayout = (data, stacked, width) => {
     top,
     bottom
   };
+};
+
+export const panelBox = (x, y, size) => {
+  const inset = size * common.insetShare;
+  const band = size * common.labelBandShare;
+  const pad = size * common.chartPadShare;
+  return { x, y, chart: { x: x + inset, y: y + inset, width: size - 2 * inset, height: size - inset - band }, bars: { left: x + inset, bottom: y + size - band - pad, height: size - inset - band - 2 * pad } };
+};
+
+export const commonLayout = (stacked, width) => {
+  const { patternY, patternSize, labelSize } = stacked;
+  const side = width * common.sideShare;
+  const gap = width * common.gapShare;
+  const mixSize = labelSize * common.mixScale;
+  const leading = mixSize * common.lineHeight;
+  const legendSize = labelSize * common.labelScale * common.legendScale;
+  const mixY = patternY + patternSize * stack.descentShare + leading;
+  const gridTop = mixY + leading * (common.mixLines - 1) + mixSize * stack.descentShare + width * common.gridGapShare + legendSize;
+  const size = (width - 2 * side - (common.columns - 1) * gap) / common.columns;
+  const inset = size * common.insetShare;
+  const band = size * common.labelBandShare;
+  const panels = common.panels.map((p, i) => panelBox(side + (i % common.columns) * (size + gap), gridTop + Math.floor(i / common.columns) * (size + gap), size));
+  const rows = Math.ceil(common.panels.length / common.columns);
+  return {
+    panels,
+    size,
+    inset,
+    band,
+    labelSize: labelSize * common.labelScale,
+    legendSize,
+    mixSize,
+    mixY,
+    leading,
+    gridTop,
+    standoutY: gridTop + rows * size + (rows - 1) * gap + width * common.standoutGapShare + mixSize * capHeight,
+    left: side,
+    right: width - side
+  };
+};
+
+export const miniHeight = (panels, labelSize) => panels.size - panels.band + labelSize * (common.miniLabelGap + capHeight) + panels.inset;
+
+export const ageLayout = (stacked, width, panels, height) => {
+  const { size, labelSize } = panels;
+  const gap = width * age.gapShare;
+  const top = width * age.topShare;
+  const columns = [width / 2 - gap / 2 - size, width / 2 + gap / 2];
+  const sentenceY = age.sentences.map((d, line) => top + height + width * age.sentenceGapShare + line * stacked.patternSize * age.lineGap);
+  const squareTop = sentenceY[sentenceY.length - 1] + width * age.squareGapShare;
+  const count = age.squares.length;
+  const squareWidth = (2 * size + gap - (count - 1) * gap) / count;
+  const labelGap = width * age.labelGapShare;
+  const squareHeight = width - top - labelGap - squareTop;
+  const squareColumns = d3.range(count).map((i) => columns[0] + i * (squareWidth + gap));
+  return { columns, top, sentenceY, squareTop, squareColumns, squareWidth, squareHeight, labelY: squareTop + squareHeight + labelGap, labelSize };
 };

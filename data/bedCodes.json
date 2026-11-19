@@ -1,0 +1,16 @@
+{
+  "scotland": "S92000003",
+  "hospitals": {
+    "Aberdeen Royal Infirmary": "N101H",
+    "Borders General Hospital": "B120H",
+    "Forth Valley Royal Hospital": "V217H",
+    "Glasgow Royal Infirmary": "G107H",
+    "Queen Elizabeth University Hospital": "G405H",
+    "Royal Infirmary of Edinburgh": "S314H",
+    "University Hospital Ayr": "A210H",
+    "University Hospital Crosshouse": "A111H",
+    "University Hospital Hairmyres": "L302H",
+    "University Hospital Monklands": "L106H",
+    "University Hospital Wishaw": "L308H"
+  }
+}

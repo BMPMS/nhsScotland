@@ -7,7 +7,9 @@
   import tree from '../story/tree.json';
   import groups from '../story/groups.json';
   import { interpolate } from 'flubber';
-  import { thirtyGrid, treeLayout, inTree, peopleLayout, stackLayout, lineLayout } from '../lib/layouts.js';
+  import { thirtyGrid, treeLayout, inTree, peopleLayout, stackLayout, lineLayout, commonLayout } from '../lib/layouts.js';
+  import { commonPanels, commonBars } from '../lib/common.js';
+  import scotland from '../data/scotland.json';
   import { transformPath } from '../lib/pathTransform.js';
   import stack from '../story/stack.json';
   import { stepPhase } from '../lib/phase.js';
@@ -20,7 +22,9 @@
   const share = $derived(elevenShare(data));
   const layout = $derived(treeLayout(data, width, height));
   const stacked = $derived(stackLayout(data, layout));
+  const regrouped = $derived([stackLayout(data, layout, { last: [groups.exception] }), stackLayout(data, layout, { without: [groups.exception] })]);
   const lined = $derived(lineLayout(data, stacked, width));
+  const bars = $derived(commonBars(commonPanels(data, scotland), commonLayout(stacked, width)));
 
   const outlineAt = (w, h, stroke) => {
     const sx = (w - stroke) / outlineBox.width;
@@ -35,12 +39,24 @@
       const { x, y, width: w, height: h } = grid.boxes[i];
       const box = layout.boxes.get(d.id);
       const startingColor = startingFill[(grid.cells[i][0] + grid.cells[i][1]) % 2];
-      const layer = d3
+      const area = d3
         .area()
         .x((p) => p.x - box.x)
         .y0((p) => p.y0 - box.y)
-        .y1((p) => p.y1 - box.y)(stacked.layers.get(d.id));
+        .y1((p) => p.y1 - box.y);
+      const layer = area(stacked.layers.get(d.id));
       const segment = { maxSegmentLength: width * stack.segmentShare };
+      const eightLine = transformPath(lined.eight.paths.get(group(d)), 1, 1, -box.x, -box.y);
+      const barAt = (key) => {
+        const r = bars.get(key).rects.get(d.id);
+        return r && `M${r.x - box.x},${r.y - box.y}H${r.x + r.width - box.x}V${r.y + r.height - box.y}H${r.x - box.x}Z`;
+      };
+      const [startLayer, endLayer] = regrouped.map((s) => area(s.layers.get(d.id)));
+      const barArea = (key) => {
+        const r = bars.get(key).rects.get(d.id);
+        const points = stacked.layers.get(d.id);
+        return r && area(points.map((p, i) => ({ x: r.x + (r.width * i) / (points.length - 1), y0: r.y + r.height, y1: r.y })));
+      };
       return {
         ...d,
         startingColor,
@@ -50,11 +66,15 @@
         treePosition: { x: box.x, y: box.y },
         treeSize: { width: box.width, height: box.height },
         strokeColor: groupColours[group(d)],
+        shortlistColor: groupColours[groupOf(data, [groups.exception])(d)],
         small: !inTree(d),
         people: people.get(d.id),
         morph: interpolate(outlineAt(box.width, box.height, layout.stroke), layer, segment),
         toLine: interpolate(layer, transformPath(lined.twelve.paths.get(group(d)), 1, 1, -box.x, -box.y), segment),
-        toEight: interpolate(transformPath(lined.twelve.paths.get(group(d)), 1, 1, -box.x, -box.y), transformPath(lined.eight.paths.get(group(d)), 1, 1, -box.x, -box.y), segment)
+        regroup: d3.interpolate(startLayer, endLayer),
+        toEight: interpolate(transformPath(lined.twelve.paths.get(group(d)), 1, 1, -box.x, -box.y), eightLine, segment),
+        toBar: group(d) === 'eleven' && interpolate(eightLine, barAt('waits2025'), segment),
+        fromBar: group(d) === 'eleven' && d3.interpolate(barArea('occupancy'), startLayer)
       };
     });
   });
@@ -68,6 +88,13 @@
     const axis = stepPhase('pareto', 'axis', step, progress);
     const toLines = stepPhase('surge', 'lines', step, progress);
     const toEight = stepPhase('surge', 'eight', step, progress);
+    const toBars = stepPhase('common', 'lines', step, progress);
+    const inBeds = stepPhase('beds', 'fadeOut', step, progress) > 0;
+    const ageOut = 1 - stepPhase('age', 'fadeOut', step, progress);
+    const back = stepPhase('beds', 'back', step, progress);
+    const regroup = stepPhase('beds', 'regroup', step, progress);
+    const leave = back > 0 ? back * ageOut : 1 - stepPhase('common', 'fadeOut', step, progress);
+    const colour = (d) => (inBeds && d.id === groups.exception ? colours.blue : d3.interpolateRgb(d.strokeColor, d.shortlistColor)(regroup));
     const { stroke } = layout;
 
     const hospitalGroup = d3
@@ -107,14 +134,16 @@
       .select('.hospitalOutline')
       .attr('d', (d) => {
         const { w, h } = size(d);
+        if (inBeds) return d.fromBar && regroup === 0 ? d.fromBar(back) : d.regroup(regroup);
+        if (toBars > 0 && d.toBar) return d.toBar(toBars);
         return toEight > 0 ? d.toEight(toEight) : toLines > 0 ? d.toLine(toLines) : morph > 0 ? d.morph(morph) : outlineAt(w, h, stroke);
       })
-      .attr('fill', (d) => d.strokeColor)
+      .attr('fill', colour)
       .attr('fill-opacity', (d) => (d.small ? 1 : morph))
-      .attr('stroke', (d) => d.strokeColor)
+      .attr('stroke', colour)
       .attr('stroke-opacity', (d) => (d.small ? morph : 1))
       .attr('stroke-width', d3.interpolate(stroke, stroke * stack.seamShare)(morph))
-      .attr('opacity', outline);
+      .attr('opacity', (d) => (inBeds ? (d.fromBar ? 1 : back) * ageOut : toBars > 0 && d.toBar ? +(toBars < 1) : outline * leave));
 
     hospitalGroup.select('.peopleGroup').attr('opacity', appear * fade);
 
@@ -200,15 +229,15 @@
       .attr('x', stacked.right + width * stack.labelGapShare)
       .attr('y', stacked.top + labelSize * capHeight)
       .attr('font-size', labelSize)
-      .attr('opacity', axis * (1 - toLines));
+      .attr('opacity', back > 0 ? back * ageOut : axis * (1 - toLines));
 
     svg
       .selectAll('.stackTitle')
       .attr('x', stacked.centre)
       .attr('y', stacked.titleY)
       .attr('font-size', labelSize);
-    svg.select('.stackTitle.twelve').attr('opacity', axis * (1 - toEight));
-    svg.select('.stackTitle.eight').attr('opacity', toEight);
+    svg.select('.stackTitle.twelve').attr('opacity', back > 0 ? back * ageOut : axis * (1 - toEight));
+    svg.select('.stackTitle.eight').attr('opacity', back > 0 ? 0 : toEight * leave);
 
     const stackYear = svg
       .select('.stackYears')
@@ -224,7 +253,7 @@
       .attr('x', (y) => y.x)
       .attr('y', stacked.yearY)
       .attr('font-size', labelSize)
-      .attr('opacity', axis);
+      .attr('opacity', axis * leave);
   });
 </script>
 

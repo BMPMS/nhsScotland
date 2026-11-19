@@ -1,0 +1,49 @@
+{
+  "panels": [
+    { "key": "waits2025", "label": "12+ hour waits", "average": "hospitals", "highlight": true, "morph": true },
+    { "key": "unplanned2025", "label": "drop-ins", "average": "hospitals", "mix": true },
+    { "key": "planned2025", "label": "planned attendances", "average": "hospitals", "mix": true },
+    { "key": "age", "label": "average age", "average": "scotland", "mix": true },
+    { "key": "deprivation", "label": "deprivation level", "average": "scotland", "mix": true },
+    { "key": "occupancy", "label": "bed occupancy", "average": "scotland", "highlight": true, "exception": true }
+  ],
+  "intro": [
+    { "text": "12+ hour waits", "bold": true, "tag": "waits2025" },
+    { "text": "are all above average.", "tag": "waits2025" },
+    { "text": "There is a mix of below + above average", "tag": "mix" }
+  ],
+  "standout": [
+    { "text": "The standout correlation is" },
+    { "text": "12+ hour waits", "bold": true },
+    { "text": "+ above-average" },
+    { "text": "bed occupancy", "bold": true },
+    { "text": "- with the exception of" },
+    { "exception": true },
+    { "text": "which we'll remove from the shortlist." }
+  ],
+  "columns": 3,
+  "sideShare": 0.05,
+  "gapShare": 0.02,
+  "mixLines": 2,
+  "mixScale": 1.2,
+  "lineHeight": 1.25,
+  "gridGapShare": 0.03,
+  "insetShare": 0.045,
+  "cornerShare": 0.04,
+  "miniLabelGapShare": 0.01,
+  "miniAboveGap": 2,
+  "miniLabelGap": 0.25,
+  "labelBandShare": 0.2,
+  "labelScale": 1.2,
+  "chartPadShare": 0.025,
+  "barShare": 0.7,
+  "headroom": 1.05,
+  "belowOpacity": 0.4,
+  "fadedOpacity": 0.4,
+  "dashShare": 0.007,
+  "averageStrokeShare": 0.0025,
+  "legendLineShare": 0.04,
+  "legendTextGapShare": 0.008,
+  "legendScale": 0.78,
+  "standoutGapShare": 0.05
+}

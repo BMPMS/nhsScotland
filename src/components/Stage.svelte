@@ -7,6 +7,10 @@
   import Hospitals from './Hospitals.svelte';
   import Pareto from './Pareto.svelte';
   import Surge from './Surge.svelte';
+  import Common from './Common.svelte';
+  import Age from './Age.svelte';
+  import Flow from './Flow.svelte';
+  import Solution from './Solution.svelte';
   import thirty from '../story/thirty.json';
   import steps from '../story/steps.json';
 
@@ -51,8 +55,12 @@
 <svg id={divId} {width} {height}>
   <text class="title" text-anchor="middle" fill={colours.navy} font-weight={fontWeight.semibold}>NHS Scotland <tspan fill={colours.blue}>has</tspan></text>
   <Surge divId="surge" {data} {width} {height} {step} {progress} />
+  <Common divId="common" {data} {width} {height} {step} {progress} />
   <Hospitals divId="hospitals" {data} {width} {height} {step} {progress} />
   <Pareto divId="pareto" {data} {width} {height} {step} {progress} />
+  <Age divId="age" {data} {width} {height} {step} {progress} />
+  <Flow divId="flow" {width} {step} {progress} />
+  <Solution divId="solution" {width} {step} {progress} />
   <text class="count" text-anchor="middle" fill={colours.navy} font-weight={fontWeight.semibold}>{data.length}</text>
   <text class="label" text-anchor="middle" fill={colours.blue} font-weight={fontWeight.semibold}>
     <tspan>hospitals with</tspan>

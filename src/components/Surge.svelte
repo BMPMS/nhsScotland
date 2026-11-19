@@ -11,7 +11,8 @@
   const lined = $derived(lineLayout(data, stacked, width));
 
   $effect(() => {
-    const phase = (key) => stepPhase('surge', key, step, progress);
+    const leave = 1 - stepPhase('common', 'fadeOut', step, progress);
+    const phase = (key) => stepPhase('surge', key, step, progress) * leave;
     const svg = d3.select(`#${divId}`);
     const { labelSize } = stacked;
     const { covid, top, bottom } = lined;
@@ -31,7 +32,7 @@
       .attr('font-size', labelSize)
       .attr('opacity', phase('covid'));
 
-    const change = phase('eight');
+    const change = stepPhase('surge', 'eight', step, progress);
     const { twelve, eight, left } = lined;
     const ticks = d3.union(twelve.ticks, eight.ticks);
     const axisGroup = svg
