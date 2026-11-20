@@ -20,7 +20,7 @@ export const tips = (selection, active, content) =>
     .on('pointermove', active ? (event, d) => {
       const tip = content(event, d);
       // Border takes the colour of the shape being hovered.
-      if (tip) showTip(event, tip[0], tip[1], getComputedStyle(event.target).fill);
+      if (tip) showTip(event, tip[0], tip[1], tip[2] ?? getComputedStyle(event.target).fill);
       else hideTip();
     } : null)
     .on('pointerleave', active ? hideTip : null);

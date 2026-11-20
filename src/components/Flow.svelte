@@ -17,10 +17,10 @@
     const root = d3.select(`#${divId}`).attr('opacity', stepPhase('flow', 'stage', step, progress) * (1 - stepPhase('wholeSystem', 'fadeOut', step, progress)));
     const l = flowLayout(width);
 
-    root.select('.intro').attr('x', width / 2).attr('y', l.introY).attr('font-size', l.tabSize);
-    // The latest narrative step reached lights its labels light blue; the text itself scrolls in FlowSteps.
-    const reached = story.narrative.filter((n) => stepPhase('flow', n.phase, step, progress) > 0);
-    const current = reached[reached.length - 1] ?? { labels: [] };
+    // Both top lines share one size: the longest shrinks to fit the width and the other matches it.
+    const introWidth = d3.max(root.selectAll('.introMeasure').attr('font-size', l.tabSize).nodes(), (n) => n.getComputedTextLength());
+    const introSize = Math.min(l.tabSize, (l.tabSize * width * story.layout.introWidthShare) / introWidth);
+    root.select('.intro').attr('x', width / 2).attr('y', l.introY).attr('font-size', introSize);
     root.select('.stageGroup').attr('transform', `translate(0,${l.stageTop})`);
     root.select('.tabShape').attr('d', l.tabShape);
     root.select('.outlineFill').attr('d', l.outline);
@@ -39,12 +39,7 @@
       text.selectAll('tspan').attr('x', x).attr('y', (d, i) => first + i * l.tabSize * story.layout.tabLeading);
     });
 
-    root
-      .selectAll('.areaLabel, .exitLabel')
-      .attr('font-size', l.labelSize)
-      .attr('fill', function () {
-        return current.labels.some((key) => this.classList.contains(key)) ? colours.blue : colours.slate;
-      });
+    root.selectAll('.areaLabel, .exitLabel').attr('font-size', l.labelSize);
     ['triage', 'assessment'].forEach((key) => {
       const a = l[key];
       root.select(`.area.${key}`).attr('x', a.x).attr('y', a.y).attr('width', a.width).attr('height', a.height).attr('rx', l.radius);
@@ -105,6 +100,9 @@
 
 <g id={divId} pointer-events="none">
   <text class="intro" text-anchor="middle" fill={colours.slate} font-weight={fontWeight.semibold}>{story.stages[stageKey].intro}</text>
+  {#each Object.values(story.stages) as stage (stage.intro)}
+    <text class="introMeasure" font-weight={fontWeight.semibold} opacity="0">{stage.intro}</text>
+  {/each}
   <g class="stageGroup">
     <defs><clipPath id="{divId}TabClip"><path class="tabShape" /></clipPath></defs>
     <path class="outlineFill" fill={colours.white} />
@@ -116,15 +114,15 @@
     <line class="divider" stroke={colours.blue} />
     <text class="tabLabel ae" text-anchor="middle" fill={colours.white} font-weight={fontWeight.semibold}><tspan>Accident</tspan><tspan>and</tspan><tspan>Emergency</tspan></text>
     <text class="tabLabel other" text-anchor="middle" fill={colours.white} font-weight={fontWeight.semibold}><tspan>Other</tspan><tspan>Hospital</tspan><tspan>Departments</tspan></text>
-    <text class="areaLabel triage" text-anchor="middle" fill={colours.slate}>triage</text>
+    <text class="areaLabel triage" text-anchor="middle" fill={colours.slate} font-weight={fontWeight.semibold}>triage</text>
     <rect class="area triage" fill={colours.mist} />
-    <text class="areaLabel assessment" text-anchor="middle" fill={colours.slate}>assessment + treatment</text>
+    <text class="areaLabel assessment" text-anchor="middle" fill={colours.slate} font-weight={fontWeight.semibold}>assessment + treatment</text>
     <rect class="area assessment" fill={colours.mist} />
-    <text class="areaLabel admit" text-anchor="middle" fill={colours.slate}>admit</text>
+    <text class="areaLabel admit" text-anchor="middle" fill={colours.slate} font-weight={fontWeight.semibold}>admit</text>
     <g class="beds"></g>
-    <text class="exitLabel transfer" fill={colours.slate}>transfer</text>
+    <text class="exitLabel transfer" fill={colours.slate} font-weight={fontWeight.semibold}>transfer</text>
     <rect class="exit transfer" fill={colours.mist} />
-    <text class="exitLabel discharge" fill={colours.slate}>discharge</text>
+    <text class="exitLabel discharge" fill={colours.slate} font-weight={fontWeight.semibold}>discharge</text>
     <rect class="exit discharge" fill={colours.mist} />
     <g class="bedDays"></g>
     <g class="dayKey">

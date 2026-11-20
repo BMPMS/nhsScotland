@@ -1,9 +1,9 @@
 {
   "panels": [
     { "key": "waits2025", "tip": "{value} waits over 12 hours", "format": ",", "label": "12+ hour waits", "average": "hospitals", "highlight": true, "morph": true },
-    { "key": "unplanned2025", "tip": "{value} drop-ins", "format": ",", "label": "drop-ins", "average": "hospitals", "mix": true },
+    { "key": "unplanned2025", "tip": "{value} A&E drop-ins", "format": ",", "label": "A&E drop-ins", "average": "hospitals", "mix": true },
     { "key": "planned2025", "tip": "{value} planned attendances", "format": ",", "label": "planned attendances", "average": "hospitals", "mix": true },
-    { "key": "age", "tip": "{value} average age", "format": ".1f", "label": "average age", "average": "scotland", "mix": true },
+    { "key": "age", "tip": "{value} average A&E age", "format": ".1f", "label": "average A&E age", "average": "scotland", "mix": true },
     { "key": "deprivation", "tip": "{value} deprivation level", "format": ".1f", "label": "deprivation level", "average": "scotland", "mix": true },
     { "key": "occupancy", "tip": "{value}% bed occupancy", "format": ".1f", "label": "bed occupancy", "average": "scotland", "highlight": true, "exception": true }
   ],

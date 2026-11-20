@@ -1,38 +1,121 @@
 {
   "title": "Credits",
-  "team": { "title": "Made by", "names": ["Company names to come"] },
-  "workload": { "title": "How we shared the workload", "note": "Chart to come" },
+  "link": "https://www.bmdata.co.uk",
+  "intro": [
+    { "text": "This project was created by" },
+    { "logo": true, "link": true },
+    { "text": "BM Data Visualisation", "link": true },
+    { "text": ". It is a competition entry for the", "join": false },
+    { "text": "Data Lab Community Data Visualisation Competition", "link": "https://thedatalab.com/data-visualisation-competition/" },
+    { "text": ". It was built as an agentic AI application working with Claude with the following rules.", "join": false }
+  ],
+  "rules": [
+    { "key": "SET", "text": "guidelines from the start", "aside": "(coding style, visual identity, no going rogue)" },
+    { "key": "FOLLOW", "text": "my established data visualisation project flow" },
+    { "key": "DON'T", "text": "write a line of code" },
+    { "key": "DO", "text": "everything else", "aside": "(with targeted AI when appropriate)" }
+  ],
+  "tech": { "label": "Tech stack:", "text": "D3.js, Svelte, Scrollama" },
+  "icons": { "label": "Icons:", "text": "Font Awesome Free", "url": "https://fontawesome.com", "aside": "(CC BY 4.0 licence)" },
+  "workload": {
+    "title": "How was the work divided?",
+    "human": "BM Data",
+    "ai": ["Claude"],
+    "legend": "100%",
+    "rows": [
+      { "task": "Project scope + requirements", "shares": [1, 0] },
+      { "task": "Data definition + structure", "shares": [0.75, 0.25] },
+      { "task": "Research + fact checking", "shares": [0.5, 0.5] },
+      { "task": "Tech + code spec", "shares": [1, 0] },
+      { "task": "Visual identity", "shares": [1, 0] },
+      { "task": "Chart choice + design", "shares": [1, 0] },
+      { "task": "Responsiveness strategy", "shares": [1, 0] },
+      { "task": "Writing the code", "shares": [0, 1] }
+    ]
+  },
   "sections": [
     {
       "title": "Data",
       "sources": [
-        { "name": "Public Health Scotland: A&E activity and demographics (competition dataset)" },
-        { "name": "Public Health Scotland: Beds by NHS board of treatment and specialty", "url": "https://www.opendata.nhs.scot/dataset/hospital-beds-information" },
-        { "name": "Public Health Scotland: Monthly A&E activity and waiting times (discharge destinations)", "url": "https://www.opendata.nhs.scot/dataset/monthly-accident-and-emergency-activity-and-waiting-times" },
-        { "name": "British Geriatrics Society: delayed discharge bed days, from Public Health Scotland", "url": "https://www.bgs.org.uk/AE12hr" }
+        {
+          "name": "Public Health Scotland: A&E activity and demographics (competition dataset)"
+        },
+        {
+          "name": "Public Health Scotland: Beds by NHS board of treatment and specialty",
+          "url": "https://www.opendata.nhs.scot/dataset/hospital-beds-information"
+        },
+        {
+          "name": "Public Health Scotland: Monthly A&E activity and waiting times (discharge destinations)",
+          "url": "https://www.opendata.nhs.scot/dataset/monthly-accident-and-emergency-activity-and-waiting-times"
+        },
+        {
+          "name": "British Geriatrics Society: delayed discharge bed days, from Public Health Scotland",
+          "url": "https://www.bgs.org.uk/AE12hr"
+        }
       ]
     },
     {
       "title": "Royal Infirmary of Edinburgh",
+      "sub": true,
       "sources": [
-        { "name": "Effectiveness of a complex intervention to reduce hospital occupancy (medRxiv preprint, 2026)", "url": "https://www.medrxiv.org/content/10.64898/2026.08.31.26361802v1.full" },
-        { "name": "East Lothian IJB: Planned improvements to unscheduled care programme", "url": "https://www.eastlothian.gov.uk/download/meetings/id/25454/08_planned_improvements_to_unscheduled_care_programme" },
-        { "name": "NHS Lothian FOI 10900: front door initiatives", "url": "https://org.nhslothian.scot/foi/wp-content/uploads/sites/22/2026/01/10900.pdf" },
-        { "name": "NHS Lothian FOI 10828: Power of Attorney and discharge", "url": "https://org.nhslothian.scot/foi/wp-content/uploads/sites/22/2025/12/10828.pdf" },
-        { "name": "NHS Lothian: Edinburgh Home First Discharge to Assess", "url": "https://policyonline.nhslothian.scot/wp-content/uploads/2023/03/Discharge_to_Assess_Calling_Card.pdf" },
-        { "name": "NHS Lothian: Hospital at Home services", "url": "https://apps.nhslothian.scot/refhelp/?p=4118" },
-        { "name": "City of Edinburgh Council: Home First, Discharge Hub and reablement services", "url": "https://www.edinburgh.gov.uk/downloads/file/38454/head-of-service-home-first-community-rehabilitation-and-reablement-cec1354-jd" }
+        {
+          "name": "Effectiveness of a complex intervention to reduce hospital occupancy (medRxiv preprint, 2026)",
+          "url": "https://www.medrxiv.org/content/10.64898/2026.08.31.26361802v1.full"
+        },
+        {
+          "name": "East Lothian IJB: Planned improvements to unscheduled care programme",
+          "url": "https://www.eastlothian.gov.uk/download/meetings/id/25454/08_planned_improvements_to_unscheduled_care_programme"
+        },
+        {
+          "name": "NHS Lothian FOI 10900: front door initiatives",
+          "url": "https://org.nhslothian.scot/foi/wp-content/uploads/sites/22/2026/01/10900.pdf"
+        },
+        {
+          "name": "NHS Lothian FOI 10828: Power of Attorney and discharge",
+          "url": "https://org.nhslothian.scot/foi/wp-content/uploads/sites/22/2025/12/10828.pdf"
+        },
+        {
+          "name": "NHS Lothian: Edinburgh Home First Discharge to Assess",
+          "url": "https://policyonline.nhslothian.scot/wp-content/uploads/2023/03/Discharge_to_Assess_Calling_Card.pdf"
+        },
+        {
+          "name": "NHS Lothian: Hospital at Home services",
+          "url": "https://apps.nhslothian.scot/refhelp/?p=4118"
+        },
+        {
+          "name": "City of Edinburgh Council: Home First, Discharge Hub and reablement services",
+          "url": "https://www.edinburgh.gov.uk/downloads/file/38454/head-of-service-home-first-community-rehabilitation-and-reablement-cec1354-jd"
+        }
       ]
     },
     {
       "title": "Ninewells, Dundee",
+      "sub": true,
       "sources": [
-        { "name": "Healthcare Improvement Scotland: Learning from Dundee", "url": "https://hisengage.scot/media/2810/20240122-learning-from-dundee-taking-a-whole-system-approach-to-enable-us-to-care-for-older-people-where-they-need-it.pdf" },
-        { "name": "NHS Tayside: Flow Navigation Centre", "url": "https://www.nhstayside.scot.nhs.uk/News/Article/index.htm?article=PROD_361285" },
-        { "name": "The Courier: How NHS Tayside inspired redirection", "url": "https://www.thecourier.co.uk/fp/news/scotland/2711025/how-nhs-tayside-has-inspired-a-new-plan-across-scotland-to-slash-ae-waiting-times/" },
-        { "name": "Dundee City Council: Tayside Power of Attorney campaign", "url": "https://www.dundeecity.gov.uk/sites/default/files/publications/dp15_poa_campaign.pdf" },
-        { "name": "Dundee IJB: Planned Date of Discharge and length of stay targets", "url": "https://dundeecity.gov.uk/reports/reports/DIJB65-2023.pdf" },
-        { "name": "Dundee IJB: 7 day discharge service", "url": "https://dundeecity.gov.uk/reports/reports/DIJB59-2018.pdf" }
+        {
+          "name": "Healthcare Improvement Scotland: Learning from Dundee",
+          "url": "https://hisengage.scot/media/2810/20240122-learning-from-dundee-taking-a-whole-system-approach-to-enable-us-to-care-for-older-people-where-they-need-it.pdf"
+        },
+        {
+          "name": "NHS Tayside: Flow Navigation Centre",
+          "url": "https://www.nhstayside.scot.nhs.uk/News/Article/index.htm?article=PROD_361285"
+        },
+        {
+          "name": "The Courier: How NHS Tayside inspired redirection",
+          "url": "https://www.thecourier.co.uk/fp/news/scotland/2711025/how-nhs-tayside-has-inspired-a-new-plan-across-scotland-to-slash-ae-waiting-times/"
+        },
+        {
+          "name": "Dundee City Council: Tayside Power of Attorney campaign",
+          "url": "https://www.dundeecity.gov.uk/sites/default/files/publications/dp15_poa_campaign.pdf"
+        },
+        {
+          "name": "Dundee IJB: Planned Date of Discharge and length of stay targets",
+          "url": "https://dundeecity.gov.uk/reports/reports/DIJB65-2023.pdf"
+        },
+        {
+          "name": "Dundee IJB: 7 day discharge service",
+          "url": "https://dundeecity.gov.uk/reports/reports/DIJB59-2018.pdf"
+        }
       ]
     }
   ]

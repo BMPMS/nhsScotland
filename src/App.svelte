@@ -56,9 +56,9 @@
         {#if s.id === 'load'}
           <Intro {width} {height} />
         {:else if s.id === 'flow'}
-          <FlowSteps {width} />
+          <FlowSteps {width} {side} />
         {:else if s.id === 'ending'}
-          <Ending {width} />
+          <Ending {width} {step} {progress} />
         {:else if s.id === 'footer'}
           <Credits {width} />
         {/if}

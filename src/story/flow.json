@@ -1,10 +1,14 @@
 {
   "narrative": [
-    { "phase": "triage", "labels": ["triage"], "parts": [{ "text": "First, patients are seen at" }, { "text": "triage", "highlight": true }] },
-    { "phase": "assess", "labels": ["assessment"], "parts": [{ "text": "Then they move to" }, { "text": "assessment + treatment", "highlight": true }] },
-    { "phase": "options", "labels": ["transfer", "discharge", "admit"], "parts": [{ "text": "Then one of 3 options:" }, { "text": "transfer", "highlight": true }, { "text": ",", "join": false }, { "text": "discharge", "highlight": true }, { "text": "or" }, { "text": "admit", "highlight": true }] },
-    { "phase": "ready", "labels": [], "parts": [{ "text": "When an admitted patient is" }, { "text": "ready for discharge", "highlight": true }, { "text": ", they should leave immediately", "join": false }] },
-    { "phase": "delayed", "labels": [], "parts": [{ "text": "Delayed bed days", "highlight": true }, { "text": "are counted from this point on" }] }
+    { "phase": "triage", "parts": [{ "text": "First they are seen in" }, { "text": "triage", "highlight": true }] },
+    { "phase": "assess", "parts": [{ "text": "Then they move to" }, { "text": "assessment + treatment", "highlight": true }] },
+    { "phase": "options", "parts": [{ "text": "Then one of 3 options:" }, { "text": "transfer", "highlight": true }, { "text": ",", "join": false }, { "text": "discharge", "highlight": true }, { "text": "or" }, { "text": "admit", "highlight": true }] },
+    { "phase": "ready", "parts": [{ "text": "Once an" }, { "text": "admitted", "highlight": true }, { "text": "patient is ready for" }, { "text": "discharge", "highlight": true }, { "text": ", every extra day in hospital is a", "join": false }, { "text": "delayed bed day", "highlight": true }] },
+    { "phase": "pileWrong", "parts": [{ "text": "... things start to go wrong" }] },
+    { "phase": "pileBeds", "parts": [{ "text": "Fewer beds are available in the wider hospital" }] },
+    { "phase": "pileHeld", "parts": [{ "text": "Treated patients are held in" }, { "text": "assessment + treatment", "highlight": true }, { "text": "waiting for space to become available" }] },
+    { "phase": "pileTriage", "parts": [{ "text": "Patients get stuck in" }, { "text": "triage", "highlight": true }, { "text": "because there are no available beds in" }, { "text": "assessment + treatment", "highlight": true }] },
+    { "phase": "escalate", "parts": [{ "text": "Waiting times start to escalate" }] }
   ],
   "dayMs": 1000,
   "stages": {
@@ -33,13 +37,13 @@
       "waitForBed": false
     },
     "pileUp": {
-      "intro": "If you start with high occupancy and bed delays then the problems begin",
+      "intro": "When a hospital has issues with capacity and delayed bed days...",
       "highlight": false,
-      "start": { "triage": 34, "assess": 26, "occupancy": 0.85, "delayed": 0.3 },
+      "start": { "triage": 50, "assess": 40, "occupancy": 0.92, "delayed": 0.5 },
       "packing": "gravity",
       "collidePad": 0.62,
       "packingDensity": 1.15,
-      "triageDwell": 3000,
+      "triageDwell": 6000,
       "boxDamping": 0.3,
       "gravity": 0.08,
       "collideStrength": 0.35,
@@ -47,7 +51,7 @@
       "capacityDelays": 0.4,
       "admitShare": 0.6,
       "bedLeaveEvery": 12000,
-      "arriveEvery": 350,
+      "arriveEvery": 250,
       "delayEvery": 5000,
       "delayLength": [25000, 40000],
       "longDelayChance": 0,
@@ -61,7 +65,6 @@
     "bedOlderShare": 0.45,
     "olderStayChance": 0.8,
     "delayOlderShare": 0.66,
-    "delayToRed": 4000,
     "highlightAfter": 1500,
     "highlightHold": 2000,
     "highlightGrowShare": 0.0033,
@@ -85,6 +88,7 @@
   "layout": {
     "stageTopShare": 0.04,
     "introY": 0.065,
+    "introWidthShare": 0.92,
     "body": { "left": 0.075, "right": 0.925, "top": 0.253, "bottom": 0.818, "radius": 0.082 },
     "tab": { "left": 0.263, "right": 0.735, "top": 0.068, "radius": 0.07 },
     "strokeShare": 0.005,
@@ -95,7 +99,7 @@
     "labelGapShare": 0.017,
     "area": { "widthShare": 0.75, "triageTop": 0.337, "assessmentTop": 0.572, "heightShare": 0.171, "radiusShare": 0.01 },
     "beds": { "columns": 6, "rows": 9, "top": 0.353, "widthShare": 0.045, "xGapShare": 0.0158, "yGapShare": 0.0047, "dayX": 0.75, "dayY": 0.502, "dayScale": 0.42 },
-    "dayKey": { "label": "delayed bed days", "example": 3, "xGapShare": 0.03, "gapShare": 0.01, "padBelow": 6, "textShare": 0.018 },
+    "dayKey": { "label": "delayed bed days", "example": "#", "xGapShare": 0.03, "gapShare": 0.01, "padBelow": 6, "textShare": 0.018 },
     "exits": { "y": 0.883, "widthShare": 0.15, "heightShare": 0.068, "labelGapShare": 0.025, "transfer": 0.137, "discharge": 0.533 }
   }
 }

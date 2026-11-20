@@ -4,6 +4,8 @@
   import { stepPhase } from '../lib/phase.js';
   import { solutionLayout } from '../lib/solution.js';
   import { wrapSegments, fitSize } from '../lib/wrap.js';
+  import { tips } from '../lib/tips.js';
+  import steps from '../story/steps.json';
   import story from '../story/solution.json';
   import monthly from '../data/monthly.json';
 
@@ -95,6 +97,18 @@
     const measure = svg.select('.measure').attr('font-size', textSize).node();
     const placed = l.doors.flatMap((door) => door.blocks);
     const revealed = phase('blocks') * blocks.length;
+    // Each block explains itself on hover once it's showing.
+    const blockGroups = svg.selectAll('.block');
+    tips(blockGroups, steps[step]?.id === 'wholeSystem', (event) => {
+      const i = blockGroups.nodes().indexOf(event.currentTarget);
+      return revealed - i > 0.5 ? [placed[i].parts.map((p) => p.text).join(' '), [story.tips[i]], colours.navy] : null;
+    });
+    // Hovered block takes a light tint of its stroke colour.
+    const active = steps[step]?.id === 'wholeSystem';
+    blockGroups
+      .on('pointerenter.tint', active ? function () { d3.select(this).select('rect').attr('fill', d3.interpolateRgb(colours.white, colours.navy)(config.blocks.hoverOpacity)); } : null)
+      .on('pointerleave.tint', active ? function () { d3.select(this).select('rect').attr('fill', colours.white); } : null);
+    if (!active) blockGroups.select('rect').attr('fill', colours.white);
     svg.selectAll('.block').each(function (d, i) {
       const { x: bx, y: by, parts } = placed[i];
       const g = d3.select(this).attr('opacity', Math.min(1, Math.max(0, revealed - i)));

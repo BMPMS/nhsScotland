@@ -70,7 +70,7 @@ export const runFlow = (root, width, stage) => {
     const up = Math.min(1, Math.max(0, t / flow.highlightTime));
     const down = Math.min(1, Math.max(0, (t - flow.highlightTime - flow.highlightHold) / flow.highlightTime));
     const grow = up * (1 - down);
-    labels.attr('font-size', labelSize + s(flow.highlightGrowShare) * grow).attr('font-weight', grow > 0.5 ? 600 : 400);
+    labels.attr('font-size', labelSize + s(flow.highlightGrowShare) * grow);
     if (down === 1) highlightTimer.stop();
   };
   const highlightTimer = d3.timer(highlight);
@@ -152,8 +152,9 @@ export const runFlow = (root, width, stage) => {
 
   const arrive = () => use({ older: isOlder(), state: 'arriving', x: boxes.triage.x0, y: l.body.top - size, route: routes.arrive() });
 
-  const delayProgress = (b, now) => (b.delayedAt === null ? 0 : Math.min(1, (now - b.delayedAt) / flow.delayToRed));
-  const bedColour = (b, now) => b.colour ?? d3.interpolateRgb(baseColour(b.older), colours.red)(delayProgress(b, now));
+  // A bed turns red the moment its delayed-day count starts.
+  const delayProgress = (b) => (b.delayedAt === null ? 0 : 1);
+  const bedColour = (b, now) => b.colour ?? d3.interpolateRgb(baseColour(b.older), colours.red)(delayProgress(b));
 
   const leaveBed = (chosen) => {
     const ready = beds.filter((q) => q.level === 1 && !q.busy && q.delayedAt === null);
@@ -178,7 +179,8 @@ export const runFlow = (root, width, stage) => {
 
   const startDelays = Math.round(full.length * stage.start.delayed);
   d3.range(startDelays).forEach(() => startDelay());
-  beds.filter((b) => b.delayedAt !== null).forEach((b) => Object.assign(b, { delayedAt: b.delayedAt - Math.random() * flow.delayToRed, until: b.delayedAt + Math.random() * (b.until - b.delayedAt) }));
+  // Starting delays are already fully red and a few days in.
+  beds.filter((b) => b.delayedAt !== null).forEach((b) => Object.assign(b, { delayedAt: b.delayedAt - story.dayMs * (1 + 4 * Math.random()), until: b.delayedAt + Math.random() * (b.until - b.delayedAt) }));
 
   const occupied = () => beds.filter((b) => b.level === 1 || b.busy).length / beds.length;
   const target = () => stage.occupancyRange[0] + (stage.occupancyRange[1] - stage.occupancyRange[0]) * (0.5 - 0.5 * Math.cos((2 * Math.PI * d3.now()) / stage.cycle));
@@ -304,7 +306,7 @@ export const runFlow = (root, width, stage) => {
       .attr('y', (b) => b.y + bedSize.height * (config.beds.dayY + (config.beds.dayScale * capHeight) / 2))
       .attr('font-size', bedSize.height * config.beds.dayScale)
       .text((b) => Math.max(1, Math.ceil((now - b.delayedAt) / story.dayMs)));
-    bedIcon.attr('opacity', (d) => (delayProgress(bedById.get(d.id), now) === 1 ? pulse : 1)).attr('fill', (d) => d3.interpolateRgb(colours.slateFaint, bedColour(bedById.get(d.id), now))(bedById.get(d.id).level));
+    bedIcon.attr('opacity', (d) => (delayProgress(bedById.get(d.id)) === 1 ? pulse : 1)).attr('fill', (d) => d3.interpolateRgb(colours.slateFaint, bedColour(bedById.get(d.id), now))(bedById.get(d.id).level));
   };
 
   const inBox = (p) => p.state === 'triage' || p.state === 'assess';
@@ -338,6 +340,6 @@ export const runFlow = (root, width, stage) => {
   return () => {
     simulation.stop();
     timers.forEach((t) => t.stop());
-    labels.attr('font-size', labelSize).attr('font-weight', 400);
+    labels.attr('font-size', labelSize);
   };
 };

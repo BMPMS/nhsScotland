@@ -176,6 +176,8 @@
       } : null);
     tips(hospitalGroup, mode, (event, d) => {
       if (mode === 'surge') return [groups.labels[group(d)], members.get(group(d)).map((m) => m.name)];
+      // Stacked areas cover several years, so just the name.
+      if (mode === 'pareto' || mode === 'beds') return [d.name, []];
       return metricTip(d, 'waits2025');
     });
 

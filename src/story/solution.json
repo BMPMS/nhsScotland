@@ -36,11 +36,26 @@
       ]
     }
   ],
+  "tips": [
+    "A specialist team assesses frail older patients as soon as they arrive - Dundee also has 24 dedicated beds.",
+    "Nurses, advanced practitioners and geriatricians treat people at home or in their care home, so they don't need to come into hospital.",
+    "Therapists, doctors and discharge staff work at weekends too, so patients can be assessed and discharged any day.",
+    "Patients can call NHS 24, and a clinician directs them to the right care, sometimes with a booked time at A&E.",
+    "People who don't need emergency care are directed to a more suitable service, such as their GP or a pharmacy.",
+    "Setting up Power of Attorney in advance avoids a lengthy guardianship process if someone loses capacity while in hospital.",
+    "Social workers, discharge coordinators and support workers plan each patient's discharge together.",
+    "Patients are given a planned discharge date, with targets and clear actions when delays build up.",
+    "Patients go home with temporary care while their longer-term needs are assessed.",
+    "More care at home means patients have somewhere to go as soon as they're ready to leave.",
+    "Short-term rehab and early reviews of care packages help people regain independence and free up care for others.",
+    "When a patient can't make decisions for themselves, Dundee moves quickly to arrange legal authority so they aren't stuck waiting for guardianship."
+  ],
+  "endingTitle": "So what have we identified?",
   "ending": [
-    [{ "text": "We've identified that if NHS Scotland focusses on the A&E waits in our top 10 hospitals, they'll solve the bulk of the problem." }],
-    [{ "text": "We've also shown that while the wait shows up in A&E, the fix may lie elsewhere - with the hospital capacity, bed delays and the over 75s." }],
-    [{ "text": "All 10 of our hospitals have some but not all of the" }, { "text": "whole system approach", "bold": true }, { "text": "features we've just seen in place." }],
-    [{ "text": "Perhaps a" }, { "text": "whole system approach", "bold": true }, { "text": "for all could start to turn things around?" }]
+    [{ "text": "If NHS Scotland reduces A&E waiting times in our 10 shortlisted hospitals they'll solve most of the problem." }],
+    [{ "text": "Waiting times are the problem but the fix may lie elsewhere - hospital capacity, over 75s and delayed bed days." }],
+    [{ "text": "Our 10 shortlisted hospitals have some of the" }, { "text": "whole system approach" }, { "text": "strategies in place but not all." }],
+    [{ "text": "Perhaps a" }, { "text": "whole system approach for all", "bold": true, "highlight": true }, { "text": "could start to turn things around?" }]
   ],
   "layout": {
     "titleY": 0.06,
@@ -64,6 +79,6 @@
     "yearSize": 0.02,
     "doorY": 0.075,
     "doorSize": 0.024,
-    "blocks": { "pad": 0.03, "gap": 0.018, "top": 0.1, "bottom": 0.05, "columns": 2, "radius": 0.012, "stroke": 0.0025, "strokeOpacity": 0.35, "textSize": 0.019, "textPad": 0.012, "leading": 1.2 }
+    "blocks": { "pad": 0.03, "gap": 0.018, "top": 0.1, "bottom": 0.05, "columns": 2, "radius": 0.012, "stroke": 0.0025, "strokeOpacity": 0.35, "hoverOpacity": 0.2, "textSize": 0.019, "textPad": 0.012, "leading": 1.2 }
   }
 }

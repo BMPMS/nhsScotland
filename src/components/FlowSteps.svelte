@@ -1,13 +1,15 @@
 <script>
-  import { colours, typeScale, spacing, fontWeight } from '../theme.js';
+  import { colours, spacing, fontWeight } from '../theme.js';
   import { screen } from '../lib/screen.js';
   import steps from '../story/steps.json';
   import story from '../story/flow.json';
+  import { flowLayout } from '../lib/flow.js';
 
-  let { width } = $props();
+  let { width, side } = $props();
 
   const flowStep = steps.find((s) => s.id === 'flow');
-  const sizes = { mobile: typeScale.body, ipad: typeScale.bodyLarge, desktop: typeScale.bodyLarge };
+  // Card text matches the diagram's labels.
+  const size = $derived(flowLayout(side).labelSize);
 </script>
 
 <div class="flowSteps">
@@ -21,9 +23,9 @@
       style:background={colours.white}
       style:border="1px solid {colours.slateFaint}"
       style:color={colours.slate}
-      style:font-size="{sizes[screen(width)]}px"
+      style:font-size="{size}px"
     >
-      {#each item.parts as part, i (i)}{i && part.join !== false ? ' ' : ''}<span style:color={part.highlight ? colours.blue : null} style:font-weight={part.highlight ? fontWeight.semibold : null}>{part.text}</span>{/each}
+      {#each item.parts as part, i (i)}{i && part.join !== false ? ' ' : ''}<span style:font-weight={part.highlight ? fontWeight.semibold : null}>{part.text}</span>{/each}
     </div>
   {/each}
 </div>
