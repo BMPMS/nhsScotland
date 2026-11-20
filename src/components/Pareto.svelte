@@ -72,13 +72,14 @@
     const topSize = labelSize * pareto.topScale;
     const topPct = svg.selectAll('.topPct').attr('font-size', topSize);
     const topWidth = d3.max(topPct.nodes(), (node) => node.getComputedTextLength());
-    const question = svg.select('.question').attr('font-size', 1);
-    const questionSize = Math.min(labelSize * pareto.questionScale, (right - left - 3 * pad - topWidth) / question.node().getComputedTextLength());
+    const question = svg.selectAll('.question').attr('font-size', 1);
+    const questionSize = Math.min(labelSize * pareto.questionScale, (right - left - 3 * pad - topWidth) / d3.max(question.nodes(), (node) => node.getComputedTextLength()));
     question
       .attr('x', left + pad)
       .attr('y', bandY + (questionSize * capHeight) / 2)
-      .attr('font-size', questionSize)
-      .attr('opacity', shown('question'));
+      .attr('font-size', questionSize);
+    question.filter('.pareto').attr('opacity', shown('question') * (1 - change));
+    question.filter('.ours').attr('opacity', shown('question') * change);
 
     topPct.attr('x', right - pad).attr('y', bandY + (topSize * capHeight) / 2);
     versions(topPct, 'top');
@@ -141,7 +142,9 @@
       .attr('width', backWidth)
       .attr('height', height)
       .attr('rx', size * common.cornerShare)
-      .attr('fill', d3.interpolateRgb(colours.white, colours.mist)(move));
+      .attr('fill', d3.interpolateRgb(colours.white, colours.mist)(move))
+      // The panel blocks hover on the stacked area beneath it while it's showing.
+      .attr('pointer-events', ['beds', 'age'].includes(steps[step]?.id) && ten('vital') > 0.05 ? 'all' : null);
     mini.select('.miniChart').attr('x', box.chart.x).attr('y', box.chart.y).attr('width', box.chart.width).attr('height', box.chart.height);
     mini
       .select('.miniLabel')
@@ -171,7 +174,8 @@
       .attr('x', box.chart.x)
       .attr('y', lineY[0])
       .attr('width', box.chart.width)
-      .attr('height', lineY[1] - lineY[0]);
+      .attr('height', lineY[1] - lineY[0])
+      .attr('opacity', 1 - move);
 
     mini
       .selectAll('.miniLine')
@@ -180,7 +184,8 @@
       .attr('y1', (d, i) => lineY[i])
       .attr('y2', (d, i) => lineY[i])
       .attr('stroke-width', width * common.averageStrokeShare)
-      .attr('stroke-dasharray', `${dash} ${dash * 0.75}`);
+      .attr('stroke-dasharray', `${dash} ${dash * 0.75}`)
+      .attr('opacity', 1 - move);
 
   });
 </script>
@@ -191,7 +196,8 @@
   <text class="pattern eight" text-anchor="middle" fill={colours.slate} font-weight={fontWeight.semibold}>It's a similar story for 8+ hour waits</text>
   <text class="pattern shortlist" text-anchor="middle" fill={colours.slate} font-weight={fontWeight.semibold}>Does our new shortlist still meet the Pareto principle? ..... almost</text>
   <rect class="overlay" fill={colours.white} />
-  <text class="question" fill={colours.slate}>So in relation to our problem</text>
+  <text class="question pareto" fill={colours.slate}>Have you heard of the Pareto Principle - the 80/20 rule?</text>
+  <text class="question ours" fill={colours.slate}>So in relation to our problem</text>
   <text class="topPct pareto" text-anchor="end" fill={colours.slate}>{pareto.paretoTop}%</text>
   <text class="topPct ours" text-anchor="end" fill={colours.slate}>{100 - share}%</text>
   <text class="topPct ten" text-anchor="end" fill={colours.slate}>{100 - tenShare}%</text>

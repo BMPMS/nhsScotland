@@ -1,5 +1,5 @@
 import * as d3 from 'd3';
-import { colours } from '../theme.js';
+import { colours, capHeight } from '../theme.js';
 import { standingPath, standingWidth, olderPath, olderWidth, standingBox, bedBox } from './paths.js';
 import story from '../story/flow.json';
 
@@ -289,6 +289,21 @@ export const runFlow = (root, width, stage) => {
     person.attr('d', (p) => (p.older ? icons.older : icons.person).path).attr('fill', (p) => p.colour ?? baseColour(p.older));
 
     const pulse = stage.pulse.low + ((1 - stage.pulse.low) * (1 + Math.sin((2 * Math.PI * now) / stage.pulse.period))) / 2;
+    // Days in delay on each delayed bed, counting up from day 1.
+    const delayed = beds.filter((b) => b.delayedAt !== null && !b.busy && b.level === 1);
+    root
+      .select('.bedDays')
+      .selectAll('.bedDay')
+      .data(delayed, (b) => b.id)
+      .join((group) => {
+        const enter = group.append('text').attr('class', 'bedDay').attr('text-anchor', 'middle').attr('fill', colours.white).attr('font-weight', 600);
+        return enter;
+      })
+      .attr('x', (b) => b.x + bedSize.width * config.beds.dayX)
+      // dayY is the middle of the bed's solid block; drop by half the cap height to centre the digits.
+      .attr('y', (b) => b.y + bedSize.height * (config.beds.dayY + (config.beds.dayScale * capHeight) / 2))
+      .attr('font-size', bedSize.height * config.beds.dayScale)
+      .text((b) => Math.max(1, Math.ceil((now - b.delayedAt) / story.dayMs)));
     bedIcon.attr('opacity', (d) => (delayProgress(bedById.get(d.id), now) === 1 ? pulse : 1)).attr('fill', (d) => d3.interpolateRgb(colours.slateFaint, bedColour(bedById.get(d.id), now))(bedById.get(d.id).level));
   };
 

@@ -3,7 +3,7 @@
   import { colours, fontWeight, capHeight } from '../theme.js';
   import { stepPhase } from '../lib/phase.js';
   import { flowLayout, runFlow } from '../lib/flow.js';
-  import { bedPath } from '../lib/paths.js';
+  import { bedPath, bedBox } from '../lib/paths.js';
   import steps from '../story/steps.json';
   import story from '../story/flow.json';
 
@@ -18,6 +18,9 @@
     const l = flowLayout(width);
 
     root.select('.intro').attr('x', width / 2).attr('y', l.introY).attr('font-size', l.tabSize);
+    // The latest narrative step reached lights its labels light blue; the text itself scrolls in FlowSteps.
+    const reached = story.narrative.filter((n) => stepPhase('flow', n.phase, step, progress) > 0);
+    const current = reached[reached.length - 1] ?? { labels: [] };
     root.select('.stageGroup').attr('transform', `translate(0,${l.stageTop})`);
     root.select('.tabShape').attr('d', l.tabShape);
     root.select('.outlineFill').attr('d', l.outline);
@@ -36,7 +39,12 @@
       text.selectAll('tspan').attr('x', x).attr('y', (d, i) => first + i * l.tabSize * story.layout.tabLeading);
     });
 
-    root.selectAll('.areaLabel, .exitLabel').attr('font-size', l.labelSize);
+    root
+      .selectAll('.areaLabel, .exitLabel')
+      .attr('font-size', l.labelSize)
+      .attr('fill', function () {
+        return current.labels.some((key) => this.classList.contains(key)) ? colours.blue : colours.slate;
+      });
     ['triage', 'assessment'].forEach((key) => {
       const a = l[key];
       root.select(`.area.${key}`).attr('x', a.x).attr('y', a.y).attr('width', a.width).attr('height', a.height).attr('rx', l.radius);
@@ -53,6 +61,25 @@
         return enter;
       });
     bed.attr('transform', (d) => `translate(${d.x},${d.y}) scale(${l.bedScale})`);
+
+    // Key for delayed beds: a red bed with its day count, to the right of the tab.
+    const dk = story.layout.dayKey;
+    const bedW = width * story.layout.beds.widthShare;
+    const bedH = (bedW * bedBox.height) / bedBox.width;
+    const keyX = l.tab.right + width * dk.xGapShare;
+    const keyY = l.body.top - width * dk.gapShare - dk.padBelow - bedH;
+    const dayKey = root.select('.dayKey');
+    dayKey.select('.keyBed').attr('transform', `translate(${keyX},${keyY}) scale(${l.bedScale})`);
+    dayKey
+      .select('.keyDay')
+      .attr('x', keyX + bedW * story.layout.beds.dayX)
+      .attr('y', keyY + bedH * (story.layout.beds.dayY + (story.layout.beds.dayScale * capHeight) / 2))
+      .attr('font-size', bedH * story.layout.beds.dayScale);
+    dayKey
+      .select('.keyLabel')
+      .attr('x', keyX + bedW + width * dk.gapShare)
+      .attr('y', keyY + (bedH + width * dk.textShare * capHeight) / 2)
+      .attr('font-size', width * dk.textShare);
 
     ['transfer', 'discharge'].forEach((key) => {
       const label = root
@@ -72,13 +99,12 @@
   $effect(() => {
     if (!running || !width) return;
     const root = d3.select(`#${divId}`);
-    root.select('.intro').text(story.stages[stageKey].intro);
     return runFlow(root, width, story.stages[stageKey]);
   });
 </script>
 
 <g id={divId} pointer-events="none">
-  <text class="intro" text-anchor="middle" fill={colours.slate} font-weight={fontWeight.semibold}>{story.stages.well.intro}</text>
+  <text class="intro" text-anchor="middle" fill={colours.slate} font-weight={fontWeight.semibold}>{story.stages[stageKey].intro}</text>
   <g class="stageGroup">
     <defs><clipPath id="{divId}TabClip"><path class="tabShape" /></clipPath></defs>
     <path class="outlineFill" fill={colours.white} />
@@ -100,6 +126,12 @@
     <rect class="exit transfer" fill={colours.mist} />
     <text class="exitLabel discharge" fill={colours.slate}>discharge</text>
     <rect class="exit discharge" fill={colours.mist} />
+    <g class="bedDays"></g>
+    <g class="dayKey">
+      <path class="keyBed" d={bedPath} fill={colours.red} />
+      <text class="keyDay" text-anchor="middle" fill={colours.white} font-weight={fontWeight.semibold}>{story.layout.dayKey.example}</text>
+      <text class="keyLabel" fill={colours.slate}>{story.layout.dayKey.label}</text>
+    </g>
     <g class="people"></g>
   </g>
 </g>

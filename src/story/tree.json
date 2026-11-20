@@ -6,9 +6,10 @@
   "smallShare": 0.5,
   "strokeShare": 0.006,
   "titleShare": 0.38,
-  "noteShare": 0.45,
+  "noteShare": 0.55,
   "titleBigScale": 1.6,
-  "smallGapShare": 0.1,
+  "smallGapShare": 0.06,
+  "smallIconScale": 0.8,
   "smallOrder": [
     "other",
     "holding",
@@ -23,7 +24,11 @@
   "personShare": 0.0228,
   "cornerBottomShare": 0.85,
   "smallLabel": "less than {minWaits} waits over 12 hours",
-  "keyLabel": ["= {perPerson} waits", "over 12 hours"],
+  "keyLabel": ["= {perPerson} waits over 12 hours"],
   "keyLeading": 1.2,
-  "hoverOpacity": 0.1
+  "hoverOpacity": 0.1,
+  "hoverSmallOpacity": 0.8,
+  "hoverStackOpacity": 0.8,
+  "hoverFadeOpacity": 0,
+  "hoverFadeMs": 250
 }

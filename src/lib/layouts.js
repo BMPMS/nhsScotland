@@ -86,8 +86,11 @@ export const treeLayout = (data, width, height) => {
   fitCorner(leaves, gap, width * tree.cornerLiftShare);
   const boxes = new Map(leaves.map((l) => [l.data.id, { x: side + l.x0, y: top + l.y0, width: l.x1 - l.x0, height: l.y1 - l.y0 }]));
   const smallHeight = top * tree.smallShare;
-  const smallWidth = smallHeight * iconAspect;
   const smallY = height - (top + smallHeight) / 2;
+  // Icons sit inside the bottom band, scaled down and centred; the band keeps the text size.
+  const iconHeight = smallHeight * tree.smallIconScale;
+  const smallWidth = iconHeight * iconAspect;
+  const iconY = smallY + (smallHeight - iconHeight) / 2;
   const smallGap = smallWidth * tree.smallGapShare;
   const group = groupOf(data);
   const small = d3.sort(
@@ -95,7 +98,7 @@ export const treeLayout = (data, width, height) => {
     (d) => tree.smallOrder.indexOf(group(d)),
     (d) => -d.waits2025
   );
-  small.forEach((d, i) => boxes.set(d.id, { x: side + i * (smallWidth + smallGap), y: smallY, width: smallWidth, height: smallHeight }));
+  small.forEach((d, i) => boxes.set(d.id, { x: side + i * (smallWidth + smallGap), y: iconY, width: smallWidth, height: iconHeight }));
   return { boxes, width, height, side, top, gap, stroke, smallEnd: side + small.length * (smallWidth + smallGap), smallY, smallHeight };
 };
 

@@ -1,8 +1,16 @@
 {
+  "narrative": [
+    { "phase": "triage", "labels": ["triage"], "parts": [{ "text": "First, patients are seen at" }, { "text": "triage", "highlight": true }] },
+    { "phase": "assess", "labels": ["assessment"], "parts": [{ "text": "Then they move to" }, { "text": "assessment + treatment", "highlight": true }] },
+    { "phase": "options", "labels": ["transfer", "discharge", "admit"], "parts": [{ "text": "Then one of 3 options:" }, { "text": "transfer", "highlight": true }, { "text": ",", "join": false }, { "text": "discharge", "highlight": true }, { "text": "or" }, { "text": "admit", "highlight": true }] },
+    { "phase": "ready", "labels": [], "parts": [{ "text": "When an admitted patient is" }, { "text": "ready for discharge", "highlight": true }, { "text": ", they should leave immediately", "join": false }] },
+    { "phase": "delayed", "labels": [], "parts": [{ "text": "Delayed bed days", "highlight": true }, { "text": "are counted from this point on" }] }
+  ],
+  "dayMs": 1000,
   "stages": {
     "well": {
       "intro": "When things are going well, patients flow through the system smoothly",
-      "highlight": true,
+      "highlight": false,
       "start": { "triage": 12, "assess": 14, "occupancy": 0.6, "delayed": 0 },
       "packing": "spread",
       "collidePad": 0.9,
@@ -86,7 +94,8 @@
     "labelShare": 0.027,
     "labelGapShare": 0.017,
     "area": { "widthShare": 0.75, "triageTop": 0.337, "assessmentTop": 0.572, "heightShare": 0.171, "radiusShare": 0.01 },
-    "beds": { "columns": 6, "rows": 9, "top": 0.353, "widthShare": 0.045, "xGapShare": 0.0158, "yGapShare": 0.0047 },
+    "beds": { "columns": 6, "rows": 9, "top": 0.353, "widthShare": 0.045, "xGapShare": 0.0158, "yGapShare": 0.0047, "dayX": 0.75, "dayY": 0.502, "dayScale": 0.42 },
+    "dayKey": { "label": "delayed bed days", "example": 3, "xGapShare": 0.03, "gapShare": 0.01, "padBelow": 6, "textShare": 0.018 },
     "exits": { "y": 0.883, "widthShare": 0.15, "heightShare": 0.068, "labelGapShare": 0.025, "transfer": 0.137, "discharge": 0.533 }
   }
 }

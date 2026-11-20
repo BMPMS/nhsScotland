@@ -32,8 +32,7 @@
     const panelHeight = miniHeight(panels, labelFit);
     const layout = ageLayout(stacked, width, panels, panelHeight);
     const box = panelBox(layout.columns[0], layout.top, size);
-    const { rects, lineY } = barGeometry(shortlist.map((d) => ({ id: d.id, value: d.waits2025 })), [d3.mean(data, (d) => d.waits2025)], box);
-    const dash = width * common.dashShare;
+    const { rects } = barGeometry(shortlist.map((d) => ({ id: d.id, value: d.waits2025 })), [d3.mean(data, (d) => d.waits2025)], box);
 
     const waits = svg.select('.waits').attr('opacity', phase('waits'));
     waits.select('.back').attr('x', box.x).attr('y', box.y).attr('width', size).attr('height', panelHeight).attr('rx', size * common.cornerShare);
@@ -57,14 +56,7 @@
       .attr('y', (d) => rects.get(d.id).y)
       .attr('width', (d) => rects.get(d.id).width)
       .attr('height', (d) => rects.get(d.id).height);
-    waits
-      .select('.average')
-      .attr('x1', box.chart.x)
-      .attr('x2', box.chart.x + box.chart.width)
-      .attr('y1', lineY[0])
-      .attr('y2', lineY[0])
-      .attr('stroke-width', width * common.averageStrokeShare)
-      .attr('stroke-dasharray', `${dash} ${dash * 0.75}`);
+
 
     svg
       .selectAll('.sentence')
@@ -91,7 +83,9 @@
       g.select('.band').attr('x', x).attr('y', y).attr('width', w).attr('height', bandHeight);
       g.select('.olderIcon').attr('transform', icon(x + bandPad, y + bandPad, iconSize)).attr('opacity', grow);
       g.select('.bandLabel').attr('x', x + bandPad * 1.5 + (olderWidth * iconSize) / standingBox.height).attr('y', y + bandPad + (iconSize + bandText * capHeight) / 2).attr('font-size', bandText).attr('opacity', grow);
-      g.select('.value').attr('x', x + w - bandPad).attr('y', y + bandHeight - bandPad).attr('font-size', valueSize).attr('opacity', grow);
+      // Label size grows with the share; the smallest share keeps the base size. Capped to fit the square.
+      const scaledSize = Math.min((valueSize * shares[i]) / d3.min(shares), (w - 2 * bandPad) / valueWidth, (h * shares[i] - 3 * bandPad - iconSize) / capHeight);
+      g.select('.value').attr('x', x + w - bandPad).attr('y', y + bandHeight - bandPad).attr('font-size', Math.max(valueSize, scaledSize)).attr('opacity', grow);
       g.select('.standing').attr('transform', icon(x + w / 2 - (standingWidth * iconSize) / standingBox.height / 2, y + bandHeight + (h - bandHeight - iconSize) / 2, iconSize));
       g.select('.squareLabel').attr('x', x + w / 2).attr('y', layout.labelY).attr('font-size', labelFit);
     });
@@ -104,7 +98,6 @@
     <rect class="back" fill={colours.mist} />
     <rect class="chart" fill={colours.white} />
     <g class="bars"></g>
-    <line class="average" stroke={colours.slate} />
     <text class="waitsLabel" text-anchor="middle" fill={colours.slate} font-weight={fontWeight.semibold}>{waitsLabel}</text>
   </g>
   {#each age.sentences as sentence, i (i)}

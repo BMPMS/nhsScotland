@@ -7,7 +7,7 @@
   import tree from '../story/tree.json';
   import groups from '../story/groups.json';
   import { interpolate } from 'flubber';
-  import { thirtyGrid, treeLayout, inTree, peopleLayout, stackLayout, lineLayout, commonLayout } from '../lib/layouts.js';
+  import { thirtyGrid, treeLayout, inTree, peopleLayout, stackLayout, lineLayout, commonLayout, ageLayout } from '../lib/layouts.js';
   import { commonPanels, commonBars } from '../lib/common.js';
   import scotland from '../data/scotland.json';
   import { transformPath } from '../lib/pathTransform.js';
@@ -157,13 +157,22 @@
     hospitalGroup.select('.hospitalTitle').attr('pointer-events', visible(outline * fade));
 
     const members = d3.group(data, group);
-    const mode = [stepIndex('eleven'), stepIndex('pareto'), stepIndex('surge'), stepIndex('common')].includes(step) ? steps[step].id : null;
+    const mode = [stepIndex('eleven'), stepIndex('pareto'), stepIndex('surge'), stepIndex('common'), stepIndex('beds')].includes(step) ? steps[step].id : null;
+    const outlines = hospitalGroup.select('.hospitalOutline').style('transition', mode === 'surge' ? `opacity ${tree.hoverFadeMs}ms` : null);
+    // Clear any hover fade left over when scrolling out of the line chart.
+    if (mode !== 'surge') outlines.style('opacity', null);
     hospitalGroup
-      .on('pointerenter.highlight', mode === 'eleven' ? function (event, d) {
-        d3.select(this).select('.hospitalOutline').attr('fill-opacity', Math.max(baseFill(d), tree.hoverOpacity));
+      .on('pointerenter.highlight', mode ? function (event, d) {
+        // Lines: fade the other groups. Tree and stack: tint the hovered shape.
+        if (mode === 'surge') outlines.style('opacity', (o) => (group(o) === group(d) ? null : tree.hoverFadeOpacity));
+        else if (mode === 'eleven' || mode === 'pareto' || mode === 'beds') {
+          const hover = mode === 'pareto' || mode === 'beds' ? tree.hoverStackOpacity : d.small ? tree.hoverSmallOpacity : Math.max(baseFill(d), tree.hoverOpacity);
+          d3.select(this).select('.hospitalOutline').attr('fill-opacity', hover);
+        }
       } : null)
-      .on('pointerleave.highlight', mode === 'eleven' ? function (event, d) {
-        d3.select(this).select('.hospitalOutline').attr('fill-opacity', baseFill(d));
+      .on('pointerleave.highlight', mode ? function (event, d) {
+        if (mode === 'surge') outlines.style('opacity', null);
+        else if (mode !== 'common') d3.select(this).select('.hospitalOutline').attr('fill-opacity', baseFill(d));
       } : null);
     tips(hospitalGroup, mode, (event, d) => {
       if (mode === 'surge') return [groups.labels[group(d)], members.get(group(d)).map((m) => m.name)];
@@ -220,20 +229,36 @@
     const noteSize = smallHeight * tree.noteShare;
     const svg = d3.select(`#${divId}`);
     const keySize = width * groups.key.textShare;
-    const underTitle = ['pareto', 'surge', 'beds'].includes(steps[step]?.id);
-    const keyBaseline = underTitle ? stacked.top - width * groups.key.gapShare - groups.key.padBelow : width * groups.key.marginShare + keySize * capHeight;
+    // Key sits top left: above the chart, on the legend row in the common step, else in the top margin.
+    const commonGrid = commonLayout(stacked, width);
+    const ageGrid = ageLayout(stacked, width, commonGrid, 0);
+    const keyAt = (id) =>
+      ['pareto', 'surge', 'beds'].includes(id)
+        ? { x: stacked.left, y: stacked.top - width * groups.key.gapShare - groups.key.padBelow }
+        : id === 'age'
+          ? { x: ageGrid.columns[0], y: ageGrid.top - width * groups.key.gapShare - groups.key.padBelow }
+          : id === 'common'
+          ? { x: commonGrid.left, y: commonGrid.gridTop - keySize * stack.descentShare - groups.key.padBelow }
+          : { x: stacked.left, y: width * groups.key.marginShare + keySize * capHeight };
+    // Glide from the previous step's spot at the start of each step.
+    const keyMove = d3.easeCubicInOut(Math.min(1, progress / groups.key.moveShare));
+    const keyFrom = keyAt(steps[step - 1]?.id);
+    const keyTo = keyAt(steps[step]?.id);
+    const keyBaseline = d3.interpolate(keyFrom.y, keyTo.y)(keyMove);
+    const keyLeft = d3.interpolate(keyFrom.x, keyTo.x)(keyMove);
     const keyGap = width * groups.key.gapShare;
-    const shortlisted = regroup > 0.5 || back > 0 && stepPhase('beds', 'regroup', step, progress) > 0.5;
+    // Switch to the shortlist wording halfway through the key's move into the beds step.
+    const shortlisted = step > stepIndex('beds') || (step === stepIndex('beds') && keyMove > 0.5);
     const chosenText = svg
       .select('.chosenText')
       .text(fill(shortlisted ? groups.key.shortlist : groups.key.eleven, { count: shortlisted ? groups.elevenCount - 1 : groups.elevenCount }))
-      .attr('text-anchor', underTitle ? 'start' : 'end')
+      .attr('text-anchor', 'start')
       .attr('y', keyBaseline)
       .attr('font-size', keySize);
     const chosenHeight = keySize * groups.key.iconScale;
     const chosenWidth = (chosenHeight * hospitalBox.width) / hospitalBox.height;
-    const chosenX = underTitle ? stacked.left : width - layout.side - chosenText.node().getComputedTextLength() - keyGap - chosenWidth;
-    chosenText.attr('x', underTitle ? stacked.left + chosenWidth + keyGap : width - layout.side);
+    const chosenX = keyLeft;
+    chosenText.attr('x', keyLeft + chosenWidth + keyGap);
     svg
       .select('.chosenIcon')
       .attr('transform', `translate(${chosenX},${keyBaseline - (keySize * capHeight + chosenHeight) / 2}) scale(${chosenWidth / hospitalBox.width},${chosenHeight / hospitalBox.height}) translate(${-hospitalBox.x},${-hospitalBox.y})`);

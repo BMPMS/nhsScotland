@@ -6,6 +6,8 @@
   import Ending from './components/Ending.svelte';
   import Credits from './components/Credits.svelte';
   import Tooltip from './components/Tooltip.svelte';
+  import FlowSteps from './components/FlowSteps.svelte';
+  import { hideTip } from './lib/tooltip.svelte.js';
   import steps from './story/steps.json';
   import hospitals from './data/hospitals.json';
   import { colours, font, spacing } from './theme.js';
@@ -17,6 +19,12 @@
   let progress = $state(0);
 
   const padding = { mobile: spacing.md, ipad: spacing['2xl'], desktop: spacing['4xl'] };
+
+  // Hide any tooltip when a new step starts; it reappears on the next mouse move.
+  $effect(() => {
+    step;
+    hideTip();
+  });
 
   let side = $derived(Math.max(0, Math.min(width, height) - 2 * padding[screen(Math.min(width, height))]));
 
@@ -47,6 +55,8 @@
       <section class="step" data-step={s.id} style:height={s.fit ? null : `${s.length * 100}svh`} style:min-height={s.fit ? `${s.length * 100}svh` : null}>
         {#if s.id === 'load'}
           <Intro {width} {height} />
+        {:else if s.id === 'flow'}
+          <FlowSteps {width} />
         {:else if s.id === 'ending'}
           <Ending {width} />
         {:else if s.id === 'footer'}

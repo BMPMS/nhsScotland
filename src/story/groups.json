@@ -14,6 +14,6 @@
   ],
   "holding": ["inverclyde-royal-hospital", "belford-hospital", "galloway-community-hospital"],
   "stackOrder": ["eleven", "other", "holding", "tayside"],
-  "labels": { "eleven": "Top 11 hospitals", "other": "Other hospitals", "holding": "Holding hospitals", "tayside": "Tayside and similar hospitals" },
-  "key": { "eleven": "{count} chosen hospitals", "shortlist": "{count} shortlisted hospitals", "textShare": 0.013, "iconScale": 1.2, "gapShare": 0.006, "marginShare": 0.015, "padBelow": 6 }
+  "labels": { "eleven": "Top 11", "other": "Not Far Behind", "holding": "Doing Better", "tayside": "High Performance" },
+  "key": { "eleven": "{count} chosen hospitals", "shortlist": "{count} shortlisted hospitals", "textShare": 0.017, "iconScale": 1.2, "gapShare": 0.006, "marginShare": 0.015, "padBelow": 6, "moveShare": 0.12 }
 }

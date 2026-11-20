@@ -6,7 +6,7 @@
   "segmentShare": 0.005,
   "seamShare": 0.1,
   "yearGapShare": 0.009,
-  "titleGapShare": 0.03,
+  "titleGapShare": 0.05,
   "descentShare": 0.3,
   "lineHeight": 1.7,
   "patternScale": 1.2

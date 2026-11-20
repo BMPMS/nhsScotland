@@ -15,7 +15,7 @@
   "standout": [
     { "text": "The standout correlation is" },
     { "text": "12+ hour waits", "bold": true },
-    { "text": "+ above-average" },
+    { "text": "and above-average" },
     { "text": "bed occupancy", "bold": true },
     { "text": "- with the exception of" },
     { "exception": true },
@@ -45,5 +45,7 @@
   "legendLineShare": 0.04,
   "legendTextGapShare": 0.008,
   "legendScale": 0.78,
-  "standoutGapShare": 0.05
+  "panelTint": 0.1,
+  "standoutGapShare": 0.05,
+  "exceptionTip": ["NHS Forth Valley has wider problems beyond bed occupancy. It was under direct Scottish Government oversight from 2022 to 24."]
 }

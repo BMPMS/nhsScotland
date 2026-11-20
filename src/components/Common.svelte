@@ -16,6 +16,12 @@
 
   const commonStep = steps.findIndex((s) => s.id === 'common');
   const byId = $derived(new Map(data.map((d) => [d.id, d])));
+  const exceptionTip = $derived.by(() => {
+    const d = data.find((h) => h.id === groups.exception);
+    const rank = d3.sort(data, (h) => -h.waits2025).indexOf(d) + 1;
+    const values = { rank: `${rank}${['th', 'st', 'nd', 'rd'][rank % 10 > 3 || Math.floor(rank / 10) === 1 ? 0 : rank % 10]}`, waits: d3.format(',')(d.waits2025), occupancy: Math.round(d.occupancy), scotland: Math.round(scotland.occupancy) };
+    return common.exceptionTip.map((line) => line.replace(/\{(\w+)\}/g, (m, key) => values[key]));
+  });
 
   const stacked = $derived(stackLayout(data, treeLayout(data, width, height)));
   const layout = $derived(commonLayout(stacked, width));
@@ -23,9 +29,9 @@
   const geometry = $derived(commonBars(panels, layout));
   const mixItems = common.panels.filter((p) => p.mix);
   const toWords = (parts) => parts.flatMap(({ text, ...style }) => text.split(' ').map((word) => ({ text: word, bold: false, blue: false, ...style })));
-  const mixWords = toWords([...common.intro, ...mixItems.map((item, i) => ({ text: `${item.label}${i < mixItems.length - 1 ? ',' : ''}`, bold: true, tag: item.key }))]);
+  const mixWords = toWords([...common.intro, ...mixItems.map((item, i) => ({ text: `${item.label}${i < mixItems.length - 1 ? ',' : ''}`, bold: true, blue: true, tag: item.key }))]);
   const exception = $derived(data.find((d) => d.id === groups.exception).shortName);
-  const standoutWords = $derived(toWords(common.standout.map((part) => (part.exception ? { text: exception, blue: true, bold: true } : part))));
+  const standoutWords = $derived(toWords(common.standout.map((part) => (part.exception ? { text: exception, green: true, bold: true } : part))));
 
   $effect(() => {
     const phase = (key) => stepPhase('common', key, step, progress);
@@ -71,7 +77,8 @@
       .attr('width', size)
       .attr('height', size)
       .attr('rx', size * common.cornerShare)
-      .attr('fill', (p) => d3.interpolateRgb(colours.mist, colours.redSoft)(p.highlight ? highlight : 0));
+      // Light blue at panelTint opacity (blended on white); 12+ hour waits is red throughout, other highlights turn red.
+      .attr('fill', (p) => d3.interpolateRgb(d3.interpolateRgb(colours.white, colours.blue)(common.panelTint), colours.redSoft)(p.morph ? 1 : p.highlight ? highlight : 0));
 
     panelGroup
       .select('.panelChart')
@@ -108,9 +115,11 @@
         .attr('width', (v) => rects.get(v.id).width)
         .attr('y', (v) => rects.get(v.id).y + rects.get(v.id).height * (1 - grow))
         .attr('height', (v) => rects.get(v.id).height * grow)
-        .attr('fill', (v) => d3.interpolateRgb(colours.red, colours.blue)(p.exception && v.id === groups.exception ? standout : 0))
+        .attr('fill', (v) => d3.interpolateRgb(colours.red, colours.green)(p.exception && v.id === groups.exception ? standout : 0))
         .attr('opacity', (v) => shown * (v.value >= p.average ? 1 : p.exception && v.id === groups.exception ? d3.interpolate(common.belowOpacity, 1)(standout) : common.belowOpacity));
-      tips(bar, step === commonStep && grow * shown > 0, (event, v) => metricTip(byId.get(v.id), p.key));
+      tips(bar, step === commonStep && grow * shown > 0, (event, v) =>
+        p.exception && v.id === groups.exception && standout > 0.5 ? [byId.get(v.id).name, exceptionTip] : metricTip(byId.get(v.id), p.key)
+      );
 
       panel
         .select('.average')
@@ -122,17 +131,21 @@
         .attr('stroke-dasharray', `${dash} ${dash * 0.75}`);
     });
 
-    const legendSize = layout.legendSize;
-    const legendY = gridTop - legendSize * stack.descentShare;
+    // Same size and row as the chosen hospitals key.
+    const legendSize = width * groups.key.textShare;
+    const legendY = gridTop - legendSize * stack.descentShare - groups.key.padBelow;
     const legendText = svg
       .select('.legendText')
       .attr('x', right)
       .attr('y', legendY)
       .attr('font-size', legendSize);
     const lineEnd = right - legendText.node().getComputedTextLength() - width * common.legendTextGapShare;
+    // Whole dashes only, so the line starts and ends on a dash.
+    const dashCount = Math.max(1, Math.round((width * common.legendLineShare + dash * 0.75) / (dash * 1.75)));
+    const lineLength = dashCount * dash + (dashCount - 1) * dash * 0.75;
     svg
       .select('.legendLine')
-      .attr('x1', lineEnd - width * common.legendLineShare)
+      .attr('x1', lineEnd - lineLength)
       .attr('x2', lineEnd)
       .attr('y1', legendY - (legendSize * capHeight) / 2)
       .attr('y2', legendY - (legendSize * capHeight) / 2)
@@ -166,7 +179,7 @@
 
       part
         .text((s) => s.text)
-        .attr('fill', (s) => (s.blue ? colours.blue : colours.slate))
+        .attr('fill', (s) => (s.blue ? colours.blue : s.green ? colours.green : colours.slate))
         .attr('font-weight', (s) => (s.bold ? fontWeight.semibold : fontWeight.regular))
         .attr('opacity', (s) => (s.tag ? phase(s.tag) : 1));
     };
