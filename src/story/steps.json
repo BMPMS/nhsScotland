@@ -1,6 +1,6 @@
 [
   { "id": "load", "length": 1 },
-  { "id": "thirty", "length": 1, "pulse": { "title": [0, 0.5], "count": [0.5, 1] } },
+  { "id": "thirty", "length": 1.5, "pulse": { "title": [0, 0.5], "count": [0.5, 1] } },
   { "id": "eleven", "length": 1, "move": [0, 0.5], "outline": [0.5, 0.6], "people": [0.6, 0.8] },
   { "id": "pareto", "length": 3, "fade": [0, 0.08], "morph": [0.07, 0.23], "axis": [0.2, 0.27], "overlay": [0.3, 0.35], "question": [0.37, 0.42], "focus": [0.44, 0.48], "top": [0.48, 0.52], "big": [0.52, 0.56], "ending": [0.56, 0.6], "vital": [0.63, 0.68], "switch": [0.74, 0.84] },
   { "id": "surge", "length": 3, "fadeOut": [0, 0.07], "retitle": [0.03, 0.1], "covid": [0, 0.07], "lines": [0.1, 0.3], "axis": [0.27, 0.33], "retitle8": [0.55, 0.62], "eight": [0.6, 0.8] },

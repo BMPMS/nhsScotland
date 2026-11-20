@@ -15,6 +15,13 @@
 
   const logoScale = 0.8;
   const logoPull = 0.6;
+  const titlePull = 0.75;
+  const tickerPull = 1 / 3;
+  // Lift the block above the true centre so it looks centred.
+  const opticalLift = 0.1;
+  const labelShrink = 4;
+  // Red box keeps the size it had at the full label size: text width and line height of "Accident & Emergency" in em.
+  const label = { widthEm: 9.533, heightEm: 1.416 };
 
   const sizes = {
     mobile: { logo: spacing['4xl'] * 3.375 * logoScale, label: typeScale.heading2, title: typeScale.heading2, question: typeScale.bodyLarge, cue: typeScale.heading2, number: typeScale.display, year: typeScale.heading3, small: typeScale.body, gap: spacing.xl },
@@ -51,23 +58,24 @@
   style:background={colours.navy}
   style:color={colours.white}
   style:gap="{gap}px"
-  style:padding="0 {spacing.xl}px"
+  style:padding="0 {spacing.xl}px {height * opticalLift}px"
 >
   <img src={logo} alt="NHS Scotland" width={size.logo} height={size.logo} style:margin-bottom="{-gap * logoPull}px" />
   <h1
     style:background={colours.red}
-    style:font-size="{size.label}px"
+    style:font-size="{size.label - labelShrink}px"
     style:font-weight={fontWeight.semibold}
-    style:padding="{spacing.sm}px {spacing.lg}px"
+    style:width="{size.label * label.widthEm + 2 * spacing.lg}px"
+    style:height="{size.label * label.heightEm + 2 * spacing.sm}px"
   >
     Accident &amp; Emergency
   </h1>
-  <p class="row" style:font-size="{size.title}px" style:gap="{spacing.lg}px">
+  <p class="row" style:font-size="{size.title}px" style:gap="{spacing.lg}px" style:margin-top="{-gap * titlePull}px">
     <span class="icon" style:mask-image="url({hourglass})" style:width="{size.title}px" style:height="{size.title}px"></span>
     Waiting Times
     <span class="icon" style:mask-image="url({alarmClock})" style:width="{size.title}px" style:height="{size.title}px"></span>
   </p>
-  <p class="ticker" class:stacked={height > width} style:column-gap="{spacing.md}px">
+  <p class="ticker" class:stacked={height > width} style:column-gap="{spacing.md}px" style:margin="{-gap * tickerPull}px 0">
     <span class="lead">
       <span style:font-size="{size.small}px">{intro.ticker.inLabel}</span>
       <span style:font-size="{size.year}px" style:color={heat(tick.waits / worst)}>{tick.year}</span>
@@ -87,6 +95,7 @@
 <style>
   .intro {
     height: 100%;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -97,6 +106,13 @@
   h1,
   p {
     margin: 0;
+  }
+
+  h1 {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .ticker {

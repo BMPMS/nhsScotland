@@ -5,6 +5,7 @@
   import Intro from './components/Intro.svelte';
   import Ending from './components/Ending.svelte';
   import Credits from './components/Credits.svelte';
+  import Tooltip from './components/Tooltip.svelte';
   import steps from './story/steps.json';
   import hospitals from './data/hospitals.json';
   import { colours, font, spacing } from './theme.js';
@@ -40,6 +41,7 @@
   <div class="stage" bind:clientWidth={width} bind:clientHeight={height}>
     <Stage divId="stage" data={hospitals} width={side} height={side} {step} {progress} />
   </div>
+  <Tooltip />
   <div class="steps">
     {#each steps as s (s.id)}
       <section class="step" data-step={s.id} style:height={s.fit ? null : `${s.length * 100}svh`} style:min-height={s.fit ? `${s.length * 100}svh` : null}>
@@ -68,11 +70,17 @@
   .steps {
     position: relative;
     margin-top: -100svh;
+    pointer-events: none;
   }
 
   .step {
     position: relative;
     z-index: 1;
+    pointer-events: none;
+  }
+
+  .step > :global(*) {
+    pointer-events: auto;
   }
 
   .stage :global(svg) {

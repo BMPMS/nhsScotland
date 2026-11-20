@@ -6,6 +6,8 @@
   import { barGeometry } from '../lib/common.js';
   import { groupOf, elevenShare } from '../lib/groups.js';
   import { stepPhase } from '../lib/phase.js';
+  import { tips, metricTip } from '../lib/tips.js';
+  import steps from '../story/steps.json';
   import groups from '../story/groups.json';
   import pareto from '../story/pareto.json';
   import common from '../story/common.json';
@@ -156,6 +158,7 @@
         return enter;
       });
 
+    tips(miniBar, ['beds', 'age'].includes(steps[step]?.id) && ten('vital') > 0.5, (event, d) => metricTip(d, 'occupancy'));
     miniBar
       .attr('x', (d) => rects.get(d.id).x)
       .attr('y', (d) => rects.get(d.id).y)
@@ -164,6 +167,7 @@
 
     mini
       .select('.miniGap')
+      .attr('pointer-events', 'none')
       .attr('x', box.chart.x)
       .attr('y', lineY[0])
       .attr('width', box.chart.width)
@@ -181,13 +185,13 @@
   });
 </script>
 
-<g id={divId}>
+<g id={divId} pointer-events="none">
   <text class="pattern before" text-anchor="middle" fill={colours.slate} font-weight={fontWeight.semibold}>This pattern has been consistent since 2016</text>
   <text class="pattern after" text-anchor="middle" fill={colours.slate} font-weight={fontWeight.semibold}>The problem started during Covid - and it's getting worse.</text>
   <text class="pattern eight" text-anchor="middle" fill={colours.slate} font-weight={fontWeight.semibold}>It's a similar story for 8+ hour waits</text>
   <text class="pattern shortlist" text-anchor="middle" fill={colours.slate} font-weight={fontWeight.semibold}>Does our new shortlist still meet the Pareto principle? ..... almost</text>
   <rect class="overlay" fill={colours.white} />
-  <text class="question" fill={colours.slate}>Have you heard of the Pareto Principle - the 80/20 rule?</text>
+  <text class="question" fill={colours.slate}>So in relation to our problem</text>
   <text class="topPct pareto" text-anchor="end" fill={colours.slate}>{pareto.paretoTop}%</text>
   <text class="topPct ours" text-anchor="end" fill={colours.slate}>{100 - share}%</text>
   <text class="topPct ten" text-anchor="end" fill={colours.slate}>{100 - tenShare}%</text>

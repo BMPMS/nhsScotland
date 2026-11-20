@@ -16,7 +16,7 @@
 
   let { divId, data, width, height, step, progress } = $props();
 
-  const pulseSize = spacing.sm;
+  const pulseSize = spacing.lg;
   const labelLines = 2;
   const titleWidthShare = 0.8;
 
@@ -27,6 +27,7 @@
     const { cell, cellHeight, gridTop } = thirtyGrid(data.length, width, height);
     const inner = width - 2 * sidePadding;
     const title = svg.select('.title').attr('font-size', inner);
+    title.select('.nhs').attr('font-size', null);
     const titleSize = (inner * inner * titleWidthShare) / title.node().getComputedTextLength();
     const centreX = width / 2;
     const holeY = gridTop + (thirty.hole.row + thirty.hole.rows / 2) * cellHeight;
@@ -42,7 +43,8 @@
     const countY = holeY - (labelHeight - countSize * capHeight) / 2;
     const opacity = 1 - stepPhase('eleven', 'move', step, progress);
 
-    title.attr('x', centreX).attr('y', (gridTop + titleSize * capHeight) / 2).attr('font-size', titleSize + bump('title')).attr('opacity', opacity);
+    title.attr('x', centreX).attr('y', (gridTop + titleSize * capHeight) / 2).attr('font-size', titleSize).attr('opacity', opacity);
+    title.select('.nhs').attr('font-size', titleSize + bump('title'));
     count.attr('x', centreX).attr('y', countY).attr('font-size', countSize + bump('count')).attr('opacity', opacity);
     label.attr('font-size', labelSize).attr('opacity', opacity);
     label
@@ -53,7 +55,7 @@
 </script>
 
 <svg id={divId} {width} {height}>
-  <text class="title" text-anchor="middle" fill={colours.navy} font-weight={fontWeight.semibold}>NHS Scotland <tspan fill={colours.blue}>has</tspan></text>
+  <text class="title" text-anchor="middle" fill={colours.navy} font-weight={fontWeight.semibold}><tspan class="nhs">NHS Scotland</tspan> <tspan fill={colours.blue}>has</tspan></text>
   <Surge divId="surge" {data} {width} {height} {step} {progress} />
   <Common divId="common" {data} {width} {height} {step} {progress} />
   <Hospitals divId="hospitals" {data} {width} {height} {step} {progress} />
@@ -67,3 +69,9 @@
     <tspan>A &amp; E Departments</tspan>
   </text>
 </svg>
+
+<style>
+  svg :global(text) {
+    pointer-events: none;
+  }
+</style>

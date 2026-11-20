@@ -5,12 +5,17 @@
   import { commonPanels, commonBars } from '../lib/common.js';
   import { wrapSegments } from '../lib/wrap.js';
   import { stepPhase } from '../lib/phase.js';
+  import { tips, metricTip } from '../lib/tips.js';
+  import steps from '../story/steps.json';
   import common from '../story/common.json';
   import stack from '../story/stack.json';
   import groups from '../story/groups.json';
   import scotland from '../data/scotland.json';
 
   let { divId, data, width, height, step, progress } = $props();
+
+  const commonStep = steps.findIndex((s) => s.id === 'common');
+  const byId = $derived(new Map(data.map((d) => [d.id, d])));
 
   const stacked = $derived(stackLayout(data, treeLayout(data, width, height)));
   const layout = $derived(commonLayout(stacked, width));
@@ -105,6 +110,7 @@
         .attr('height', (v) => rects.get(v.id).height * grow)
         .attr('fill', (v) => d3.interpolateRgb(colours.red, colours.blue)(p.exception && v.id === groups.exception ? standout : 0))
         .attr('opacity', (v) => shown * (v.value >= p.average ? 1 : p.exception && v.id === groups.exception ? d3.interpolate(common.belowOpacity, 1)(standout) : common.belowOpacity));
+      tips(bar, step === commonStep && grow * shown > 0, (event, v) => metricTip(byId.get(v.id), p.key));
 
       panel
         .select('.average')

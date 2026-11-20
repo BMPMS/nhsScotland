@@ -13,10 +13,14 @@
   import { transformPath } from '../lib/pathTransform.js';
   import stack from '../story/stack.json';
   import { stepPhase } from '../lib/phase.js';
+  import { tips, metricTip, fill } from '../lib/tips.js';
+  import steps from '../story/steps.json';
 
   let { divId, data, width, height, step, progress } = $props();
 
   const startingFill = [colours.blue, colours.navy];
+  const stepIndex = (id) => steps.findIndex((s) => s.id === id);
+  const visible = (opacity) => (opacity > 0.05 ? null : 'none');
 
   const group = $derived(groupOf(data));
   const share = $derived(elevenShare(data));
@@ -96,6 +100,8 @@
     const leave = back > 0 ? back * ageOut : 1 - stepPhase('common', 'fadeOut', step, progress);
     const colour = (d) => (inBeds && d.id === groups.exception ? colours.blue : d3.interpolateRgb(d.strokeColor, d.shortlistColor)(regroup));
     const { stroke } = layout;
+    const baseFill = (d) => (d.small ? 1 : morph);
+    const outlineOpacity = (d) => (inBeds ? (d.fromBar ? 1 : back) * ageOut : toBars > 0 && d.toBar ? +(toBars < 1) : outline * leave);
 
     const hospitalGroup = d3
       .select(`#${divId} .hospitalsGroup`)
@@ -139,13 +145,30 @@
         return toEight > 0 ? d.toEight(toEight) : toLines > 0 ? d.toLine(toLines) : morph > 0 ? d.morph(morph) : outlineAt(w, h, stroke);
       })
       .attr('fill', colour)
-      .attr('fill-opacity', (d) => (d.small ? 1 : morph))
+      .attr('fill-opacity', baseFill)
       .attr('stroke', colour)
       .attr('stroke-opacity', (d) => (d.small ? morph : 1))
       .attr('stroke-width', d3.interpolate(stroke, stroke * stack.seamShare)(morph))
-      .attr('opacity', (d) => (inBeds ? (d.fromBar ? 1 : back) * ageOut : toBars > 0 && d.toBar ? +(toBars < 1) : outline * leave));
+      .attr('opacity', outlineOpacity)
+      .attr('pointer-events', (d) => visible(outlineOpacity(d)));
 
-    hospitalGroup.select('.peopleGroup').attr('opacity', appear * fade);
+    hospitalGroup.select('.peopleGroup').attr('opacity', appear * fade).attr('pointer-events', visible(appear * fade));
+    hospitalGroup.select('.hospitalIcon').attr('pointer-events', visible(1 - outline));
+    hospitalGroup.select('.hospitalTitle').attr('pointer-events', visible(outline * fade));
+
+    const members = d3.group(data, group);
+    const mode = [stepIndex('eleven'), stepIndex('pareto'), stepIndex('surge'), stepIndex('common')].includes(step) ? steps[step].id : null;
+    hospitalGroup
+      .on('pointerenter.highlight', mode === 'eleven' ? function (event, d) {
+        d3.select(this).select('.hospitalOutline').attr('fill-opacity', Math.max(baseFill(d), tree.hoverOpacity));
+      } : null)
+      .on('pointerleave.highlight', mode === 'eleven' ? function (event, d) {
+        d3.select(this).select('.hospitalOutline').attr('fill-opacity', baseFill(d));
+      } : null);
+    tips(hospitalGroup, mode, (event, d) => {
+      if (mode === 'surge') return [groups.labels[group(d)], members.get(group(d)).map((m) => m.name)];
+      return metricTip(d, 'waits2025');
+    });
 
     const peopleGroupItems = hospitalGroup
       .select('.peopleGroup')
@@ -196,6 +219,25 @@
     const bigSize = titleSize * tree.titleBigScale;
     const noteSize = smallHeight * tree.noteShare;
     const svg = d3.select(`#${divId}`);
+    const keySize = width * groups.key.textShare;
+    const underTitle = ['pareto', 'surge', 'beds'].includes(steps[step]?.id);
+    const keyBaseline = underTitle ? stacked.top - width * groups.key.gapShare - groups.key.padBelow : width * groups.key.marginShare + keySize * capHeight;
+    const keyGap = width * groups.key.gapShare;
+    const shortlisted = regroup > 0.5 || back > 0 && stepPhase('beds', 'regroup', step, progress) > 0.5;
+    const chosenText = svg
+      .select('.chosenText')
+      .text(fill(shortlisted ? groups.key.shortlist : groups.key.eleven, { count: shortlisted ? groups.elevenCount - 1 : groups.elevenCount }))
+      .attr('text-anchor', underTitle ? 'start' : 'end')
+      .attr('y', keyBaseline)
+      .attr('font-size', keySize);
+    const chosenHeight = keySize * groups.key.iconScale;
+    const chosenWidth = (chosenHeight * hospitalBox.width) / hospitalBox.height;
+    const chosenX = underTitle ? stacked.left : width - layout.side - chosenText.node().getComputedTextLength() - keyGap - chosenWidth;
+    chosenText.attr('x', underTitle ? stacked.left + chosenWidth + keyGap : width - layout.side);
+    svg
+      .select('.chosenIcon')
+      .attr('transform', `translate(${chosenX},${keyBaseline - (keySize * capHeight + chosenHeight) / 2}) scale(${chosenWidth / hospitalBox.width},${chosenHeight / hospitalBox.height}) translate(${-hospitalBox.x},${-hospitalBox.y})`);
+    svg.select('.chosenKey').attr('opacity', stepPhase('pareto', 'fade', step, progress) * (1 - stepPhase('flow', 'fadeOut', step, progress)));
     const title = svg
       .select('.treeTitle')
       .attr('x', width / 2)
@@ -212,12 +254,15 @@
 
     const keyWidth = width * tree.personShare;
     const keyHeight = (keyWidth * personBox.height) / personBox.width;
-    const keyText = svg
+    const keyLeading = noteSize * tree.keyLeading;
+    const keyFirst = smallY + (smallHeight + noteSize * capHeight - (tree.keyLabel.length - 1) * keyLeading) / 2;
+    const keyLines = svg
       .select('.keyText')
+      .attr('font-size', noteSize)
+      .selectAll('tspan')
       .attr('x', width - layout.side)
-      .attr('y', smallY + (smallHeight + noteSize * capHeight) / 2)
-      .attr('font-size', noteSize);
-    const keyX = width - layout.side - keyText.node().getComputedTextLength() - gap - keyWidth;
+      .attr('y', (d, i) => keyFirst + i * keyLeading);
+    const keyX = width - layout.side - d3.max(keyLines.nodes(), (node) => node.getComputedTextLength()) - gap - keyWidth;
     svg
       .select('.keyIcon')
       .attr('transform', `translate(${keyX},${smallY + (smallHeight - keyHeight) / 2}) scale(${keyWidth / personBox.width},${keyHeight / personBox.height}) translate(${-personBox.x},${-personBox.y})`);
@@ -262,10 +307,16 @@
   <text class="treeTitle" text-anchor="middle" fill={colours.navy} font-weight={fontWeight.regular}>
 In 2025, <tspan class="big" font-weight={fontWeight.semibold}>{groups.elevenCount}</tspan> hospitals accounted for <tspan class="big" font-weight={fontWeight.semibold}>{share}%</tspan> of the 12+ hour waiting times.
   </text>
-  <text class="treeNote" fill={colours.slate}>&lt; {tree.minWaits} 12+ hour waits</text>
+  <text class="treeNote" fill={colours.slate}>{fill(tree.smallLabel, tree)}</text>
   <g class="peopleKey">
     <path class="keyIcon" d={personPath} fill={colours.slate} />
-    <text class="keyText" text-anchor="end" fill={colours.slate}>= {tree.perPerson} waits</text>
+    <text class="keyText" text-anchor="end" fill={colours.slate}>
+      {#each tree.keyLabel as line, i (i)}<tspan>{fill(line, tree)}</tspan>{/each}
+    </text>
+  </g>
+  <g class="chosenKey" pointer-events="none">
+    <path class="chosenIcon" d={hospitalPath} fill={colours.red} />
+    <text class="chosenText" fill={colours.slate}></text>
   </g>
   <text class="stackTop" fill={colours.slate}>100%</text>
   <g class="stackYears"></g>

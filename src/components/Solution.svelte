@@ -131,7 +131,7 @@
   });
 </script>
 
-<g id={divId}>
+<g id={divId} pointer-events="none">
   <text class="measure" opacity="0"></text>
   <text class="title" text-anchor="middle" fill={colours.navy} font-weight={fontWeight.semibold}>{story.title}</text>
   {#each story.intro as parts, i (i)}

@@ -13,5 +13,7 @@
     "royal-hospital-for-children-and-young-people"
   ],
   "holding": ["inverclyde-royal-hospital", "belford-hospital", "galloway-community-hospital"],
-  "stackOrder": ["eleven", "other", "holding", "tayside"]
+  "stackOrder": ["eleven", "other", "holding", "tayside"],
+  "labels": { "eleven": "Top 11 hospitals", "other": "Other hospitals", "holding": "Holding hospitals", "tayside": "Tayside and similar hospitals" },
+  "key": { "eleven": "{count} chosen hospitals", "shortlist": "{count} shortlisted hospitals", "textShare": 0.013, "iconScale": 1.2, "gapShare": 0.006, "marginShare": 0.015, "padBelow": 6 }
 }

@@ -6,6 +6,8 @@
   import { groupOf } from '../lib/groups.js';
   import { fitSize } from '../lib/wrap.js';
   import { stepPhase } from '../lib/phase.js';
+  import { tips, metricTip } from '../lib/tips.js';
+  import steps from '../story/steps.json';
   import { standingPath, standingWidth, standingBox, olderPath, olderWidth } from '../lib/paths.js';
   import common from '../story/common.json';
   import groups from '../story/groups.json';
@@ -49,6 +51,7 @@
         const enter = group.append('rect').attr('class', 'bar').attr('fill', colours.red);
         return enter;
       });
+    tips(bar, steps[step]?.id === 'age' && phase('waits') > 0.5, (event, d) => metricTip(d, 'waits2025'));
     bar
       .attr('x', (d) => rects.get(d.id).x)
       .attr('y', (d) => rects.get(d.id).y)
@@ -95,7 +98,7 @@
   });
 </script>
 
-<g id={divId}>
+<g id={divId} pointer-events="none">
   <text class="measure" opacity="0" font-weight={fontWeight.semibold}></text>
   <g class="waits">
     <rect class="back" fill={colours.mist} />

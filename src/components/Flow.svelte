@@ -77,7 +77,7 @@
   });
 </script>
 
-<g id={divId}>
+<g id={divId} pointer-events="none">
   <text class="intro" text-anchor="middle" fill={colours.slate} font-weight={fontWeight.semibold}>{story.stages.well.intro}</text>
   <g class="stageGroup">
     <defs><clipPath id="{divId}TabClip"><path class="tabShape" /></clipPath></defs>

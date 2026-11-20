@@ -6,7 +6,7 @@
   "smallShare": 0.5,
   "strokeShare": 0.006,
   "titleShare": 0.38,
-  "noteShare": 0.7,
+  "noteShare": 0.45,
   "titleBigScale": 1.6,
   "smallGapShare": 0.1,
   "smallOrder": [
@@ -21,5 +21,9 @@
   "cornerSplit": 0.6,
   "cornerLiftShare": 0.015,
   "personShare": 0.0228,
-  "cornerBottomShare": 0.85
+  "cornerBottomShare": 0.85,
+  "smallLabel": "less than {minWaits} waits over 12 hours",
+  "keyLabel": ["= {perPerson} waits", "over 12 hours"],
+  "keyLeading": 1.2,
+  "hoverOpacity": 0.1
 }
